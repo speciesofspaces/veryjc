@@ -78,11 +78,15 @@ main{
 
 .stage img{
   width:100%;
-  max-height:80vh;
-  object-fit:contain;
+  height:56vh;          /* adjust if needed */
+  object-fit:cover;
+  object-position:center;
+  transition:opacity .4s ease;   /* smooth fade */
 }
 
-.stage a:hover{opacity:1;}
+.stage a:hover img{
+  opacity:0.85;    /* subtle fade */
+}
 
 /* WORK GRID */
 .grid{
