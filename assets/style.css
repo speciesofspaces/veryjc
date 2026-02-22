@@ -169,7 +169,7 @@ main{
 
 .hero-banner img{
   width:100%;
-  height:52vh;              /* adjust 40–55vh */
+  height:60vh;              /* adjust */
   object-fit:cover;         /* crops top/bottom */
   object-position:center;
   transition:transform .6s ease, opacity .4s ease;
@@ -177,6 +177,6 @@ main{
 }
 
 .hero-banner a:hover img{
-  opacity:.9;
+  opacity:.8;
   transform:scale(1.02);
 }
