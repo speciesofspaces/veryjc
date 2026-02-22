@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,31 +15,34 @@
       <span class="sub">Photography</span>
     </a>
     <a class="" href="index.html">Home</a>
-    <a class="active" href="work.html">Work</a>
+    <a class="" href="projects.html">Projects</a>
+    <a class="" href="studies.html">Studies</a>
   </nav>
 </header>
 
 <main>
 
 <div class="viewer-stage">
-  <img id="viewerImg" src="">
+  <img id="viewerImg" src="" alt="">
 </div>
 
 <div class="meta">
   <div class="counter" id="counter"></div>
+  <div class="counter" id="viewerTitle" style="text-align:center;flex:1;"></div>
   <div class="controls">
-    <a class="btn" href="work.html">Grid</a>
-    <button class="btn" id="prevBtn">←</button>
-    <button class="btn" id="nextBtn">→</button>
+    <a class="btn" id="backLink" href="projects.html">Back</a>
+    <button class="btn" id="prevBtn" aria-label="Previous">←</button>
+    <button class="btn" id="nextBtn" aria-label="Next">→</button>
   </div>
 </div>
+
 
 <div class="footer">
   <div>© 2026 Jué Chen</div>
   <div>London — Prints & Commissions</div>
   <div><a href="https://instagram.com/veryjc" target="_blank" rel="noreferrer">Instagram</a></div>
 </div>
-  
+
 </main>
 <script src="assets/viewer.js"></script>
 </body>
