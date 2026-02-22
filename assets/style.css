@@ -169,13 +169,12 @@ main{
 
 .hero-banner img{
   width:100%;
-  aspect-ratio: 21 / 9;   /* cinematic */
+  max-height:65vh;      /* controls overall height */
   object-fit:cover;
-  object-position: 80% 15%;
+  object-position:center;
   transition:transform .6s ease, opacity .4s ease;
   display:block;
 }
-
 .hero-banner a:hover img{
   opacity:.5;
   transform:scale(1.02);
