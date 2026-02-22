@@ -177,6 +177,6 @@ main{
 }
 
 .hero-banner a:hover img{
-  opacity:.8;
+  opacity:.5;
   transform:scale(1.02);
 }
