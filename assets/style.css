@@ -169,8 +169,8 @@ main{
 
 .hero-banner img{
   width:100%;
-  height:60vh;              /* adjust */
-  object-fit:cover;         /* crops top/bottom */
+  aspect-ratio: 21 / 9;   /* cinematic */
+  object-fit:cover;
   object-position:center;
   transition:transform .6s ease, opacity .4s ease;
   display:block;
