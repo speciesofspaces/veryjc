@@ -144,3 +144,21 @@ main{
 @media(max-width:640px){
   .grid{grid-template-columns:repeat(2,1fr);}
 }
+/* FOOTER */
+
+.footer{
+  border-top:1px solid var(--hair);
+  margin-top:80px;
+  padding:40px 20px;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.footer a{
+  color:var(--muted);
+}
+
+.footer a:hover{
+  color:#000;
+}
