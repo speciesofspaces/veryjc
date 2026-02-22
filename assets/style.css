@@ -12,6 +12,7 @@ body{
   margin:0;
   background:var(--bg);
   color:var(--ink);
+  cursor: crosshair;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
   -webkit-font-smoothing:antialiased;
 }
