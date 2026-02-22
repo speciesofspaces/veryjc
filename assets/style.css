@@ -19,6 +19,13 @@ body{
 a{text-decoration:none;color:inherit;}
 a:hover{opacity:.8;}
 
+/* Serif for titles only */
+.serif-title {
+  font-family: "Fraunces", serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
 .header{
   position:fixed;
   top:0; left:0; right:0;
