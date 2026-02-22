@@ -19,11 +19,17 @@ body{
 a{text-decoration:none;color:inherit;}
 a:hover{opacity:.8;}
 
-/* Serif for titles only */
+/* Fraunces for titles */
 .serif-title {
   font-family: "Fraunces", serif;
   font-weight: 400;
   letter-spacing: 0.01em;
+}
+
+/* Page title styling */
+.page-title {
+  font-size: 16px;
+  margin: 0 0 22px;
 }
 
 .header{
