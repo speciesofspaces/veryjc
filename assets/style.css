@@ -145,7 +145,8 @@ main{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  font-size:13px;
+  font-size:11px;
+  letter-spacing:.02em;
   color:var(--muted);
   gap:14px;
 }
