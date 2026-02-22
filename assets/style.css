@@ -1,0 +1,146 @@
+
+:root{
+  --bg:#ffffff;
+  --ink:#000000;
+  --muted:#6b6b6b;
+  --hair:#eaeaea;
+  --max:1200px;
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{text-decoration:none;color:inherit;}
+a:hover{opacity:.7;}
+
+.header{
+  position:fixed;
+  top:0; left:0; right:0;
+  background:#fff;
+  z-index:50;
+}
+
+.nav{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:26px 20px 20px;
+  display:flex;
+  align-items:baseline;
+  gap:24px;
+}
+
+.brand{
+  margin-right:auto;
+  display:flex;
+  gap:10px;
+  align-items:baseline;
+}
+
+.brand-name{
+  font-weight:700;
+  color:#000;
+  font-size:16px;
+}
+
+.sub{
+  font-weight:400;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.nav a{
+  font-size:14px;
+  color:var(--muted);
+}
+
+.nav a.active{
+  color:#000;
+}
+
+main{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:100px 20px 60px;
+}
+
+/* HOME */
+.stage{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.stage img{
+  width:100%;
+  max-height:80vh;
+  object-fit:contain;
+}
+
+.stage a:hover{opacity:1;}
+
+/* WORK GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.thumb{
+  aspect-ratio:3/4;
+  overflow:hidden;
+  cursor:pointer;
+  border:1px solid var(--hair);
+}
+
+.thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* VIEWER */
+.viewer-stage img{
+  width:100%;
+  max-height:78vh;
+  object-fit:contain;
+}
+
+.meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:12px;
+}
+
+.counter{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.controls{
+  display:flex;
+  gap:8px;
+}
+
+.btn{
+  border:1px solid var(--hair);
+  background:none;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(3,1fr);}
+}
+
+@media(max-width:640px){
+  .grid{grid-template-columns:repeat(2,1fr);}
+}
