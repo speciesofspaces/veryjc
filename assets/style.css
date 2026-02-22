@@ -178,6 +178,6 @@ main{
   display:block;
 }
 .hero-banner a:hover img{
-  opacity:.7;
+  opacity:.8;
   transform:scale(1.02);
 }
