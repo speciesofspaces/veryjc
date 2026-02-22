@@ -19,6 +19,7 @@ body{
 
 a{text-decoration:none;color:inherit;}
 a:hover{opacity:.7;}
+a, button { cursor: pointer; }
 
 .header{
   position:fixed;
