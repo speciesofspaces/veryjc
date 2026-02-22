@@ -76,18 +76,6 @@ main{
   align-items:center;
 }
 
-.stage img{
-  width:100%;
-  height:56vh;          /* adjust if needed */
-  object-fit:cover;
-  object-position:center;
-  transition:opacity .4s ease;   /* smooth fade */
-}
-
-.stage a:hover img{
-  opacity:0.85;    /* subtle fade */
-}
-
 /* WORK GRID */
 .grid{
   display:grid;
@@ -171,4 +159,26 @@ main{
     align-items:flex-start;
     padding:18px 0;
   }
+}
+
+/* HOME HERO BANNER */
+
+.hero-banner{
+  width:100vw;
+  margin-left:calc(50% - 50vw);  /* breaks out of container */
+  overflow:hidden;
+}
+
+.hero-banner img{
+  width:100%;
+  height:55vh;              /* adjust 45–60vh */
+  object-fit:cover;
+  object-position:center;
+  transition:transform .6s ease, opacity .4s ease;
+  display:block;
+}
+
+.hero-banner a:hover img{
+  opacity:.9;
+  transform:scale(1.02);
 }
