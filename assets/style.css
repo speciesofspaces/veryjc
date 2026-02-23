@@ -88,6 +88,46 @@ main{
   transform:scale(1.02);
 }
 
+/* HOME TILES */
+.home-tiles{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:18px;
+}
+
+.home-tile{
+  display:block;
+  aspect-ratio: 3 / 2;
+  overflow:hidden;
+  border:1px solid var(--hair);
+  border-radius:14px;
+  position:relative;
+}
+
+.home-tile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .6s ease, opacity .4s ease;
+}
+
+.home-tile:hover img{
+  transform:scale(1.02);
+  opacity:.92;
+}
+
+.home-tile-label{
+  position:absolute;
+  left:14px;
+  bottom:12px;
+  font-size:12px;
+  color:#fff;
+  letter-spacing:.02em;
+  text-shadow:0 2px 14px rgba(0,0,0,.35);
+}
+
 /* GRIDS */
 .grid{
   display:grid;
