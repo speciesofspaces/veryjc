@@ -193,20 +193,6 @@ main{
   justify-content:space-between;
 }
 
-/* Left counter */
-.counter{
-  font-size:12px;
-  color:var(--muted);
-  letter-spacing:.02em;
-  white-space:nowrap;
-}
-
-/* Right controls */
-.controls{
-  display:flex;
-  gap:8px;
-  white-space:nowrap;
-}
 
 .btn{
   border:1px solid var(--hair);
