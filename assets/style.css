@@ -147,6 +147,16 @@ main{
 }
 
 /* VIEWER */
+.viewer-wrap{
+  max-width:980px;     /* keeps caption + bar aligned to image block */
+  margin:0 auto;
+}
+
+.viewer-stage{
+  display:flex;
+  justify-content:center;
+}
+
 .viewer-stage img{
   width:100%;
   max-height:78vh;
@@ -154,39 +164,33 @@ main{
   display:block;
 }
 
-.meta{
+/* two-line caption under image */
+.viewer-caption{
+  margin-top:14px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.cap-title{
+  font-size:12px;
+  color:var(--muted);
+  letter-spacing:.02em;
+}
+
+.cap-sub{
+  font-size:12px;
+  color:var(--muted);
+  letter-spacing:.02em;
+  opacity:.9;
+}
+
+/* utility bar: count left, controls right */
+.viewer-bar{
+  margin-top:14px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:14px;
-  margin-top:14px;
-}
-
-/* Left counter */
-.counter{
-  font-size:12px;
-  color:var(--muted);
-  letter-spacing:.02em;
-  white-space:nowrap;
-}
-
-/* Center title */
-.viewer-title{
-  flex:1;
-  text-align:center;
-  font-size:12px;
-  color:var(--muted);
-  letter-spacing:.02em;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-/* Right controls */
-.controls{
-  display:flex;
-  gap:8px;
-  white-space:nowrap;
 }
 
 .btn{
