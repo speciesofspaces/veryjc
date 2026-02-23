@@ -74,9 +74,14 @@ main{
 }
 
 /* HOME */
+/* HOME */
 .hero-banner{
   width:100%;
-  overflow:hidden;
+  overflow:visible; /* allow title to bleed out */
+}
+
+.hero-media{
+  overflow:hidden;  /* keep image nicely clipped */
 }
 
 .hero-banner img{
