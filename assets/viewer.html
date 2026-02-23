@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viewer — Jué Chen</title>
+<link rel="stylesheet" href="assets/style.css"></head>
+<body>
+
+<header class="header">
+  <nav class="nav">
+    <a class="brand" href="/">
+      <span class="brand-name">Jué Chen</span>
+      <span class="sub">Photography</span>
+    </a>
+    <a href="/">Home</a>
+    <a class="" href="projects.html">Projects</a>
+    <a class="" href="studies.html">Studies</a>
+  </nav>
+</header>
+
+<main>
+
+<div class="viewer-wrap">
+  <div class="viewer-stage">
+    <img id="viewerImg" src="" alt="">
+  </div>
+
+  <div class="viewer-caption" aria-live="polite">
+    <div class="cap-title" id="capTitle"></div>
+    <div class="cap-sub" id="capSub"></div>
+  </div>
+
+  <div class="viewer-bar">
+    <div class="counter" id="counter"></div>
+
+    <div class="controls">
+      <a class="btn" id="backLink" href="./" aria-label="Back to grid">⧉ Grid</a>
+      <button class="btn" id="prevBtn" aria-label="Previous">←</button>
+      <button class="btn" id="nextBtn" aria-label="Next">→</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>© 2026 Jué Chen</div>
+  <div>London — Prints & Commissions</div>
+  <div><a href="https://instagram.com/veryjc" target="_blank" rel="noreferrer">Instagram</a></div>
+</div>
+
+</main>
+<script src="assets/viewer.js"></script>
+</body>
+</html>
