@@ -88,6 +88,26 @@ main{
   transform:scale(1.02);
 }
 
+/* EDITORIAL HERO */
+.hero-editorial{
+  position:relative;
+}
+
+.hero-title{
+  position:absolute;
+  left:0;
+  top:-18px;              /* adjust if needed */
+  z-index:2;
+  margin:0;
+  font-weight:700;
+  line-height:.92;
+  letter-spacing:-0.04em;
+  font-size:clamp(38px, 6vw, 86px);
+  pointer-events:none;    /* keeps the image clickable */
+}
+
+.hero-title-strong{ color:#000; }
+.hero-title-soft{ color:#d0d0d0; margin-left:.15em; }
 
 /* GRIDS */
 .grid{
@@ -216,16 +236,10 @@ main{
   .hero-banner img{
     max-height:78vh;
   }
- .dir-link{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:6px;
-  }
-  .dir-title{
-    font-size:34px; /* big on phone */
-  }
-  .dir-meta{
-    white-space:normal;
+   .hero-title{
+    top:-10px;
+    font-size:clamp(34px, 9vw, 54px);
+    letter-spacing:-0.03em;
   }
 }
 
