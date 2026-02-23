@@ -77,14 +77,31 @@ function setUICount(total) {
 
 function render(total) {
   const img = document.getElementById("viewerImg");
-  const title = document.getElementById("viewerTitle");
+
+  // new caption elements (from your updated viewer.html)
+  const capTitle = document.getElementById("capTitle");
+  const capSub = document.getElementById("capSub");
+
   const back = document.getElementById("backLink");
 
-  img.src = srcFor(i);
-  img.alt = titleFor();
+  const meta = metaFor();
 
-  title.textContent = titleFor();
+  img.src = srcFor(i);
+  img.alt = meta.title;
+
+  // Two-line caption under the image
+  if (capTitle) capTitle.textContent = meta.title;
+
+  if (capSub) {
+    const parts = [meta.place, meta.years, meta.descriptor].filter(Boolean);
+    capSub.textContent = parts.join(" — ");
+  }
+
+  // Back-to-grid
   back.href = backHref();
+  back.textContent = "⧉ Grid"; // or just "⧉" if you want quieter
+  back.setAttribute("aria-label", "Back to grid");
+
   setUICount(total);
 
   // update URL without reloading
