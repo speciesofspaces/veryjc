@@ -244,9 +244,13 @@ main{
 }
 
 @media(max-width:640px){
-  body.home .hero-banner img{
-    max-height:78vh;
+  body.home .header{
+    display:none;
   }
+  body.home main{
+    padding:44px 20px 70px; /* was 24px */
+  }
+}
 }
 
 @media(max-width:420px){
