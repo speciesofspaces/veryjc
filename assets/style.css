@@ -243,6 +243,12 @@ main{
   }
 }
 
+@media(max-width:640px){
+  body.home .hero-banner img{
+    max-height:78vh;
+  }
+}
+
 @media(max-width:420px){
   .meta{
     flex-wrap:wrap;
