@@ -254,3 +254,14 @@ main{
     margin-top:8px;
   }
 }
+
+@media(max-width:640px){
+  body.home .header{
+    display:none;
+  }
+  body.home main{
+    padding:24px 20px 70px; /* reduce top padding since header is gone */
+  }
+}
+
+
