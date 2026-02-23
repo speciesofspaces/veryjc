@@ -7,11 +7,12 @@ const type = (qs("type", "project") || "project").toLowerCase();
 const slug = qs("slug", "the-meadow");
 let i = Math.max(0, parseInt(qs("i", "0"), 10) || 0);
 
-// Optional override (still supported), but we won't rely on it anymore
+// Optional override (still supported)
 let n = parseInt(qs("n", ""), 10);
 if (Number.isNaN(n)) n = null;
 
-const MAX_CAP = 300; // safety cap
+const MAX_CAP = 300;
+const CACHE_BUST = String(Date.now()); // one per page load (not per image)
 
 const CATALOG = {
   studies: {
@@ -27,7 +28,7 @@ const CATALOG = {
       years: "2012",
       descriptor: "Sequence",
     },
-    "project2": {
+    project2: {
       title: "Project 2",
       place: "",
       years: "",
@@ -42,7 +43,6 @@ function metaFor() {
   const p = CATALOG.projects?.[slug];
   if (p) return p;
 
-  // fallback for any future slug you add without updating CATALOG
   return {
     title: slug.replace(/-/g, " "),
     place: "",
@@ -55,52 +55,52 @@ function pad2(x) {
   return String(x).padStart(2, "0");
 }
 
-
 function srcFor(idx) {
   const file = pad2(idx + 1) + ".jpg";
   if (type === "studies") return `assets/images/studies/${file}`;
   return `assets/images/projects/${slug}/${file}`;
 }
 
-function titleFor() {
-  return metaFor().title;
-}
-
 function backHref() {
   return type === "studies" ? "studies.html" : "projects.html";
 }
 
+// Cache DOM nodes once
+const el = {
+  img: document.getElementById("viewerImg"),
+  capTitle: document.getElementById("capTitle"),
+  capSub: document.getElementById("capSub"),
+  counter: document.getElementById("counter"),
+  back: document.getElementById("backLink"),
+  nextBtn: document.getElementById("nextBtn"),
+  prevBtn: document.getElementById("prevBtn"),
+};
+
 function setUICount(total) {
-  const counter = document.getElementById("counter");
-  counter.textContent = `${i + 1} / ${total}`;
+  if (!el.counter) return;
+  el.counter.textContent = `${i + 1} / ${total}`;
 }
 
 function render(total) {
-  const img = document.getElementById("viewerImg");
-
-  // new caption elements (from your updated viewer.html)
-  const capTitle = document.getElementById("capTitle");
-  const capSub = document.getElementById("capSub");
-
-  const back = document.getElementById("backLink");
-
   const meta = metaFor();
 
-  img.src = srcFor(i);
-  img.alt = meta.title;
-
-  // Two-line caption under the image
-  if (capTitle) capTitle.textContent = meta.title;
-
-  if (capSub) {
-    const parts = [meta.place, meta.years, meta.descriptor].filter(Boolean);
-    capSub.textContent = parts.join(" — ");
+  if (el.img) {
+    el.img.src = srcFor(i);
+    el.img.alt = meta.title;
   }
 
-  // Back-to-grid
-  back.href = backHref();
-  back.textContent = "⧉ Grid"; // or just "⧉" if you want quieter
-  back.setAttribute("aria-label", "Back to grid");
+  if (el.capTitle) el.capTitle.textContent = meta.title;
+
+  if (el.capSub) {
+    const parts = [meta.place, meta.years, meta.descriptor].filter(Boolean);
+    el.capSub.textContent = parts.join(" — ");
+  }
+
+  if (el.back) {
+    el.back.href = backHref();
+    el.back.textContent = "⧉ Grid"; // or "⧉"
+    el.back.setAttribute("aria-label", "Back to grid");
+  }
 
   setUICount(total);
 
@@ -114,8 +114,6 @@ function render(total) {
 async function detectCount() {
   if (n && n > 0) return Math.min(n, MAX_CAP);
 
-  // We detect by probing the next image until it fails.
-  // We start at 1 and stop at the first missing file.
   for (let k = 1; k <= MAX_CAP; k++) {
     const testSrc = srcFor(k - 1);
 
@@ -123,10 +121,10 @@ async function detectCount() {
       const test = new Image();
       test.onload = () => resolve(true);
       test.onerror = () => resolve(false);
-      test.src = testSrc + `?v=${Date.now()}`; // bypass cache
+      test.src = `${testSrc}?v=${CACHE_BUST}`;
     });
 
-    if (!ok) return k - 1; // count is previous
+    if (!ok) return k - 1;
   }
   return MAX_CAP;
 }
@@ -143,8 +141,8 @@ function prev() {
   render(total);
 }
 
-document.getElementById("nextBtn")?.addEventListener("click", next);
-document.getElementById("prevBtn")?.addEventListener("click", prev);
+el.nextBtn?.addEventListener("click", next);
+el.prevBtn?.addEventListener("click", prev);
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") next();
