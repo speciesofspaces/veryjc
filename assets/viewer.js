@@ -13,9 +13,48 @@ if (Number.isNaN(n)) n = null;
 
 const MAX_CAP = 300; // safety cap
 
+const CATALOG = {
+  studies: {
+    title: "Studies",
+    place: "London + UK",
+    years: "2015–2018",
+    descriptor: "Fragments",
+  },
+  projects: {
+    "the-meadow": {
+      title: "The Meadow",
+      place: "Edinburgh, UK",
+      years: "2012",
+      descriptor: "Sequence",
+    },
+    "project2": {
+      title: "Project 2",
+      place: "",
+      years: "",
+      descriptor: "",
+    },
+  },
+};
+
+function metaFor() {
+  if (type === "studies") return CATALOG.studies;
+
+  const p = CATALOG.projects?.[slug];
+  if (p) return p;
+
+  // fallback for any future slug you add without updating CATALOG
+  return {
+    title: slug.replace(/-/g, " "),
+    place: "",
+    years: "",
+    descriptor: "",
+  };
+}
+
 function pad2(x) {
   return String(x).padStart(2, "0");
 }
+
 
 function srcFor(idx) {
   const file = pad2(idx + 1) + ".jpg";
@@ -24,10 +63,7 @@ function srcFor(idx) {
 }
 
 function titleFor() {
-  if (type === "studies") return "Studies";
-  if (slug === "the-meadow") return "The Meadow";
-  if (slug === "project2") return "Project 2";
-  return slug.replace(/-/g, " ");
+  return metaFor().title;
 }
 
 function backHref() {
