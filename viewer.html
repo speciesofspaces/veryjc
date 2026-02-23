@@ -26,8 +26,25 @@
 
 <main>
 
-<div class="viewer-stage">
-  <img id="viewerImg" src="" alt="">
+<div class="viewer-wrap">
+  <div class="viewer-stage">
+    <img id="viewerImg" src="" alt="">
+  </div>
+
+  <div class="viewer-caption" aria-live="polite">
+    <div class="cap-title" id="capTitle"></div>
+    <div class="cap-sub" id="capSub"></div>
+  </div>
+
+  <div class="viewer-bar">
+    <div class="counter" id="counter"></div>
+
+    <div class="controls">
+      <a class="btn" id="backLink" href="projects.html" aria-label="Back to grid">▦ Grid</a>
+      <button class="btn" id="prevBtn" aria-label="Previous">←</button>
+      <button class="btn" id="nextBtn" aria-label="Next">→</button>
+    </div>
+  </div>
 </div>
 
 <div class="meta">
