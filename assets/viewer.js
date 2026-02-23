@@ -26,7 +26,7 @@ const CATALOG = {
       title: "The Meadow",
       place: "Edinburgh, UK",
       years: "2012",
-      descriptor: "Sequence",
+      descriptor: "",
     },
     project2: {
       title: "Project 2",
