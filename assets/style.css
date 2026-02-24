@@ -364,7 +364,7 @@ body.projects .thumb{
 .footer{
   border-top:1px solid var(--hair);
   margin-top:var(--gapBottom, 46px);
-  padding:18px 0 28px; /* vertical padding only */
+  padding:18px 0 28px; /* vertical only */
   color:var(--muted);
   font-size:11px;
   letter-spacing:.02em;
@@ -373,15 +373,17 @@ body.projects .thumb{
 .footer-inner{
   max-width:var(--max);
   margin:0 auto;
-  padding:0 var(--padX); /* EXACTLY like .nav */
+  padding:0 var(--padX);   /* EXACTLY like .nav */
+  width:100%;              /* IMPORTANT: prevents “stuck on left” */
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:14px;
 }
 
-.footer a{ color:var(--muted); }
-.footer a:hover{ color:#000; opacity:1; }
+.footer-left{ white-space:nowrap; }
+.footer-right{ color:var(--muted); }
+.footer-right:hover{ color:#000; opacity:1; }
 
 @media (max-width:640px){
   .footer-inner{
@@ -389,7 +391,6 @@ body.projects .thumb{
     align-items:flex-start;
   }
 }
-
 /* ------------------------------------------------------------
    Responsive
 ------------------------------------------------------------ */
