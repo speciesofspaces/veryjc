@@ -16,16 +16,28 @@
 <body class="projects">
 
 <header class="header">
-  <nav class="nav">
+  <nav class="nav" aria-label="Primary">
     <a class="brand" href="/">
       <span class="brand-name">Jué Chen · 陳覺</span>
       <span class="sub"> </span>
     </a>
-    <a href="/">Home</a>
-    <a class="active" href="projects.html">Projects</a>
-    <a href="studies.html">Studies</a>
-    <a href="about.html">About</a>
+
+    <div class="nav-links">      <a href="/">Home</a>
+      <a class="active" href="projects.html">Projects</a>
+      <a href="studies.html">Studies</a>
+      <a href="about.html">About</a>
+    </div>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navPanel">Menu</button>
   </nav>
+
+  <div class="nav-panel" id="navPanel" hidden>
+    <div class="nav-panel-inner">          <a href="/">Home</a>
+          <a class="active" href="projects.html">Projects</a>
+          <a href="studies.html">Studies</a>
+          <a href="about.html">About</a>
+    </div>
+  </div>
 </header>
 
 <main>
@@ -51,5 +63,6 @@
 
 </main>
 
+<script src="assets/nav.js" defer></script>
 </body>
 </html>
