@@ -75,27 +75,16 @@ main{
 /* Home / Hero */
 .hero-banner{
   width:100%;
-  overflow:visible; /* allow title to bleed out */
+  overflow:visible;
 }
 
 .hero-media{
-  overflow:hidden;  /* keep image clipped */
-}
+  overflow:hidden;
 
-.hero-banner img{
-  width:100%;
-  max-height:65vh;
-  object-fit:cover;
-  object-position:center;
-  display:block;
-
-  /* load reveal */
-  opacity:.6;
-  transform:scale(1.05);
-  animation: heroReveal 1.1s ease-out forwards;
-
-  /* hover transitions */
-  transition: transform .6s ease, opacity .4s ease;
+  /* load reveal happens on the wrapper */
+  opacity:.7;
+  transform:scale(1.03);
+  animation:heroReveal 1.4s ease-out forwards;
 }
 
 @keyframes heroReveal{
@@ -105,9 +94,26 @@ main{
   }
 }
 
-/* Respect reduced motion */
+.hero-banner img{
+  width:100%;
+  max-height:65vh;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+
+  /* hover transitions live on the image */
+  transition:transform .6s ease, opacity .4s ease;
+}
+
+/* hover: only affects the image, not the wrapper animation */
+.hero-banner a:hover img{
+  opacity:.9;
+  transform:scale(1.02);
+}
+
+/* reduced motion */
 @media (prefers-reduced-motion: reduce){
-  .hero-banner img{
+  .hero-media{
     animation:none;
     opacity:1;
     transform:none;
