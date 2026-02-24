@@ -102,12 +102,12 @@ a:hover{ opacity:.8; }
 /* Hamburger button (mobile only) */
 .nav-toggle{
   display:none;
-  width:40px;
+  width: min(190px, calc(100vw - (var(--padX) * 2)));
   height:36px;
   border:1px solid var(--hair);
   background:rgba(255,255,255,.75);
   border-radius:999px;
-  padding:0;
+  padding: 8px;
   cursor:pointer;
   align-items:center;
   justify-content:center;
