@@ -96,8 +96,8 @@ main{
 /* Hero fade + slow zoom on page load */
 .hero-banner img{
   opacity: .6;
-  transform: scale(1.05);
-  animation: heroReveal 1.8s ease-out forwards;
+  transform: scale(1.2);
+  animation: heroReveal 2.0s ease-out forwards;
 }
 
 @keyframes heroReveal{
