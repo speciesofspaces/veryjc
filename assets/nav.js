@@ -1,9 +1,10 @@
 (() => {
   const header = document.querySelector(".header");
-  const btn = document.querySelector(".nav-toggle");
-  const panel = document.querySelector(".nav-panel");
+  if (!header) return;
 
-  if (!header || !btn || !panel) return;
+  const btn = header.querySelector(".nav-toggle");
+  const panel = header.querySelector(".nav-panel");
+  if (!btn || !panel) return;
 
   const close = () => {
     header.classList.remove("menu-open");
@@ -21,13 +22,20 @@
 
   btn.addEventListener("click", toggle);
 
+  // click outside closes
   document.addEventListener("click", (e) => {
     if (!header.classList.contains("menu-open")) return;
     if (panel.contains(e.target) || btn.contains(e.target)) return;
     close();
   });
 
+  // escape closes
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") close();
+  });
+
+  // if resizing to desktop, close
+  window.addEventListener("resize", () => {
+    if (window.matchMedia("(min-width: 721px)").matches) close();
   });
 })();
