@@ -143,6 +143,13 @@ function prev() {
 
 el.nextBtn?.addEventListener("click", next);
 el.prevBtn?.addEventListener("click", prev);
+// Click image: left half = prev, right half = next
+el.img?.addEventListener("click", (e) => {
+  const rect = el.img.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  if (x < rect.width / 2) prev();
+  else next();
+});
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") next();
