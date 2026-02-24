@@ -93,14 +93,18 @@ main{
   display:block;
 }
 
-/* Hero fade-in on page load */
+/* Hero fade + slow zoom on page load */
 .hero-banner img{
-  opacity: .6;
-  animation: heroFadeIn .7s ease forwards;
+  opacity: .7;
+  transform: scale(1.03);
+  animation: heroReveal 1.4s ease-out forwards;
 }
 
-@keyframes heroFadeIn{
-  to { opacity: 1; }
+@keyframes heroReveal{
+  to{
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Respect reduced motion */
@@ -108,6 +112,7 @@ main{
   .hero-banner img{
     animation: none;
     opacity: 1;
+    transform: none;
   }
 }
 
