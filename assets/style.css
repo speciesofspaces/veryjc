@@ -91,8 +91,8 @@ main{
 
   /* load reveal */
   opacity:.6;
-  transform:scale(1.2);
-  animation: heroReveal 2.0s ease-out forwards;
+  transform:scale(1.05);
+  animation: heroReveal 1.1s ease-out forwards;
 
   /* hover transitions */
   transition: transform .6s ease, opacity .4s ease;
