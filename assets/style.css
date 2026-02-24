@@ -132,6 +132,11 @@ main{
   cursor:pointer;
 }
 
+/* Projects thumbnails: square */
+body.projects .thumb{
+  aspect-ratio: 1 / 1;
+}
+
 .thumb img{
   width:100%;
   height:100%;
