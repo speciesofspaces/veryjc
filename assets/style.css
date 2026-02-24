@@ -93,10 +93,30 @@ main{
   display:block;
 }
 
+/* Hero fade-in on page load */
+.hero-banner img{
+  opacity: .7;
+  animation: heroFadeIn .9s ease forwards;
+}
+
+@keyframes heroFadeIn{
+  to { opacity: 1; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .hero-banner img{
+    animation: none;
+    opacity: 1;
+  }
+}
+
 .hero-banner a:hover img{
   opacity:.9;
   transform:scale(1.02);
 }
+
+
 
 /* EDITORIAL HERO */
 .hero-editorial{
