@@ -126,6 +126,12 @@ main{
   gap:28px;
 }
 
+/* Projects grid: larger thumbnails */
+body.projects .grid{
+  grid-template-columns:repeat(3,1fr);
+  gap:22px; /* optional */
+}
+
 .thumb{
   aspect-ratio:3/4;
   overflow:hidden;
