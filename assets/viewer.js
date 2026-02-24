@@ -29,10 +29,10 @@ const CATALOG = {
       descriptor: "",
     },
     project2: {
-      title: "Project 2",
-      place: "",
-      years: "",
-      descriptor: "",
+    title: "Empty Room",
+    place: "",
+    years: "",
+    descriptor: "",
     },
   },
 };
