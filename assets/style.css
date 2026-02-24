@@ -4,6 +4,8 @@
   --muted:#6b6b6b;
   --hair:#eaeaea;
   --max:1200px;
+  --gapTop: 40px;     /* space between header and page content */
+  --gapBottom: 46px;  /* space before footer */
 
   /* layout */
   --headerH:76px;
