@@ -178,7 +178,7 @@ a:hover{ opacity:.8; }
 main{
   max-width:var(--max);
   margin:0 auto;
-  padding:calc(var(--headerH) + 22px) var(--padX) 80px;
+  padding:calc(var(--headerH) + var(--gapTop)) var(--padX) 0;
 }
 
 /* ------------------------------------------------------------
@@ -361,7 +361,7 @@ body.projects .thumb{
 ------------------------------------------------------------ */
 .footer{
   border-top:1px solid var(--hair);
-  margin-top:80px;
+  margin-top:var(--gapBottom);
   padding:18px var(--padX);
   display:flex;
   justify-content:space-between;
