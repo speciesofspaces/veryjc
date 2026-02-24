@@ -430,20 +430,4 @@ body.projects .thumb{
   }
 }
 
-/* Mobile: dim site name on non-home pages */
-@media (max-width:720px){
-  body.projects .brand,
-  body.studies  .brand,
-  body.about    .brand,
-  body.viewer   .brand{
-    opacity:.45;
-  }
-
-  body.projects .brand-name,
-  body.studies  .brand-name,
-  body.about    .brand-name,
-  body.viewer   .brand-name{
-    color:var(--muted);
-    font-weight:600; /* slightly calmer than bold */
-  }
 }
