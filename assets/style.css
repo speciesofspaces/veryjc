@@ -95,8 +95,8 @@ main{
 
 /* Hero fade-in on page load */
 .hero-banner img{
-  opacity: .7;
-  animation: heroFadeIn .9s ease forwards;
+  opacity: .6;
+  animation: heroFadeIn .7s ease forwards;
 }
 
 @keyframes heroFadeIn{
