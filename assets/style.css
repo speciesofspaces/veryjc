@@ -413,3 +413,20 @@ body.projects .thumb{
     letter-spacing:-0.03em;
   }
 }
+
+/* Hide site name on mobile for non-home pages (keep hamburger) */
+@media (max-width:720px){
+  body.projects .brand,
+  body.studies  .brand,
+  body.about    .brand,
+  body.viewer   .brand{
+    display:none;
+  }
+
+  body.projects .nav,
+  body.studies  .nav,
+  body.about    .nav,
+  body.viewer   .nav{
+    justify-content:flex-end;
+  }
+}
