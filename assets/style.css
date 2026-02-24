@@ -359,10 +359,13 @@ body.projects .thumb{
 /* ------------------------------------------------------------
    Footer
 ------------------------------------------------------------ */
+
+/* Footer aligns with header frame */
 .footer{
-  border-top:1px solid var(--hair);
-  margin-top:var(--gapBottom);
+  max-width:var(--max);
+  margin:var(--gapBottom, 46px) auto 0;
   padding:18px var(--padX);
+  border-top:1px solid var(--hair);
   display:flex;
   justify-content:space-between;
   align-items:center;
