@@ -23,36 +23,51 @@ a{ text-decoration:none; color:inherit; }
 a:hover{ opacity:.8; }
 
 /* Header / Nav */
+:root{
+  --headerH:76px;
+  --headerPadX:24px;
+}
+
+@media (max-width:720px){
+  :root{
+    --headerH:64px;
+    --headerPadX:18px;
+  }
+}
+
 .header{
   position:fixed;
   top:0; left:0; right:0;
-  background:#fff;
-  z-index:50;
+  height:var(--headerH);
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--hair);
+  z-index:100;
 }
 
 .nav{
   max-width:var(--max);
   margin:0 auto;
-  padding:22px 20px 16px;
+  height:100%;
+  padding:0 var(--headerPadX);
   display:flex;
   align-items:center;
-  gap:18px;
-  position:relative; /* anchor dropdown */
+  gap:22px;
+  position:relative;
 }
 
 .brand{
   margin-right:auto;
   display:flex;
-  gap:10px;
   align-items:baseline;
+  gap:10px;
   min-width:0;
 }
 
 .brand-name{
   font-weight:700;
-  color:#000;
   font-size:16px;
-  white-space:nowrap;     /* never break into two lines */
+  white-space:nowrap;
 }
 
 .sub{
@@ -61,10 +76,11 @@ a:hover{ opacity:.8; }
   font-size:13px;
 }
 
+/* Desktop links */
 .nav-links{
   display:flex;
-  gap:22px;
   align-items:baseline;
+  gap:22px;
 }
 
 .nav a{
@@ -74,13 +90,13 @@ a:hover{ opacity:.8; }
 
 .nav a.active{ color:#000; }
 
-/* Hamburger button (hidden on desktop) */
+/* Hamburger (mobile only) */
 .nav-toggle{
   display:none;
   width:40px;
   height:36px;
   border:1px solid var(--hair);
-  background:rgba(255,255,255,.7);
+  background:rgba(255,255,255,.75);
   border-radius:999px;
   padding:0;
   cursor:pointer;
@@ -97,19 +113,20 @@ a:hover{ opacity:.8; }
   opacity:.75;
 }
 
-/* Dropdown panel (hidden by default) */
+/* Dropdown panel */
 .nav-panel{
   position:absolute;
-  top:calc(100% + 10px);
-  right:20px;
-  width:min(220px, calc(100vw - 40px));
+  top:calc(var(--headerH) - 8px);
+  right:var(--headerPadX);
+  width:min(240px, calc(100vw - (var(--headerPadX) * 2)));
   padding:10px;
   border:1px solid var(--hair);
   border-radius:14px;
-  background:rgba(255,255,255,.92);
+  background:rgba(255,255,255,.95);
   backdrop-filter:blur(10px);
-  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  box-shadow:0 10px 30px rgba(0,0,0,.10);
   display:none;
+  z-index:200;
 }
 
 .nav-panel a{
@@ -120,6 +137,8 @@ a:hover{ opacity:.8; }
   color:var(--muted);
 }
 
+.nav-panel a.active{ color:#000; }
+
 .nav-panel a:hover{
   background:rgba(0,0,0,.04);
   color:#000;
@@ -128,223 +147,33 @@ a:hover{ opacity:.8; }
 
 /* Open state */
 .header.menu-open .nav-panel{ display:block; }
+.header.menu-open .nav-toggle span{ transition:transform .18s ease, opacity .18s ease; }
 .header.menu-open .nav-toggle span:nth-child(1){ transform:translateY(5px) rotate(45deg); opacity:.9; }
 .header.menu-open .nav-toggle span:nth-child(2){ opacity:0; }
 .header.menu-open .nav-toggle span:nth-child(3){ transform:translateY(-5px) rotate(-45deg); opacity:.9; }
-.header.menu-open .nav-toggle span{ transition:transform .18s ease, opacity .18s ease; }
 
-/* Mobile behavior */
 @media (max-width:720px){
-  .nav{ padding:18px 16px 12px; }
-  .nav-links{ display:none; }  /* hide inline links */
-  .nav-toggle{ display:flex; } /* show hamburger */
-}
-
-  /* lock scroll when open */
-  html.nav-open, html.nav-open body{
-    height:100%;
-    overflow:hidden;
-  }
+  .nav-links{ display:none; }
+  .nav-toggle{ display:flex; }
 }
 
 /* Layout */
+body{
+  min-height:100vh;
+}
 
-main{
+main.page{
   max-width:var(--max);
   margin:0 auto;
-  padding:calc(var(--headerH) + 22px) 24px 80px;
+  padding:calc(var(--headerH) + 22px) var(--headerPadX) 0;
 }
 
-@media (max-width: 720px){
-  main{ padding:calc(var(--headerH) + 18px) 18px 70px; }
-}
-
-
-/* Home / Hero */
-.hero-banner{
-  width:100%;
-  overflow:visible;
-}
-
-.hero-media{
-  overflow:hidden;
-
-  /* load reveal happens on the wrapper */
-  opacity:.7;
-  transform:scale(1.03);
-  animation:heroReveal 1.4s ease-out forwards;
-}
-
-@keyframes heroReveal{
-  to{
-    opacity:1;
-    transform:scale(1);
-  }
-}
-
-.hero-banner img{
-  width:100%;
-  max-height:65vh;
-  object-fit:cover;
-  object-position:center;
-  display:block;
-
-  /* hover transitions live on the image */
-  transition:transform .6s ease, opacity .4s ease;
-}
-
-/* hover: only affects the image, not the wrapper animation */
-.hero-banner a:hover img{
-  opacity:.9;
-  transform:scale(1.02);
-}
-
-/* reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .hero-media{
-    animation:none;
-    opacity:1;
-    transform:none;
-  }
-}
-
-.hero-banner a:hover img{
-  opacity:.8;
-  transform:scale(1.02);
-}
-
-/* Editorial hero title */
-.hero-editorial{ position:relative; }
-
-.hero-title{
-  position:absolute;
-  left:0;
-  top:-18px;              /* desktop tweak point */
-  z-index:2;
-  margin:0;
-  font-weight:700;
-  line-height:.92;
-  letter-spacing:-0.04em;
-  font-size:clamp(38px, 6vw, 86px);
-  pointer-events:none;    /* keeps the image clickable */
-}
-
-.hero-title-strong{ color:#000; }
-.hero-title-soft{ color:#ffffff; margin-left:.15em; }
-
-/* Grids (base) */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4, 1fr);
-  gap:28px;
-}
-
-.thumb{
-  aspect-ratio:3/4;       /* base = portrait (good for Studies) */
-  overflow:hidden;
-  cursor:pointer;
-}
-
-.thumb img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.caption{
-  margin-top:10px;
-  font-size:12px;
-  color:var(--muted);
-  letter-spacing:.02em;
-}
-
-/* Projects-only overrides
-   NOTE: requires <body class="projects"> on projects.html */
-body.projects .grid{
-  grid-template-columns:repeat(3, 1fr); /* bigger thumbs */
-  gap:22px;
-}
-
-body.projects .thumb{
-  aspect-ratio:1 / 1;     /* square thumbs on Projects */
-}
-
-/* Viewer */
-.viewer-wrap{
-  max-width:980px;     /* keeps caption + bar aligned to image block */
-  margin:0 auto;
-}
-
-.viewer-stage{
-  display:flex;
-  justify-content:center;
-}
-
-.viewer-stage img{
-  width:100%;
-  max-height:78vh;
-  object-fit:contain;
-  display:block;
-  cursor:pointer; /* for click-to-advance, if you enable it in JS */
-}
-
-/* Two-line caption under image */
-.viewer-caption{
-  margin-top:14px;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.cap-title{
-  font-size:12px;
-  color:var(--muted);
-  letter-spacing:.02em;
-}
-
-.cap-sub{
-  font-size:12px;
-  color:var(--muted);
-  letter-spacing:.02em;
-  opacity:.9;
-}
-
-/* Utility bar: count left, controls right */
-.viewer-bar{
-  margin-top:14px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.viewer-bar .counter{
-  font-size:12px;
-  color:var(--muted);
-  letter-spacing:.02em;
-}
-
-/* Buttons */
-.btn{
-  border:1px solid var(--hair);
-  background:none;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:12px;
-  color:var(--muted);
-  cursor:pointer;
-}
-
-.btn:hover{
-  color:#000;
-  opacity:1;
-}
-
-/* Footer */
+/* Footer (outside main) */
 .footer{
+  max-width:var(--max);
+  margin:80px auto 0;
+  padding:18px var(--headerPadX) 28px;
   border-top:1px solid var(--hair);
-  margin-top:80px;
-  padding:18px 0;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -356,6 +185,13 @@ body.projects .thumb{
 
 .footer a{ color:var(--muted); }
 .footer a:hover{ color:#000; opacity:1; }
+
+@media (max-width:640px){
+  .footer{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
 
 /* Responsive */
 @media(max-width:900px){
