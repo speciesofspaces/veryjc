@@ -128,10 +128,10 @@ a:hover{ opacity:.8; }
   position:absolute;
   top:calc(100% + 10px);
   right:var(--padX);
-  width: min(190px, calc(100vw - (var(--padX) * 2)));
+  width: min(190px, calc(100vw - (var(--padX) * 3)));
   padding:8px;
   border:1px solid var(--hair);
-  border-radius:14px;
+  border-radius:12px;
   background:rgba(255,255,255,.94);
   backdrop-filter:blur(10px);
   box-shadow:0 10px 30px rgba(0,0,0,.10);
