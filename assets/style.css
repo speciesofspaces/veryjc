@@ -250,6 +250,13 @@ body.projects .thumb{
     align-items:flex-start;
   }
 
+  @media(max-width:640px){
+  body.projects .grid{
+    grid-template-columns: 1fr;
+    gap: 18px; /* or 16px */
+  }
+}
+
   .hero-banner img{
     max-height:78vh;
   }
