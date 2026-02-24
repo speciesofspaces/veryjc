@@ -112,6 +112,7 @@ a:hover{ opacity:.8; }
   align-items:center;
   justify-content:center;
   gap:4px;
+  flex-direction:column;
 }
 
 .nav-toggle span{
