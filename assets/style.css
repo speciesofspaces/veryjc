@@ -4,6 +4,15 @@
   --muted:#6b6b6b;
   --hair:#eaeaea;
   --max:1200px;
+  --headerH: 76px;
+  --padX: 24px;
+}
+
+@media (max-width:720px){
+  :root{
+    --headerH: 64px;
+    --padX: 18px;
+  }
 }
 
 /* Base reset */
