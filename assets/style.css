@@ -17,6 +17,8 @@
   :root{
     --headerH:64px;
     --padX:18px;
+    --gapTop: 34px;
+    --gapBottom: 36px;
   }
 }
 
