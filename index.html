@@ -30,13 +30,35 @@
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navPanel">Menu</button>
   </nav>
 
-  <div class="nav-panel" id="navPanel" hidden>
-    <div class="nav-panel-inner">          <a class="active" href="/">Home</a>
-          <a href="projects.html">Projects</a>
-          <a href="studies.html">Studies</a>
-          <a href="about.html">About</a>
-    </div>
+<nav class="nav">
+  <a class="brand" href="/">
+    <span class="brand-name">Jué Chen · 陳覺</span>
+    <span class="sub"> </span>
+  </a>
+
+  <!-- Desktop links -->
+  <div class="nav-links">
+    <a href="/" class="active">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="studies.html">Studies</a>
+    <a href="about.html">About</a>
   </div>
+
+  <!-- Mobile hamburger -->
+  <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- Mobile dropdown panel -->
+  <div class="nav-panel" aria-hidden="true">
+    <a href="/">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="studies.html">Studies</a>
+    <a href="about.html">About</a>
+  </div>
+</nav>
+
+<script src="assets/nav.js" defer></script>
 </header>
 
 <main>
