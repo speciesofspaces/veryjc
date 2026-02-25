@@ -68,68 +68,35 @@ a:hover{ opacity:.8; }
   position:relative; /* anchor dropdown */
 }
 
-/* Put both in the same grid cell so they overlap */
-.brand-mark,
-.brand-name{
-  grid-area:1 / 1;
-  font-weight:700;
-  color:#000;
-  line-height:1;
-  transition:opacity .18s ease, transform .18s ease;
-  will-change:opacity, transform;
-}
-
-/* Sizes */
-.brand-mark{ font-size:18px; }
-.brand-name{
-  font-size:16px;
-  white-space:nowrap;
-}
-
-/* Default state: show mark */
-.brand-mark{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.brand-name{
-  opacity:0;
-  transform:translateY(2px);
-  pointer-events:none;              /* prevents “ghost” hover */
-}
-
-/* Brand (swap on hover, clean crossfade) */
+/* Brand (single, identical mark/name, smooth crossfade) */
 .brand{
   margin-right:auto;
-  display:inline-grid;
+  display:inline-grid;      /* overlap both */
   align-items:baseline;
-  position:relative;
 }
 
 .brand-mark,
 .brand-name{
   grid-area:1 / 1;
+  font: inherit;            /* inherits Inter + any nav font settings */
   font-weight:700;
-  color:#000;
+  font-size:18px;           /* SAME for both */
   line-height:1;
+  color:#000;
+  white-space:nowrap;
   transition:opacity .18s ease;
 }
 
-/* sizes */
-.brand-mark{ font-size:18px; opacity:1; }
+/* default: show mark only */
+.brand-mark{ opacity:1; }
 .brand-name{
-  font-size:18px;
-  white-space:nowrap;
   opacity:0;
   pointer-events:none;
 }
 
-/* swap */
+/* hover/focus: swap */
 .brand:hover .brand-mark,
-.brand:focus-visible .brand-mark{
-  opacity:0;
-  pointer-events:none;
-}
+.brand:focus-visible .brand-mark{ opacity:0; }
 
 .brand:hover .brand-name,
 .brand:focus-visible .brand-name{
