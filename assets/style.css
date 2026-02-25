@@ -367,11 +367,13 @@ body.projects .thumb{
    Footer
 ------------------------------------------------------------ */
 
-/* Footer: full-width rule, inner aligned to header */
+/* ------------------------------------------------------------
+   Footer (centered, simple)
+------------------------------------------------------------ */
 .footer{
   border-top:1px solid var(--hair);
   margin-top:var(--gapBottom, 46px);
-  padding:18px 0 28px; /* vertical only */
+  padding:18px 0 28px;
   color:var(--muted);
   font-size:11px;
   letter-spacing:.02em;
@@ -380,17 +382,20 @@ body.projects .thumb{
 .footer-inner{
   max-width:var(--max);
   margin:0 auto;
-  padding:0 var(--padX);   /* EXACTLY like .nav */
-  width:100%;              /* IMPORTANT: prevents “stuck on left” */
+  padding:0 var(--padX);
+  width:100%;
   display:flex;
-  justify-content:space-between;
+  justify-content:center;
   align-items:center;
-  gap:14px;
+  gap:10px;
+  flex-wrap:wrap;
+  text-align:center;
 }
 
-.footer-left{ white-space:nowrap; }
-.footer-right{ color:var(--muted); }
-.footer-right:hover{ color:#000; opacity:1; }
+.footer a{ color:var(--muted); }
+.footer a:hover{ color:#000; opacity:1; }
+
+.dot{ opacity:.6; }
 
 @media (max-width:640px){
   .footer-inner{
