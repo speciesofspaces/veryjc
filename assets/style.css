@@ -68,46 +68,62 @@ a:hover{ opacity:.8; }
   position:relative; /* anchor dropdown */
 }
 
-/* Brand */
+/* Brand (smooth swap) */
 .brand{
   margin-right:auto;
-  display:inline-flex;
+  display:inline-grid;              /* stack both in same spot */
   align-items:baseline;
-  gap:10px;          /* ok to keep, won’t matter when swapping */
-  min-width:0;
+  position:relative;
 }
 
-/* Default: show only the mark */
-.brand-mark{
+/* Put both in the same grid cell so they overlap */
+.brand-mark,
+.brand-name{
+  grid-area:1 / 1;
   font-weight:700;
   color:#000;
-  font-size:18px;
   line-height:1;
-  display:inline;
+  transition:opacity .18s ease, transform .18s ease;
+  will-change:opacity, transform;
+}
+
+/* Sizes */
+.brand-mark{ font-size:18px; }
+.brand-name{
+  font-size:16px;
+  white-space:nowrap;
+}
+
+/* Default state: show mark */
+.brand-mark{
+  opacity:1;
+  transform:translateY(0);
 }
 
 .brand-name{
-  font-weight:700;
-  color:#000;
-  font-size:16px;
-  white-space:nowrap;
-  display:none;      /* hidden by default */
+  opacity:0;
+  transform:translateY(2px);
+  pointer-events:none;              /* prevents “ghost” hover */
 }
 
-/* Swap on hover / focus: hide mark, show name */
+/* Hover/focus: swap smoothly */
 .brand:hover .brand-mark,
 .brand:focus-visible .brand-mark{
-  display:none;
+  opacity:0;
+  transform:translateY(-2px);
+  pointer-events:none;
 }
 
 .brand:hover .brand-name,
 .brand:focus-visible .brand-name{
-  display:inline;
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
 }
 
-/* Optional: touch devices (tap to focus) */
-.brand:focus .brand-mark{ display:none; }
-.brand:focus .brand-name{ display:inline; }
+/* Optional: touch devices (tap focus) */
+.brand:focus .brand-mark{ opacity:0; transform:translateY(-2px); }
+.brand:focus .brand-name{ opacity:1; transform:translateY(0); pointer-events:auto; }
 
 /* Desktop links */
 .nav-links{
@@ -423,11 +439,6 @@ body.projects .thumb{
   .grid{ grid-template-columns:repeat(3, 1fr); }
 }
 
-@media (max-width:720px){
-  .brand-name{
-    font-size:13px;
-  }
-}
 
 @media(max-width:640px){
   main{
