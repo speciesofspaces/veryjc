@@ -71,38 +71,43 @@ a:hover{ opacity:.8; }
 /* Brand */
 .brand{
   margin-right:auto;
-  display:flex;
+  display:inline-flex;
   align-items:baseline;
-  gap:10px;
+  gap:10px;          /* ok to keep, won’t matter when swapping */
   min-width:0;
 }
 
-/* Default: only the mark is visible */
+/* Default: show only the mark */
 .brand-mark{
   font-weight:700;
   color:#000;
-  font-size:16px;   /* slightly larger */
+  font-size:18px;
   line-height:1;
+  display:inline;
 }
 
 .brand-name{
-  display:none;     /* hidden by default */
   font-weight:700;
   color:#000;
   font-size:16px;
   white-space:nowrap;
+  display:none;      /* hidden by default */
 }
 
-/* Reveal full brand on hover + keyboard focus */
+/* Swap on hover / focus: hide mark, show name */
+.brand:hover .brand-mark,
+.brand:focus-visible .brand-mark{
+  display:none;
+}
+
 .brand:hover .brand-name,
 .brand:focus-visible .brand-name{
   display:inline;
 }
-.sub{
-  font-weight:400;
-  color:var(--muted);
-  font-size:13px;
-}
+
+/* Optional: touch devices (tap to focus) */
+.brand:focus .brand-mark{ display:none; }
+.brand:focus .brand-name{ display:inline; }
 
 /* Desktop links */
 .nav-links{
