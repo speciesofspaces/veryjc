@@ -68,14 +68,6 @@ a:hover{ opacity:.8; }
   position:relative; /* anchor dropdown */
 }
 
-/* Brand (smooth swap) */
-.brand{
-  margin-right:auto;
-  display:inline-grid;              /* stack both in same spot */
-  align-items:baseline;
-  position:relative;
-}
-
 /* Put both in the same grid cell so they overlap */
 .brand-mark,
 .brand-name{
