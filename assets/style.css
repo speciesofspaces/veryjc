@@ -431,7 +431,7 @@ body.projects .thumb{
 
   /* Projects on mobile: two per row (bigger) */
   body.projects .grid{
-    grid-template-columns:2fr;
+    grid-template-columns:repeat(2, 1fr);
     gap:18px;
   }
 
