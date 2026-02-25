@@ -28,7 +28,7 @@ const CATALOG = {
       years: "2012",
       descriptor: "",
     },
-    project2: {
+    empty-room: {
     title: "Empty Room",
     place: "",
     years: "",
