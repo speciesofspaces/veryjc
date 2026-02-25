@@ -121,9 +121,6 @@ a:hover{ opacity:.8; }
   pointer-events:auto;
 }
 
-/* Optional: touch devices (tap focus) */
-.brand:focus .brand-mark{ opacity:0; transform:translateY(-2px); }
-.brand:focus .brand-name{ opacity:1; transform:translateY(0); pointer-events:auto; }
 
 /* Desktop links */
 .nav-links{
