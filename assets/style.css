@@ -68,6 +68,7 @@ a:hover{ opacity:.8; }
   position:relative; /* anchor dropdown */
 }
 
+/* Brand */
 .brand{
   margin-right:auto;
   display:flex;
@@ -77,10 +78,16 @@ a:hover{ opacity:.8; }
 }
 
 .brand-name{
-  font-weight:700;
+  font-weight:500;          /* was 700 */
+  color:var(--muted);       /* was #000 */
+  font-size:14px;           /* was 16px */
+  white-space:nowrap;
+  letter-spacing:0.01em;
+}
+
+.brand:hover .brand-name{
   color:#000;
-  font-size:16px;
-  white-space:nowrap; /* never break into two lines */
+  opacity:1;
 }
 
 .sub{
@@ -396,6 +403,12 @@ body.projects .thumb{
 ------------------------------------------------------------ */
 @media(max-width:900px){
   .grid{ grid-template-columns:repeat(3, 1fr); }
+}
+
+@media (max-width:720px){
+  .brand-name{
+    font-size:13px;
+  }
 }
 
 @media(max-width:640px){
