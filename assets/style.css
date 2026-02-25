@@ -468,11 +468,6 @@ body.projects .thumb{
     gap:18px;
   }
 
-  .footer{
-    flex-direction:column;
-    align-items:center;
-  }
-
   .hero-banner img{
     max-height:78vh;
   }
