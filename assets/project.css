@@ -78,12 +78,7 @@ body.project main{
    at 52px the glyph is doing the work a 26px name used to do. */
 /* Two lines, both starting at the column's left edge, where the menu below
    starts: the mark on the first, the tagline under it on the second. */
-.ident{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  row-gap:0;
-}
+.ident{ display:block; }
 
 .ident-mark{
   --mark:clamp(42px, 3.4vw, 56px);
@@ -96,6 +91,7 @@ body.project main{
 .ident-mark:hover{ color:var(--accent); opacity:1; }
 
 .ident-name{
+  display:inline;
   font-size:17px;
   font-weight:500;
   letter-spacing:.02em;
@@ -103,6 +99,8 @@ body.project main{
   color:var(--ink);
 }
 .ident-role{
+  display:inline;
+  margin-left:.45em;
   font-size:13px;
   font-weight:var(--w-body);
   letter-spacing:.05em;
@@ -354,15 +352,8 @@ body.about .stage{
 
   /* The mark in the top right corner with the tagline squared up under it —
      the mirror of the wide layout, which starts both at the left. */
-  .ident{
-    flex-direction:column;
-    align-items:flex-end;
-    text-align:right;
-    width:100%;
-    row-gap:0;
-  }
-  .ident-mark{ align-self:flex-end; margin-bottom:4px; }
-  .ident-role{ width:auto; margin-top:0; }
+  .ident{ text-align:right; width:100%; }
+  .ident-mark{ margin-left:auto; margin-bottom:4px; }
 
   /* The menu alone is set against the right edge. The arrows, the contact lines
      and the credit stay at the left, so the page is anchored on both sides
