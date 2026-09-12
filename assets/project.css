@@ -105,6 +105,14 @@ body.project main{
 }
 .zone.prev{ left:0;  cursor:w-resize; }
 .zone.next{ right:0; cursor:e-resize; }
+
+/* When the coral pointer is running it already shows the direction, so the
+   native resize arrow has to go — otherwise you get two of them. This needs
+   more specificity than `.zone.prev`, because project.css loads after
+   style.css and would otherwise win on source order alone. The resize
+   cursors above stay as the fallback for when cursor.js doesn't run. */
+.has-custom-cursor .zone.prev,
+.has-custom-cursor .zone.next{ cursor:none; }
 .zone:focus-visible{ outline:1px solid var(--ink); outline-offset:-5px; }
 
 /* ---------------------------------------------------------------- caption -- */
@@ -152,5 +160,5 @@ body.project .footer{
   flex:0 0 auto;
   margin-top:0;
   /* room to breathe beneath the credit rather than sitting on the window edge */
-  padding:14px 0 32px;
+  padding:14px 0 56px;
 }
