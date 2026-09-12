@@ -76,7 +76,16 @@ body.project main{
 /* The mark carries the identity here, the way the top bar carries it on every
    other page. The name sits under it as a caption rather than as a heading —
    at 52px the glyph is doing the work a 26px name used to do. */
-.ident{ display:flex; flex-direction:column; row-gap:4px; }
+/* Set to the right, against the window edge, so the mark reads as the corner of
+   the page rather than as the first item of a list. The menu below stays
+   left-aligned — a ragged left edge on a run of links is hard to scan. */
+.ident{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  text-align:right;
+  row-gap:4px;
+}
 
 .ident-mark{
   --mark:clamp(42px, 3.4vw, 56px);
@@ -105,7 +114,7 @@ body.project main{
 .side-nav{
   display:flex;
   flex-direction:column;
-  margin-top:30px;
+  margin-top:14px;
   font-size:14px;
   letter-spacing:.045em;
   line-height:1.85;
@@ -118,8 +127,10 @@ body.project main{
    at #eaeaea on white it sits around 1.2:1 and reads as nothing at all. */
 .side-nav .pending{ color:var(--faint); cursor:default; }
 
+/* First item of the menu block now, so this is what holds it clear of the
+   identity above. */
 .counter{
-  margin-top:30px;
+  margin-top:clamp(44px, 7vh, 86px);
   font-size:13px;
   color:var(--muted);
   letter-spacing:.08em;
@@ -274,8 +285,8 @@ body.project main{
 
   .ident{ order:1; }
   .stage{ order:2; min-height:58vh; }
-  .side-nav{ order:3; margin-top:30px; }
-  .counter{ order:4; }
+  .counter{ order:3; }
+  .side-nav{ order:4; }
   .side-contact{ order:5; }
   .side-foot{ order:6; margin-top:30px; }
 

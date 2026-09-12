@@ -69,7 +69,7 @@ export const projects = [
 // one without a `page` yet is shown as plain text rather than a dead link.
 // `placeholders` are names reserved in the menu before any photographs exist.
 export const sideMenu = {
-  name: "Jué Chen · 陳覺",
+  name: "Jué Chen",
   role: "fine art photography",
   placeholders: ["Species of Spaces", "Photo Poetry"],
   hideFromMenu: [],
@@ -177,6 +177,11 @@ export const pages = [
 // Files that carry an image but should never be crawled or listed.
 export const excludedPages = ["viewer.html", "404.html"];
 
+// Pages with no top bar and no footer — the photograph and its line of text and
+// nothing else. The build generates neither block for these, so the markup has
+// to be absent from the file as well.
+export const barePages = ["index.html"];
+
 // The 陳 mark. Generated once from Noto Sans CJK TC Medium with the outline
 // embedded, so no font has to be present on the reader's machine. The SVG is
 // listed first because every current browser prefers it; the .ico is the
@@ -196,5 +201,8 @@ export const themeColor = "#ffffff";
 // the year looks after itself.
 export const footer = {
   credit: `\u00a9 {year} ${site.author} \u00b7 \u9673\u89ba`,
-  links: [{ label: "Instagram", href: site.instagram }],
+  // Nothing but the credit, so every page's footer reads exactly as the one on
+  // a project page does. Instagram lives in the project pages' contact block;
+  // put an entry back here to return it to the wide footer.
+  links: [],
 };

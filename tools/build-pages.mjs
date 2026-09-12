@@ -20,6 +20,7 @@ import {
   icons,
   themeColor,
   excludedPages,
+  barePages,
   nav,
   navProjectsAfter,
   footer,
@@ -207,11 +208,11 @@ function sideBlock(file) {
     `        <span class="ident-role">${esc(sideMenu.role)}</span>`,
     `      </div>`,
     ``,
+    `      <div class="counter" aria-live="polite">1 / 1</div>`,
+    ``,
     `      <div class="side-nav">`,
     ...items.map(line),
     `      </div>`,
-    ``,
-    `      <div class="counter" aria-live="polite">1 / 1</div>`,
     ``,
     `      <div class="side-contact">`,
     ...sideMenu.contact.map(
@@ -257,16 +258,14 @@ function sideFootBlock() {
 // pages and nobody has to remember to change it in January.
 function footerBlock() {
   const year = new Date().getFullYear();
-  const links = footer.links
-    .map(
-      (l) =>
-        `    <a class="footer-right" href="${esc(l.href)}" target="_blank" rel="noreferrer">${esc(l.label)}</a>`,
-    )
-    .join("\n");
+  const links = footer.links.map(
+    (l) =>
+      `    <a class="footer-right" href="${esc(l.href)}" target="_blank" rel="noreferrer">${esc(l.label)}</a>`,
+  );
   return [
     `  <div class="footer-inner">`,
     `    <div class="footer-left">${esc(footer.credit.replace("{year}", String(year)))}</div>`,
-    links,
+    ...links,
     `  </div>`,
   ].join("\n");
 }
@@ -386,9 +385,10 @@ function singleBlock(single) {
 // Pages with the vertical menu column.
 const projectPages = projects.map((p) => p.page).filter(Boolean);
 // Pages with the horizontal top bar. A project page is listed in `pages` so it
-// gets a generated <head> and a sitemap entry, but it has no top bar to fill.
+// gets a generated <head> and a sitemap entry, but it has no top bar to fill,
+// and a bare page has neither bar nor footer by design.
 const navPages = [...pages.map((p) => p.file), ...excludedPages].filter(
-  (file) => !projectPages.includes(file),
+  (file) => !projectPages.includes(file) && !barePages.includes(file),
 );
 
 const blocksByPage = new Map();

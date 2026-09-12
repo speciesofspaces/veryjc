@@ -227,6 +227,22 @@ main{
   padding:calc(var(--headerH) + var(--gapTop)) var(--padX) 0;
 }
 
+/* The landing page has no bar and no footer, so there is nothing to clear and
+   nothing to sit under the photograph. It fills the window instead and centres
+   the hero in it, which puts the white space evenly above and below rather than
+   leaving it all at the bottom. The padding is the floor: it keeps room for the
+   title, which bleeds 18px over the top edge of the photograph, if the window
+   is ever shorter than the hero. Wins over the 640px rule below on specificity,
+   not on source order. */
+body.home main{
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-top:var(--gapTop);
+  padding-bottom:var(--gapTop);
+}
+
 /* ------------------------------------------------------------
    Home / Hero
 ------------------------------------------------------------ */
