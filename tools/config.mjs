@@ -78,16 +78,16 @@ export const projects = [
 // one without a `page` yet is shown as plain text rather than a dead link.
 // `placeholders` are names reserved in the menu before any photographs exist.
 export const sideMenu = {
-  // One line under the mark, not two. `role` is left in place because the build
-  // still honours it — put a string back and the second line returns.
-  name: "Jué Chen Photography",
+  // `role` is left in place because the build still honours it — put a string
+  // back and a second line returns under the name.
+  name: "Jué Chen",
   role: "",
   placeholders: ["Photo Poetry"],
   hideFromMenu: [],
-  // Everything after the projects, in the same list. Studies sits with the work
-  // because it is work; About closes the list.
+  // Everything after the projects, in the same list. Studies is deliberately
+  // not here for now — it is still reachable from the top bar on Home, Studies
+  // and About. Add it back as a second entry when it should return.
   extra: [
-    { label: "Studies", href: "studies.html" },
     { label: "About", href: "about.html" },
   ],
   contact: [

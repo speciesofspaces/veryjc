@@ -322,26 +322,37 @@ body.project main{
      items of .page and can be ordered around the stage. */
   .side, .side-top{ display:contents; }
 
-  /* The reference's order on a phone, which is not the order of the markup:
-     the mark alone at the top left, then the menu set against the right edge,
-     then the photograph filling what is left, and the credit on the bottom
-     edge. The stage is the only thing that flexes, so it absorbs all the slack
-     and the credit is held against the bottom without being positioned. */
+  /* The order on a phone, which is not the order of the markup: a top row, the
+     menu under it, the photograph filling what is left between the two arrows,
+     and the contact lines below. The stage is the only thing that flexes, so it
+     absorbs all the slack and everything after it is held against the bottom
+     without being positioned. */
   .ident{ order:1; flex:0 0 auto; }
   .counter{ order:2; }
   .side-nav{ order:3; flex:0 0 auto; }
-  .side-contact{ order:4; flex:0 0 auto; }
-  .nav-arrow.up{ order:5; margin:14px 0 6px; }
-  .stage{ order:6; flex:1 1 auto; min-height:0; }
-  .nav-arrow.down{ order:7; margin-top:6px; }
+  .nav-arrow.up{ order:4; margin:14px 0 6px; }
+  .stage{ order:5; flex:1 1 auto; min-height:0; }
+  .nav-arrow.down{ order:6; margin-top:6px; }
+  .side-contact{ order:7; flex:0 0 auto; margin-top:16px; }
   .side-foot{ order:8; flex:0 0 auto; }
 
   .nav-arrow{ display:flex; }
 
-  /* The mark and the name sit top left, the way the reference's logo does in
-     its top bar. Everything below is set against the right edge — its
-     `#menu{ text-align:end }`. The wide layout stays left-aligned throughout. */
-  .ident{ align-items:flex-start; text-align:left; }
+  /* The top row: the mark at one end and the name at the other, the way the
+     reference's top bar carries its logo and its language link. The column
+     stacks on the wide layout, so this is a row only here. */
+  .ident{
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    row-gap:0;
+  }
+  .ident-mark{ margin-bottom:0; }
+
+  /* Everything under the top row is set against the right edge — the
+     reference's `#menu{ text-align:end }`. The wide layout stays left-aligned
+     throughout, as its wide layout does. */
   .counter,
   .side-nav,
   .side-contact,
