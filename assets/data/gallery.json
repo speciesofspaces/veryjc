@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "generatedAt": "2026-09-12T20:19:01.654Z",
-=======
-  "generatedAt": "2026-09-12T20:12:33.148Z",
->>>>>>> 7d4c1d4c36ae286b62df88ce9ece0118c73fab6f
+  "generatedAt": "2026-09-12T20:41:39.106Z",
   "galleries": {
     "studies": {
       "title": "Studies",
@@ -572,7 +568,6 @@
             900
           ],
           "alt": ""
-<<<<<<< HEAD
         },
         {
           "src": "assets/images/projects/species-of-spaces/03.jpg",
@@ -699,8 +694,6 @@
             899
           ],
           "alt": ""
-=======
->>>>>>> 7d4c1d4c36ae286b62df88ce9ece0118c73fab6f
         }
       ]
     }
