@@ -83,12 +83,11 @@ export const sideMenu = {
   // project has a page of its own.
   placeholders: [],
   hideFromMenu: [],
-  // Everything after the projects, in the same list. Studies is deliberately
-  // not here for now — it is still reachable from the top bar on Home, Studies
-  // and About. Add it back as a second entry when it should return.
-  extra: [
-    { label: "About", href: "about.html" },
-  ],
+  // Everything after the projects, in the same list. Both Studies and About are
+  // deliberately unlinked for now — the pages are still built and still
+  // reachable by URL, they simply are not advertised. Add an entry back here to
+  // put either one in the menu again.
+  extra: [],
   contact: [
     { label: site.email, href: `mailto:${site.email}` },
     { label: "instagram", href: site.instagram },
@@ -113,7 +112,6 @@ export const brandPath =
 export const nav = [
   { label: "Home", href: "/" },
   { label: "Studies", href: "studies.html" },
-  { label: "About", href: "about.html" },
 ];
 
 // Project pages are slotted into the menu directly after this entry, so a new
