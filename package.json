@@ -1,0 +1,17 @@
+{
+  "name": "veryjc",
+  "private": true,
+  "type": "module",
+  "description": "juechen.uk — static photography site with an image build step.",
+  "scripts": {
+    "images": "node tools/build-images.mjs",
+    "pages": "node tools/build-pages.mjs",
+    "sitemap": "node tools/build-sitemap.mjs",
+    "check": "node tools/check-site.mjs",
+    "build": "npm run images && npm run pages && npm run sitemap && npm run check",
+    "serve": "npx --yes serve ."
+  },
+  "devDependencies": {
+    "sharp": "0.34.4"
+  }
+}

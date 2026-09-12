@@ -1,0 +1,636 @@
+{
+  "generatedAt": "2026-09-12T14:22:23.616Z",
+  "galleries": {
+    "studies": {
+      "title": "Studies",
+      "sizes": "(max-width: 720px) 50vw, (max-width: 1100px) 33vw, 25vw",
+      "images": [
+        {
+          "src": "assets/images/studies/01.jpg",
+          "base": "assets/images/studies/01",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/02.jpg",
+          "base": "assets/images/studies/02",
+          "width": 500,
+          "height": 620,
+          "widths": [
+            480,
+            500
+          ],
+          "jpegWidths": [
+            500
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/03.jpg",
+          "base": "assets/images/studies/03",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/04.jpg",
+          "base": "assets/images/studies/04",
+          "width": 895,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            895
+          ],
+          "jpegWidths": [
+            895
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/05.jpg",
+          "base": "assets/images/studies/05",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/06.jpg",
+          "base": "assets/images/studies/06",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/07.jpg",
+          "base": "assets/images/studies/07",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/08.jpg",
+          "base": "assets/images/studies/08",
+          "width": 901,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            901
+          ],
+          "jpegWidths": [
+            901
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/09.jpg",
+          "base": "assets/images/studies/09",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/10.jpg",
+          "base": "assets/images/studies/10",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/11.jpg",
+          "base": "assets/images/studies/11",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/12.jpg",
+          "base": "assets/images/studies/12",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/13.jpg",
+          "base": "assets/images/studies/13",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/14.jpg",
+          "base": "assets/images/studies/14",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/15.jpg",
+          "base": "assets/images/studies/15",
+          "width": 899,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            899
+          ],
+          "jpegWidths": [
+            899
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/16.jpg",
+          "base": "assets/images/studies/16",
+          "width": 929,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            929
+          ],
+          "jpegWidths": [
+            929
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/17.jpg",
+          "base": "assets/images/studies/17",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/18.jpg",
+          "base": "assets/images/studies/18",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/19.jpg",
+          "base": "assets/images/studies/19",
+          "width": 1200,
+          "height": 900,
+          "widths": [
+            480,
+            720,
+            960,
+            1200
+          ],
+          "jpegWidths": [
+            1200
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/20.jpg",
+          "base": "assets/images/studies/20",
+          "width": 949,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            949
+          ],
+          "jpegWidths": [
+            949
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/21.jpg",
+          "base": "assets/images/studies/21",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/22.jpg",
+          "base": "assets/images/studies/22",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/23.jpg",
+          "base": "assets/images/studies/23",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/24.jpg",
+          "base": "assets/images/studies/24",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/studies/25.jpg",
+          "base": "assets/images/studies/25",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        }
+      ]
+    }
+  },
+  "projects": {
+    "the-meadow": {
+      "title": "The Meadow",
+      "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
+      "cover": {
+        "src": "assets/images/projects/the-meadow/cover.jpg",
+        "base": "assets/images/projects/the-meadow/cover",
+        "width": 1000,
+        "height": 1000,
+        "widths": [
+          480,
+          720,
+          960,
+          1000
+        ],
+        "jpegWidths": [
+          1000
+        ],
+        "alt": ""
+      },
+      "images": [
+        {
+          "src": "assets/images/projects/the-meadow/01.jpg",
+          "base": "assets/images/projects/the-meadow/01",
+          "width": 1000,
+          "height": 1000,
+          "widths": [
+            480,
+            720,
+            960,
+            1000
+          ],
+          "jpegWidths": [
+            1000
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/the-meadow/02.jpg",
+          "base": "assets/images/projects/the-meadow/02",
+          "width": 1000,
+          "height": 1000,
+          "widths": [
+            480,
+            720,
+            960,
+            1000
+          ],
+          "jpegWidths": [
+            1000
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/the-meadow/03.jpg",
+          "base": "assets/images/projects/the-meadow/03",
+          "width": 1000,
+          "height": 1000,
+          "widths": [
+            480,
+            720,
+            960,
+            1000
+          ],
+          "jpegWidths": [
+            1000
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/the-meadow/04.jpg",
+          "base": "assets/images/projects/the-meadow/04",
+          "width": 1000,
+          "height": 1000,
+          "widths": [
+            480,
+            720,
+            960,
+            1000
+          ],
+          "jpegWidths": [
+            1000
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/the-meadow/05.jpg",
+          "base": "assets/images/projects/the-meadow/05",
+          "width": 1000,
+          "height": 999,
+          "widths": [
+            480,
+            720,
+            960,
+            1000
+          ],
+          "jpegWidths": [
+            1000
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/the-meadow/06.jpg",
+          "base": "assets/images/projects/the-meadow/06",
+          "width": 1000,
+          "height": 1000,
+          "widths": [
+            480,
+            720,
+            960,
+            1000
+          ],
+          "jpegWidths": [
+            1000
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/the-meadow/07.jpg",
+          "base": "assets/images/projects/the-meadow/07",
+          "width": 1000,
+          "height": 1000,
+          "widths": [
+            480,
+            720,
+            960,
+            1000
+          ],
+          "jpegWidths": [
+            1000
+          ],
+          "alt": ""
+        }
+      ]
+    },
+    "empty-room": {
+      "title": "Empty Room",
+      "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
+      "cover": {
+        "src": "assets/images/projects/empty-room/cover.jpg",
+        "base": "assets/images/projects/empty-room/cover",
+        "width": 800,
+        "height": 533,
+        "widths": [
+          480,
+          720,
+          800
+        ],
+        "jpegWidths": [
+          800
+        ],
+        "alt": ""
+      },
+      "images": [
+        {
+          "src": "assets/images/projects/empty-room/01.jpg",
+          "base": "assets/images/projects/empty-room/01",
+          "width": 750,
+          "height": 500,
+          "widths": [
+            480,
+            720,
+            750
+          ],
+          "jpegWidths": [
+            750
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/empty-room/02.jpg",
+          "base": "assets/images/projects/empty-room/02",
+          "width": 750,
+          "height": 500,
+          "widths": [
+            480,
+            720,
+            750
+          ],
+          "jpegWidths": [
+            750
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/empty-room/03.jpg",
+          "base": "assets/images/projects/empty-room/03",
+          "width": 500,
+          "height": 750,
+          "widths": [
+            480,
+            500
+          ],
+          "jpegWidths": [
+            500
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/empty-room/04.jpg",
+          "base": "assets/images/projects/empty-room/04",
+          "width": 800,
+          "height": 533,
+          "widths": [
+            480,
+            720,
+            800
+          ],
+          "jpegWidths": [
+            800
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/empty-room/05.jpg",
+          "base": "assets/images/projects/empty-room/05",
+          "width": 500,
+          "height": 750,
+          "widths": [
+            480,
+            500
+          ],
+          "jpegWidths": [
+            500
+          ],
+          "alt": ""
+        }
+      ]
+    }
+  },
+  "singles": {
+    "hero": {
+      "src": "assets/images/hero.jpg",
+      "base": "assets/images/hero",
+      "width": 1600,
+      "height": 1001,
+      "widths": [
+        480,
+        720,
+        960,
+        1440,
+        1600
+      ],
+      "jpegWidths": [
+        1440
+      ],
+      "alt": "",
+      "sizes": "(max-width: 1100px) 100vw, 1100px"
+    }
+  }
+}

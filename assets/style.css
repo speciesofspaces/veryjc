@@ -447,3 +447,18 @@ body.projects .thumb{
 }
 
 }
+
+/* ------------------------------------------------------------
+   Responsive images
+   The build wraps every photograph in <picture> so the browser can
+   choose AVIF / WebP / JPEG at the right width. display:contents keeps
+   the wrapper out of layout, so every rule above that targets `img`
+   keeps working untouched.
+------------------------------------------------------------ */
+picture{ display:contents; }
+
+/* Reserve the right box while a photograph loads, so nothing jumps. */
+.thumb img,
+.hero-banner img{
+  background:var(--line, #e9e9e9);
+}

@@ -1,0 +1,64 @@
+name: Build site
+
+# Runs on every push to main, and can be started by hand from the Actions tab.
+# It optimises any new photographs, rewrites the gallery blocks and the sitemap,
+# checks the result, then commits the output back to main. GitHub Pages then
+# publishes main as it already does — no repository settings need changing.
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: build-site
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install the image encoder
+        run: npm install --no-save --package-lock=false sharp@0.34.4
+
+      - name: Optimise photographs
+        run: node tools/build-images.mjs
+
+      - name: Rewrite galleries and page metadata
+        run: node tools/build-pages.mjs
+
+      - name: Rebuild sitemap and robots.txt
+        run: node tools/build-sitemap.mjs
+
+      - name: Check the scripts parse
+        run: |
+          node --check assets/viewer.js
+          node --check assets/nav.js
+
+      - name: Check the site
+        run: node tools/check-site.mjs
+
+      - name: Commit the build output
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+          else
+            git commit -m "Build photographs, pages and sitemap [skip ci]"
+            git push origin HEAD:main
+          fi

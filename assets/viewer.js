@@ -1,73 +1,25 @@
-function qs(name, fallback = null) {
-  const p = new URLSearchParams(window.location.search);
-  return p.get(name) ?? fallback;
-}
+// Full-screen viewer. Reads assets/data/gallery.json, so it knows the length of
+// a set and every image's dimensions up front — no probing, no layout shift.
 
-const type = (qs("type", "project") || "project").toLowerCase();
-const slug = qs("slug", "the-meadow");
-let i = Math.max(0, parseInt(qs("i", "0"), 10) || 0);
+// Matches .viewer-wrap { max-width: 980px } in assets/style.css.
+const SIZES = "(max-width: 1020px) 100vw, 980px";
 
-// Optional override (still supported)
-let n = parseInt(qs("n", ""), 10);
-if (Number.isNaN(n)) n = null;
+const params = new URLSearchParams(window.location.search);
+const type = (params.get("type") || "project").toLowerCase();
+const slug = params.get("slug") || "the-meadow";
+let index = Math.max(0, parseInt(params.get("i") || "0", 10) || 0);
 
-const MAX_CAP = 300;
-const CACHE_BUST = String(Date.now()); // one per page load (not per image)
-
-const CATALOG = {
-  studies: {
-    title: "Studies",
-    place: "London + UK",
-    years: "2015–2018",
-    descriptor: "Fragments",
-  },
+// Captions. Edit freely — the build never rewrites this.
+const CAPTIONS = {
+  studies: { place: "London + UK", years: "2015–2018", descriptor: "Fragments" },
   projects: {
-    "the-meadow": {
-      title: "The Meadow",
-      place: "Edinburgh, UK",
-      years: "2012",
-      descriptor: "",
-    },
-    "empty-room": {
-    title: "Empty Room",
-    place: "",
-    years: "",
-    descriptor: "",
-    },
+    "the-meadow": { place: "Edinburgh, UK", years: "2012", descriptor: "" },
+    "empty-room": { place: "", years: "", descriptor: "" },
   },
 };
 
-function metaFor() {
-  if (type === "studies") return CATALOG.studies;
-
-  const p = CATALOG.projects?.[slug];
-  if (p) return p;
-
-  return {
-    title: slug.replace(/-/g, " "),
-    place: "",
-    years: "",
-    descriptor: "",
-  };
-}
-
-function pad2(x) {
-  return String(x).padStart(2, "0");
-}
-
-function srcFor(idx) {
-  const file = pad2(idx + 1) + ".jpg";
-  if (type === "studies") return `assets/images/studies/${file}`;
-  return `assets/images/projects/${slug}/${file}`;
-}
-
-function backHref() {
-  return type === "studies" ? "studies.html" : "projects.html";
-}
-
-// Cache DOM nodes once
 const el = {
-  img: document.getElementById("viewerImg"),
+  stage: document.querySelector(".viewer-stage"),
   capTitle: document.getElementById("capTitle"),
   capSub: document.getElementById("capSub"),
   counter: document.getElementById("counter"),
@@ -76,90 +28,141 @@ const el = {
   prevBtn: document.getElementById("prevBtn"),
 };
 
-function setUICount(total) {
-  if (!el.counter) return;
-  el.counter.textContent = `${i + 1} / ${total}`;
+let images = [];
+let title = "";
+let caption = {};
+
+function srcset(image, ext) {
+  return image.widths.map((w) => `${image.base}-${w}.${ext} ${w}w`).join(", ");
 }
 
-function render(total) {
-  const meta = metaFor();
+function fallbackSrc(image) {
+  const jpegWidths = image.jpegWidths ?? image.widths;
+  const w = jpegWidths.includes(1440) ? 1440 : jpegWidths[jpegWidths.length - 1];
+  return `${image.base}-${w}.jpg`;
+}
 
-  if (el.img) {
-    el.img.src = srcFor(i);
-    el.img.alt = meta.title;
+// A fresh <picture> per frame: changing <source srcset> in place is unreliable
+// once the browser has committed to a candidate.
+function buildPicture(image, alt, { interactive = true } = {}) {
+  const picture = document.createElement("picture");
+  for (const [ext, mime] of [["avif", "image/avif"], ["webp", "image/webp"]]) {
+    const source = document.createElement("source");
+    source.type = mime;
+    source.srcset = srcset(image, ext);
+    source.sizes = SIZES;
+    picture.append(source);
   }
+  const img = document.createElement("img");
+  img.id = "viewerImg";
+  img.src = fallbackSrc(image);
+  const jpegWidths = image.jpegWidths ?? image.widths;
+  if (jpegWidths.length > 1) {
+    img.srcset = jpegWidths.map((w) => `${image.base}-${w}.jpg ${w}w`).join(", ");
+    img.sizes = SIZES;
+  }
+  img.width = image.width;
+  img.height = image.height;
+  img.alt = alt;
+  img.decoding = "async";
+  if (interactive) {
+    img.addEventListener("click", (event) => {
+      const rect = img.getBoundingClientRect();
+      if (event.clientX - rect.left < rect.width / 2) step(-1);
+      else step(1);
+    });
+  }
+  picture.append(img);
+  return picture;
+}
 
-  if (el.capTitle) el.capTitle.textContent = meta.title;
+const prefetched = new Set();
 
+// Warms the next and previous frames. It appends a real, hidden <picture> rather
+// than guessing a URL, so the browser runs its own format and width negotiation
+// and caches exactly the file the visible render will ask for a moment later.
+function preload(i) {
+  const image = images[i];
+  if (!image || prefetched.has(image.base)) return;
+  prefetched.add(image.base);
+
+  const picture = buildPicture(image, "", { interactive: false });
+  picture.style.cssText =
+    "position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;left:-9999px";
+  const img = picture.querySelector("img");
+  img.loading = "eager";
+  img.addEventListener("load", () => picture.remove(), { once: true });
+  img.addEventListener("error", () => picture.remove(), { once: true });
+  document.body.append(picture);
+}
+
+function render() {
+  const image = images[index];
+  if (!image || !el.stage) return;
+
+  const alt = image.alt || `${title} — photograph ${index + 1}`;
+  el.stage.replaceChildren(buildPicture(image, alt));
+
+  if (el.capTitle) el.capTitle.textContent = title;
   if (el.capSub) {
-    const parts = [meta.place, meta.years, meta.descriptor].filter(Boolean);
-    el.capSub.textContent = parts.join(" — ");
+    el.capSub.textContent = [caption.place, caption.years, caption.descriptor]
+      .filter(Boolean)
+      .join(" — ");
   }
-
+  if (el.counter) el.counter.textContent = `${index + 1} / ${images.length}`;
   if (el.back) {
-    el.back.href = backHref();
-    el.back.textContent = "⧉ Grid"; // or "⧉"
+    el.back.href = type === "studies" ? "studies.html" : "projects.html";
+    el.back.textContent = "⧉ Grid";
     el.back.setAttribute("aria-label", "Back to grid");
   }
 
-  setUICount(total);
+  params.set("i", String(index));
+  history.replaceState(null, "", `${window.location.pathname}?${params.toString()}`);
 
-  // update URL without reloading
-  const p = new URLSearchParams(window.location.search);
-  p.set("i", String(i));
-  history.replaceState(null, "", `${window.location.pathname}?${p.toString()}`);
+  preload((index + 1) % images.length);
+  preload((index - 1 + images.length) % images.length);
 }
 
-// Auto-detect how many images exist by loading sequentially until the first miss.
-async function detectCount() {
-  if (n && n > 0) return Math.min(n, MAX_CAP);
-
-  for (let k = 1; k <= MAX_CAP; k++) {
-    const testSrc = srcFor(k - 1);
-
-    const ok = await new Promise((resolve) => {
-      const test = new Image();
-      test.onload = () => resolve(true);
-      test.onerror = () => resolve(false);
-      test.src = `${testSrc}?v=${CACHE_BUST}`;
-    });
-
-    if (!ok) return k - 1;
-  }
-  return MAX_CAP;
+function step(delta) {
+  if (!images.length) return;
+  index = (index + delta + images.length) % images.length;
+  render();
 }
 
-let total = 1;
-
-function next() {
-  i = (i + 1) % total;
-  render(total);
-}
-
-function prev() {
-  i = (i - 1 + total) % total;
-  render(total);
-}
-
-el.nextBtn?.addEventListener("click", next);
-el.prevBtn?.addEventListener("click", prev);
-// Click image: left half = prev, right half = next
-el.img?.addEventListener("click", (e) => {
-  const rect = el.img.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  if (x < rect.width / 2) prev();
-  else next();
+el.nextBtn?.addEventListener("click", () => step(1));
+el.prevBtn?.addEventListener("click", () => step(-1));
+document.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowRight") step(1);
+  if (event.key === "ArrowLeft") step(-1);
+  if (event.key === "Escape" && el.back) window.location.href = el.back.href;
 });
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowRight") next();
-  if (e.key === "ArrowLeft") prev();
-});
-
-// Init
 (async function init() {
-  total = await detectCount();
-  if (total < 1) total = 1;
-  i = Math.max(0, Math.min(total - 1, i));
-  render(total);
+  try {
+    const response = await fetch("assets/data/gallery.json", { cache: "no-cache" });
+    const manifest = await response.json();
+
+    if (type === "studies") {
+      const gallery = manifest.galleries?.studies;
+      images = gallery?.images ?? [];
+      title = gallery?.title ?? "Studies";
+      caption = CAPTIONS.studies ?? {};
+    } else {
+      const project = manifest.projects?.[slug];
+      images = project?.images ?? [];
+      title = project?.title ?? slug.replace(/-/g, " ");
+      caption = CAPTIONS.projects?.[slug] ?? {};
+    }
+  } catch (error) {
+    console.error("Could not load the gallery manifest.", error);
+  }
+
+  if (!images.length) {
+    if (el.capTitle) el.capTitle.textContent = "Nothing to show";
+    if (el.counter) el.counter.textContent = "";
+    return;
+  }
+
+  index = Math.min(index, images.length - 1);
+  render();
 })();
