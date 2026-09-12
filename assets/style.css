@@ -34,7 +34,10 @@
   --muted:#6b6b6b;
   --hair:#eaeaea;     /* hairlines and borders only — too pale to read as text */
   --faint:#b8b8b8;    /* text that is deliberately quiet but still legible */
-  --accent:#ff7f50;   /* coral — the pointer, and any accent that follows */
+  /* Pink coral — the pointer, the hover, and the page you are on. Pinker and a
+     shade deeper than the old #ff7f50, which also lifts it from 2.50:1 to
+     2.77:1 against white. #ff6f61 is a smaller step, #f2647b a larger one. */
+  --accent:#fa6e7d;
   --max:1200px;
 
   /* Type. The reference site's weights: Plex carries more ink than Inter at
