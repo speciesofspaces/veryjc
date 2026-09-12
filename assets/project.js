@@ -13,7 +13,6 @@
   if (plates.length < 1) return;
 
   var counter = document.querySelector(".counter");
-  var ticksEl = document.querySelector(".ticks");
   var index = 0;
 
   var sizes = plates.map(function (p) {
@@ -54,29 +53,20 @@
     var height = Math.min(byHeight, byWidth, cssNumber("--plate-max-height", Infinity));
     var scale = Math.min(height / s.h, availW / s.w);
 
-    frame.style.width = Math.round(s.w * scale) + "px";
+    var w = Math.round(s.w * scale);
+    frame.style.width = w + "px";
     frame.style.height = Math.round(s.h * scale) + "px";
+    // The caption tracks the photograph's width so their left edges line up.
+    if (bar) bar.style.width = w + "px";
   }
 
   function show(n) {
     index = (n + plates.length) % plates.length;
     plates.forEach(function (p, k) { p.classList.toggle("on", k === index); });
     if (counter) counter.textContent = (index + 1) + " / " + plates.length;
-    if (ticksEl) {
-      [].forEach.call(ticksEl.children, function (t, k) {
-        t.classList.toggle("on", k === index);
-      });
-    }
     layout();
   }
 
-  if (ticksEl) {
-    ticksEl.replaceChildren.apply(ticksEl, plates.map(function () {
-      var t = document.createElement("span");
-      t.className = "tick";
-      return t;
-    }));
-  }
 
   var prev = stage.querySelector(".zone.prev");
   var next = stage.querySelector(".zone.next");

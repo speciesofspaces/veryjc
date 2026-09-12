@@ -52,7 +52,8 @@ body.project main{
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:clamp(10px, 1.6vh, 16px);
+  /* breathing room between the photograph and its caption */
+  gap:clamp(18px, 2.8vh, 32px);
   padding-inline:var(--padX);
   padding-block:clamp(14px, 3vh, 34px);
   touch-action:pan-y;
@@ -88,7 +89,7 @@ body.project main{
 .no-js .frame{ width:auto; height:auto; }
 .no-js .plate{ position:static; opacity:1; }
 .no-js .plate:not(.on){ display:none; }
-.no-js .zone, .no-js .counter, .no-js .ticks{ display:none; }
+.no-js .zone, .no-js .counter{ display:none; }
 
 /* The picture itself is the control — the zones sit inside the frame, so a
    click only counts when it lands on the photograph. */
@@ -110,12 +111,13 @@ body.project main{
 .plate-bar{
   flex:0 0 auto;
   /* no rule above: the caption belongs to the photograph, not to the
-     furniture below it. The footer's own border does the separating. */
+     furniture below it. The footer's own border does the separating.
+     Width is set in project.js to match the photograph, so the caption
+     reads as a plate label rather than a page-wide bar. */
   display:flex;
-  align-items:center;
-  gap:14px;
-  max-width:var(--max);
-  width:100%;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:5px;
   padding:0;
 }
 
@@ -133,28 +135,16 @@ body.project main{
   color:var(--muted);
 }
 
+.plate-bar .place{ white-space:nowrap; }
+
 .counter{
-  margin-left:auto;
   font-size:12px;
   color:var(--muted);
   font-variant-numeric:tabular-nums;
 }
 
-.ticks{ display:flex; gap:5px; }
-.tick{
-  width:4px; height:4px;
-  border-radius:50%;
-  background:var(--hair);
-  transition:background-color .25s ease;
-}
-.tick.on{ background:var(--ink); }
-
-@media (max-width:720px){
-  .ticks{ display:none; }
-}
-
 @media (prefers-reduced-motion:reduce){
-  .frame, .plate, .tick{ transition:none; }
+  .frame, .plate{ transition:none; }
 }
 
 /* The site footer, kept compact so it does not eat into the photograph. */
