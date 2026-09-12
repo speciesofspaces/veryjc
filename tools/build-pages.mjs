@@ -231,11 +231,12 @@ function sideBlock(file, { counter = true } = {}) {
     `      </div>`,
     ``,
     `      <div class="side-contact">`,
-    ...sideMenu.contact.map(
-      (c) =>
-        `        <span><a href="${esc(c.href)}"${
-          c.href.startsWith("http") ? ' target="_blank" rel="me noreferrer"' : ""
-        }>${esc(c.label)}</a></span>`,
+    ...sideMenu.contact.map((c) =>
+      c.href
+        ? `        <span><a href="${esc(c.href)}"${
+            c.href.startsWith("http") ? ' target="_blank" rel="me noreferrer"' : ""
+          }>${esc(c.label)}</a></span>`
+        : `        <span>${esc(c.label)}</span>`,
     ),
     `      </div>`,
   ].join("\n");
@@ -310,6 +311,13 @@ function iconBlock(indent = "  ") {
     return `${indent}<link ${attrs}>`;
   });
   lines.push(`${indent}<meta name="theme-color" content="${esc(themeColor)}">`);
+  // Every page comes through here — the generated heads call iconBlock too — so
+  // this is the one place the guard belongs. Without it, iOS Safari and some
+  // Android browsers detect the address in the page and make it tappable
+  // anyway, opening the mail client even though nothing here is a link.
+  lines.push(
+    `${indent}<meta name="format-detection" content="telephone=no,address=no,email=no,date=no">`,
+  );
   return lines.join("\n");
 }
 

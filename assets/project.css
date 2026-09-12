@@ -116,7 +116,7 @@ body.project main{
   display:flex;
   flex-direction:column;
   margin-top:18px;
-  font-size:16px;
+  font-size:15px;
   letter-spacing:.03em;
   line-height:1.75;
 }
@@ -156,6 +156,9 @@ body.project main{
   line-height:1.75;
   letter-spacing:.03em;
 }
+/* The email is plain text now, so the colour has to live on the block rather
+   than on the anchor, or it would come out black beside the Instagram link. */
+.side-contact{ color:var(--muted); }
 .side-contact a{ color:var(--muted); transition:color .2s ease; }
 .side-contact a:hover{ color:var(--accent); }
 

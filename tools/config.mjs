@@ -97,8 +97,11 @@ export const sideMenu = {
   extra: [],
   // Pages that carry the menu but no frame counter.
   hideCounterOn: ["index.html"],
+  // An entry with no `href` is printed as plain text. The address is there to
+  // be read and copied, not to launch a mail client — give it a
+  // `href: \`mailto:${site.email}\`` to make it a link again.
   contact: [
-    { label: site.email, href: `mailto:${site.email}` },
+    { label: site.email },
     { label: "instagram", href: site.instagram },
   ],
 };
