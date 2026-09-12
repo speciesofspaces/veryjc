@@ -26,6 +26,14 @@
   // frame, so there it simply fills the space available.
   var widest = sizes.reduce(function (m, s) { return Math.max(m, s.w / s.h); }, 0);
 
+  // Set in project.css as --plate-max-height. One number, one place.
+  function ceiling() {
+    var v = getComputedStyle(document.documentElement)
+      .getPropertyValue("--plate-max-height");
+    var n = parseFloat(v);
+    return isFinite(n) && n > 0 ? n : Infinity;
+  }
+
   function layout() {
     var s = sizes[index];
     var cs = getComputedStyle(stage);
@@ -33,7 +41,8 @@
     var availW = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     if (availH <= 0 || availW <= 0) return;
 
-    var height = window.innerWidth >= 1024 ? Math.min(availH, availW / widest) : availH;
+    var fits = window.innerWidth >= 1024 ? Math.min(availH, availW / widest) : availH;
+    var height = Math.min(fits, ceiling());
     var scale = Math.min(height / s.h, availW / s.w);
 
     frame.style.width = Math.round(s.w * scale) + "px";

@@ -20,6 +20,7 @@ import {
   icons,
   themeColor,
   excludedPages,
+  nav,
 } from "./config.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -110,6 +111,56 @@ function ogImageUrl(spec, file) {
   return abs(`${base}-${jpegWidths[jpegWidths.length - 1]}.jpg`);
 }
 
+// ------------------------------------------------------------------- nav ----
+
+// Menu items in order, with each project page slotted in under Projects.
+function navItems() {
+  const items = [];
+  for (const entry of nav) {
+    items.push({ label: entry.label, href: entry.href, child: false });
+    if (entry.href === projectsPage.page) {
+      for (const project of projects) {
+        if (project.page) {
+          items.push({ label: project.title, href: project.page, child: true });
+        }
+      }
+    }
+  }
+  return items;
+}
+
+// The whole menu — desktop row, hamburger and mobile panel — generated per page
+// so "active" lands on the right item and a new project appears site-wide.
+function navBlock(file) {
+  const items = navItems();
+  const isActive = (href) => (href === "/" ? "index.html" : href) === file;
+
+  const link = (item, indent) => {
+    const classes = [];
+    if (isActive(item.href)) classes.push("active");
+    if (item.child) classes.push("nav-child");
+    const attr = classes.length ? ` class="${classes.join(" ")}"` : "";
+    return `${indent}<a${attr} href="${item.href}">${esc(item.label)}</a>`;
+  };
+
+  return [
+    `    <!-- Desktop links -->`,
+    `    <div class="nav-links">`,
+    ...items.map((it) => link(it, "      ")),
+    `    </div>`,
+    ``,
+    `    <!-- Mobile hamburger -->`,
+    `    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">`,
+    `      <span></span><span></span><span></span>`,
+    `    </button>`,
+    ``,
+    `    <!-- Mobile dropdown -->`,
+    `    <div class="nav-panel" aria-hidden="true">`,
+    ...items.map((it) => link(it, "      ")),
+    `    </div>`,
+  ].join("\n");
+}
+
 // The favicon links, shared by every page including the ones kept out of the
 // sitemap — a 404 or the viewer should still show the mark.
 function iconBlock(indent = "  ") {
@@ -186,9 +237,11 @@ function projectsBlock() {
       if (!data || !data.cover) return "";
       const n = data.images.length;
       const alt = data.cover.alt || `${p.title} — cover photograph`;
-      const href =
-        `viewer.html?type=project&amp;slug=${p.slug}&amp;i=0` +
-        `&amp;from=${projectsPage.page}&amp;n=${n}`;
+      // A project with its own page goes there; otherwise the old viewer.
+      const href = p.page
+        ? p.page
+        : `viewer.html?type=project&amp;slug=${p.slug}&amp;i=0` +
+          `&amp;from=${projectsPage.page}&amp;n=${n}`;
       return [
         `    <a class="thumb" href="${href}" aria-label="Open ${esc(p.title)}">`,
         picture(data.cover, { sizes: data.sizes, alt, indent: "      " }),
@@ -220,6 +273,14 @@ function singleBlock(single) {
 
 // ------------------------------------------------------------------ main ----
 
+// Every page with a header: the listed ones, the unlisted ones, and the
+// project pages themselves.
+const navPages = [
+  ...pages.map((p) => p.file),
+  ...excludedPages,
+  ...projects.map((p) => p.page).filter(Boolean),
+];
+
 const blocksByPage = new Map();
 const add = (file, name, body) => {
   if (!blocksByPage.has(file)) blocksByPage.set(file, []);
@@ -232,6 +293,8 @@ for (const s of singles) add(s.page, s.marker, singleBlock(s));
 for (const p of pages) add(p.file, "head", headBlock(p));
 // Pages with no generated <head> still get the mark.
 for (const file of excludedPages) add(file, "icons", iconBlock());
+// Every page that has a header carries the same menu.
+for (const file of navPages) add(file, "nav", navBlock(file));
 
 let changed = 0;
 for (const [file, blocks] of blocksByPage) {

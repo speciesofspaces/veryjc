@@ -48,9 +48,20 @@ export const galleries = [
 ];
 
 // Projects each get a cover on projects.html and their own run of images.
+// `page` is the project's own page; a project without one still gets a cover,
+// which falls back to the old full-screen viewer.
 export const projects = [
-  { slug: "the-meadow", title: "The Meadow" },
-  { slug: "empty-room", title: "Empty Room" },
+  { slug: "the-meadow", title: "The Meadow", page: "the-meadow.html" },
+  { slug: "empty-room", title: "Empty Room", page: null },
+];
+
+// The header menu, generated into every page so a new project appears
+// everywhere at once. Project pages are inserted directly after Projects.
+export const nav = [
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "projects.html" },
+  { label: "Studies", href: "studies.html" },
+  { label: "About", href: "about.html" },
 ];
 
 export const projectsPage = {

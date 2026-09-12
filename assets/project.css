@@ -4,6 +4,13 @@
    scoped to body.project so no other page is affected.
 ------------------------------------------------------------ */
 
+:root{
+  /* Ceiling on how tall a photograph is allowed to get, in CSS pixels. On a
+     tall monitor the frame stops here instead of filling the window. Change
+     this one number to make every project page larger or smaller. */
+  --plate-max-height:1000px;
+}
+
 body.project{
   /* The page itself never scrolls; the frame keeps its position. */
   height:100dvh;
