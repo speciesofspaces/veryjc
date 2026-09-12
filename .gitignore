@@ -1,3 +1,6 @@
 node_modules/
 .DS_Store
 *.log
+
+# Screenshots Cowork writes into the folder — not part of the site
+Claude outputs/

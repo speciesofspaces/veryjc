@@ -64,7 +64,8 @@
   --bg:#ffffff;
   --ink:#000000;
   --muted:#6b6b6b;
-  --hair:#eaeaea;
+  --hair:#eaeaea;     /* hairlines and borders only — too pale to read as text */
+  --faint:#b8b8b8;    /* text that is deliberately quiet but still legible */
   --accent:#ff7f50;   /* coral — the pointer, and any accent that follows */
   --max:1200px;
   --gapTop: 40px;     /* space between header and page content */
@@ -131,15 +132,28 @@ a:hover{ opacity:.8; }
   position:relative; /* anchor dropdown */
 }
 
-/* Brand (single, identical mark/name, smooth crossfade) */
-/* `.nav a` sets font-size:14px and outranks a bare `.brand`, so the mark has
-   to be selected with at least as much weight or it renders at nav size. */
+/* ------------------------------------------------------------
+   The mark
+   Inlined as an SVG outline by build-pages.mjs rather than typed as 陳,
+   because Inter carries no CJK and the character would otherwise fall
+   back to PingFang, Microsoft YaHei or Noto depending on the reader's
+   machine. `currentColor` keeps it inheriting like text.
+------------------------------------------------------------ */
+.mark{
+  display:block;
+  width:var(--mark, 22px);
+  height:var(--mark, 22px);
+  flex:0 0 auto;
+}
+.mark path{ fill:currentColor; }
+
 .nav a.brand{
   margin-right:auto;
-  font-weight:700;
-  font-size:18px;
+  display:flex;
+  align-items:center;
   line-height:1;
   color:#000;
+  --mark:22px;
 }
 
 /* Desktop links */
@@ -482,8 +496,6 @@ body.projects .thumb{
     font-size:clamp(34px, 9vw, 54px);
     letter-spacing:-0.03em;
   }
-}
-
 }
 
 /* ------------------------------------------------------------
