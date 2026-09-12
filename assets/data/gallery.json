@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T19:36:59.973Z",
+  "generatedAt": "2026-09-12T19:45:34.868Z",
   "galleries": {
     "studies": {
       "title": "Studies",
@@ -513,6 +513,44 @@
           ],
           "jpegWidths": [
             1000
+          ],
+          "alt": ""
+        }
+      ]
+    },
+    "species-of-spaces": {
+      "title": "Species of Spaces",
+      "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
+      "cover": {
+        "src": "assets/images/projects/species-of-spaces/01.jpg",
+        "base": "assets/images/projects/species-of-spaces/01",
+        "width": 961,
+        "height": 1200,
+        "widths": [
+          480,
+          720,
+          960,
+          961
+        ],
+        "jpegWidths": [
+          961
+        ],
+        "alt": ""
+      },
+      "images": [
+        {
+          "src": "assets/images/projects/species-of-spaces/01.jpg",
+          "base": "assets/images/projects/species-of-spaces/01",
+          "width": 961,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            960,
+            961
+          ],
+          "jpegWidths": [
+            961
           ],
           "alt": ""
         }
