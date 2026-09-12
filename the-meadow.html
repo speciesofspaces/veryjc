@@ -2,7 +2,6 @@
 <html lang="en" class="no-js">
 <head>
 
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Meadow — Jué Chen</title>
@@ -19,40 +18,42 @@
 </head>
 <body class="project">
 
-<header class="header">
-  <nav class="nav" aria-label="Primary">
-    <!-- build:nav start -->
-    <a class="brand" href="/">陳</a>
+<div class="page">
 
-    <!-- Desktop links -->
-    <div class="nav-links">
-      <a href="/">Home</a>
-      <a href="projects.html">Projects</a>
-      <a class="active nav-child" href="the-meadow.html">The Meadow</a>
-      <a href="studies.html">Studies</a>
-      <a href="about.html">About</a>
+  <nav class="side" aria-label="Primary">
+    <div class="side-top">
+      <!-- build:side start -->
+      <div class="ident">
+        <span class="ident-name"><a href="/">Jué Chen</a></span>
+        <span class="ident-role">fine art photography</span>
+      </div>
+
+      <div class="side-nav">
+        <span><a href="the-meadow.html" aria-current="page">The Meadow</a></span>
+        <span><span class="pending">Species of Spaces</span></span>
+        <span><span class="pending">Photo Poetry</span></span>
+        <span><a href="about.html">About</a></span>
+      </div>
+
+      <div class="counter" aria-live="polite">1 / 1</div>
+
+      <div class="side-contact">
+        <span><a href="mailto:contact@juechen.uk">contact@juechen.uk</a></span>
+        <span><a href="https://instagram.com/veryjc" target="_blank" rel="me noreferrer">instagram</a></span>
+      </div>
+<!-- build:side end -->
     </div>
 
-    <!-- Mobile hamburger -->
-    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Mobile dropdown -->
-    <div class="nav-panel" aria-hidden="true">
-      <a href="/">Home</a>
-      <a href="projects.html">Projects</a>
-      <a class="active nav-child" href="the-meadow.html">The Meadow</a>
-      <a href="studies.html">Studies</a>
-      <a href="about.html">About</a>
+    <div class="side-foot">
+      <!-- build:sidefoot start -->
+      <span>© 2026 Jué Chen • 陳覺</span>
+<!-- build:sidefoot end -->
     </div>
-<!-- build:nav end -->
   </nav>
-</header>
 
-<main>
-  <section class="stage" aria-roledescription="image viewer" aria-label="The Meadow">
+  <main class="stage" aria-roledescription="image viewer" aria-label="The Meadow">
     <div class="frame">
+
       <picture class="plate on" data-w="1000" data-h="1000">
         <source type="image/avif" srcset="assets/images/projects/the-meadow/01-480.avif 480w, assets/images/projects/the-meadow/01-720.avif 720w, assets/images/projects/the-meadow/01-960.avif 960w, assets/images/projects/the-meadow/01-1000.avif 1000w" sizes="(max-width: 1023px) 92vw, 80vh">
         <source type="image/webp" srcset="assets/images/projects/the-meadow/01-480.webp 480w, assets/images/projects/the-meadow/01-720.webp 720w, assets/images/projects/the-meadow/01-960.webp 960w, assets/images/projects/the-meadow/01-1000.webp 1000w" sizes="(max-width: 1023px) 92vw, 80vh">
@@ -109,30 +110,22 @@
              loading="lazy" decoding="async">
       </picture>
 
+      <!-- build:statement start -->
+      <div class="plate plate-statement" data-w="1000" data-h="1000">
+        <div class="statement">
+          <h2>The Meadow</h2>
+          <p class="statement-meta">Edinburgh · 2012</p>
+        </div>
+      </div>
+<!-- build:statement end -->
       <button class="zone prev" type="button" aria-label="Previous photograph"></button>
       <button class="zone next" type="button" aria-label="Next photograph"></button>
     </div>
+  </main>
 
-    <div class="plate-bar">
-      <h1>The Meadow</h1>
-      <span class="place">Edinburgh · 2012</span>
-      <span class="counter" aria-live="polite">1 / 7</span>
-    </div>
-  </section>
-</main>
+</div>
 
-
-<footer class="footer">
-  <!-- build:footer start -->
-  <div class="footer-inner">
-    <div class="footer-left">© 2026 Jué Chen • 陳覺</div>
-    <a class="footer-right" href="https://instagram.com/veryjc" target="_blank" rel="noreferrer">Instagram</a>
-  </div>
-<!-- build:footer end -->
-</footer>
-
-<script src="assets/nav.js" defer></script>
-<script src="assets/cursor.js" defer></script>
 <script src="assets/project.js" defer></script>
+<script src="assets/cursor.js" defer></script>
 </body>
 </html>

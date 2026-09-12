@@ -36,28 +36,19 @@
   function layout() {
     var s = sizes[index];
     var cs = getComputedStyle(stage);
-    // The caption shares the stage now, so it and the gap come off the height
-    // the photograph is allowed to use.
-    var bar = stage.querySelector(".plate-bar");
-    var gap = parseFloat(cs.rowGap) || 0;
-    var availH = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom)
-      - (bar ? bar.offsetHeight + gap : 0);
+    var availH = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
     var availW = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     if (availH <= 0 || availW <= 0) return;
 
     // Three limits, whichever is smallest: a share of the height available, the
     // width the widest frame in the series needs, and the ceiling.
     var byHeight = availH * cssNumber("--plate-height-ratio", 1);
-    var byWidth =
-      window.innerWidth >= 1024 ? availW / widest : Infinity;
+    var byWidth = availW / widest;
     var height = Math.min(byHeight, byWidth, cssNumber("--plate-max-height", Infinity));
     var scale = Math.min(height / s.h, availW / s.w);
 
-    var w = Math.round(s.w * scale);
-    frame.style.width = w + "px";
+    frame.style.width = Math.round(s.w * scale) + "px";
     frame.style.height = Math.round(s.h * scale) + "px";
-    // The caption tracks the photograph's width so their left edges line up.
-    if (bar) bar.style.width = w + "px";
   }
 
   function show(n) {

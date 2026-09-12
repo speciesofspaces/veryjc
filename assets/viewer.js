@@ -14,7 +14,6 @@ const CAPTIONS = {
   studies: { place: "London + UK", years: "2015–2018", descriptor: "Fragments" },
   projects: {
     "the-meadow": { place: "Edinburgh, UK", years: "2012", descriptor: "" },
-    "empty-room": { place: "", years: "", descriptor: "" },
   },
 };
 

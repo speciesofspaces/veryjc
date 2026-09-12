@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T16:40:48.110Z",
+  "generatedAt": "2026-09-12T14:21:54.034Z",
   "galleries": {
     "studies": {
       "title": "Studies",
@@ -513,100 +513,6 @@
           ],
           "jpegWidths": [
             1000
-          ],
-          "alt": ""
-        }
-      ]
-    },
-    "empty-room": {
-      "title": "Empty Room",
-      "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
-      "cover": {
-        "src": "assets/images/projects/empty-room/cover.jpg",
-        "base": "assets/images/projects/empty-room/cover",
-        "width": 800,
-        "height": 533,
-        "widths": [
-          480,
-          720,
-          800
-        ],
-        "jpegWidths": [
-          800
-        ],
-        "alt": ""
-      },
-      "images": [
-        {
-          "src": "assets/images/projects/empty-room/01.jpg",
-          "base": "assets/images/projects/empty-room/01",
-          "width": 750,
-          "height": 500,
-          "widths": [
-            480,
-            720,
-            750
-          ],
-          "jpegWidths": [
-            750
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/empty-room/02.jpg",
-          "base": "assets/images/projects/empty-room/02",
-          "width": 750,
-          "height": 500,
-          "widths": [
-            480,
-            720,
-            750
-          ],
-          "jpegWidths": [
-            750
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/empty-room/03.jpg",
-          "base": "assets/images/projects/empty-room/03",
-          "width": 500,
-          "height": 750,
-          "widths": [
-            480,
-            500
-          ],
-          "jpegWidths": [
-            500
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/empty-room/04.jpg",
-          "base": "assets/images/projects/empty-room/04",
-          "width": 800,
-          "height": 533,
-          "widths": [
-            480,
-            720,
-            800
-          ],
-          "jpegWidths": [
-            800
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/empty-room/05.jpg",
-          "base": "assets/images/projects/empty-room/05",
-          "width": 500,
-          "height": 750,
-          "widths": [
-            480,
-            500
-          ],
-          "jpegWidths": [
-            500
           ],
           "alt": ""
         }

@@ -23,6 +23,7 @@ import {
   nav,
   footer,
   brand,
+  sideMenu,
 } from "./config.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -165,6 +166,79 @@ function navBlock(file) {
   ].join("\n");
 }
 
+// ---------------------------------------------------------- side menu ----
+
+// The menu on a project page: identity, the list of projects, the frame
+// counter, contact. Built from `projects` and `sideMenu` in config.mjs, so a
+// new project appears on every project page at once.
+function sideBlock(file) {
+  const items = [];
+  for (const project of projects) {
+    if (sideMenu.hideFromMenu.includes(project.slug)) continue;
+    items.push({ label: project.title, href: project.page });
+  }
+  for (const label of sideMenu.placeholders) items.push({ label, href: null });
+  for (const entry of sideMenu.extra) items.push(entry);
+
+  const line = (item) => {
+    if (!item.href) {
+      // No page yet — a name held in the menu, not a link that 404s.
+      return `        <span><span class="pending">${esc(item.label)}</span></span>`;
+    }
+    const current = item.href === file ? ' aria-current="page"' : "";
+    return `        <span><a href="${esc(item.href)}"${current}>${esc(item.label)}</a></span>`;
+  };
+
+  return [
+    `      <div class="ident">`,
+    `        <span class="ident-name"><a href="/">${esc(sideMenu.name)}</a></span>`,
+    `        <span class="ident-role">${esc(sideMenu.role)}</span>`,
+    `      </div>`,
+    ``,
+    `      <div class="side-nav">`,
+    ...items.map(line),
+    `      </div>`,
+    ``,
+    `      <div class="counter" aria-live="polite">1 / 1</div>`,
+    ``,
+    `      <div class="side-contact">`,
+    ...sideMenu.contact.map(
+      (c) =>
+        `        <span><a href="${esc(c.href)}"${
+          c.href.startsWith("http") ? ' target="_blank" rel="me noreferrer"' : ""
+        }>${esc(c.label)}</a></span>`,
+    ),
+    `      </div>`,
+  ].join("\n");
+}
+
+// The closing plate of a series: the statement, shown in the same square the
+// photographs occupy. Its data-w/data-h are taken from the project's own
+// photographs so the frame keeps its shape when you reach it.
+function statementBlock(project) {
+  const data = manifest.projects[project.slug];
+  const images = data ? data.images : [];
+  if (!images.length) throw new Error(`${project.slug}: no photographs to size the statement plate against`);
+
+  const last = images[images.length - 1];
+  const st = project.statement || {};
+  const lines = [
+    `      <div class="plate plate-statement" data-w="${last.width}" data-h="${last.height}">`,
+    `        <div class="statement">`,
+    `          <h2>${esc(project.title)}</h2>`,
+  ];
+  if (st.meta) lines.push(`          <p class="statement-meta">${esc(st.meta)}</p>`);
+  for (const para of st.body || []) lines.push(`          <p>${esc(para)}</p>`);
+  lines.push(`        </div>`, `      </div>`);
+  return lines.join("\n");
+}
+
+// The stacked credit at the foot of a project page's menu.
+function sideFootBlock() {
+  const year = new Date().getFullYear();
+  return `      <span>${esc(footer.credit.replace("{year}", String(year)))}</span>`;
+}
+
 // ---------------------------------------------------------------- footer ----
 
 // One footer for the whole site, year included, so it cannot drift between
@@ -297,13 +371,10 @@ function singleBlock(single) {
 
 // ------------------------------------------------------------------ main ----
 
-// Every page with a header: the listed ones, the unlisted ones, and the
-// project pages themselves.
-const navPages = [
-  ...pages.map((p) => p.file),
-  ...excludedPages,
-  ...projects.map((p) => p.page).filter(Boolean),
-];
+// Pages with the horizontal top bar.
+const navPages = [...pages.map((p) => p.file), ...excludedPages];
+// Pages with the vertical menu column.
+const projectPages = projects.map((p) => p.page).filter(Boolean);
 
 const blocksByPage = new Map();
 const add = (file, name, body) => {
@@ -317,10 +388,15 @@ for (const s of singles) add(s.page, s.marker, singleBlock(s));
 for (const p of pages) add(p.file, "head", headBlock(p));
 // Pages with no generated <head> still get the mark.
 for (const file of excludedPages) add(file, "icons", iconBlock());
-// Every page that has a header carries the same menu.
+// Pages with the top bar get the horizontal menu and the wide footer.
 for (const file of navPages) add(file, "nav", navBlock(file));
-// ...and the same footer.
 for (const file of navPages) add(file, "footer", footerBlock());
+// Project pages have their own column instead.
+for (const file of projectPages) add(file, "side", sideBlock(file));
+for (const project of projects) {
+  if (project.page) add(project.page, "statement", statementBlock(project));
+}
+for (const file of projectPages) add(file, "sidefoot", sideFootBlock());
 
 let changed = 0;
 for (const [file, blocks] of blocksByPage) {

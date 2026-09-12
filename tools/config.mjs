@@ -50,10 +50,35 @@ export const galleries = [
 // Projects each get a cover on projects.html and their own run of images.
 // `page` is the project's own page; a project without one still gets a cover,
 // which falls back to the old full-screen viewer.
+// `statement` becomes the last plate of the series — text shown in the same
+// square the photographs occupy. Each string in `body` is one paragraph; leave
+// the array empty and only the title and place are shown.
 export const projects = [
-  { slug: "the-meadow", title: "The Meadow", page: "the-meadow.html" },
-  { slug: "empty-room", title: "Empty Room", page: null },
+  {
+    slug: "the-meadow",
+    title: "The Meadow",
+    page: "the-meadow.html",
+    statement: {
+      meta: "Edinburgh · 2012",
+      body: [],
+    },
+  },
 ];
+
+// The side menu on project pages. Projects above are listed automatically;
+// one without a `page` yet is shown as plain text rather than a dead link.
+// `placeholders` are names reserved in the menu before any photographs exist.
+export const sideMenu = {
+  name: "Jué Chen",
+  role: "fine art photography",
+  placeholders: ["Species of Spaces", "Photo Poetry"],
+  hideFromMenu: [],
+  extra: [{ label: "About", href: "about.html" }],
+  contact: [
+    { label: site.email, href: `mailto:${site.email}` },
+    { label: "instagram", href: site.instagram },
+  ],
+};
 
 // The mark in the top-left of every page. Just the character — the full name
 // lives in the footer and in the page title.
@@ -105,7 +130,7 @@ export const pages = [
     priority: "0.9",
     title: "Projects — Jué Chen",
     description:
-      "Photographic series by Jué Chen, including The Meadow and Empty Room.",
+      "Photographic series by Jué Chen.",
     ogImage: "assets/images/projects/the-meadow/cover-1440.jpg",
   },
   {
