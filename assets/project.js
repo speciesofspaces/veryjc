@@ -158,7 +158,7 @@
     // numbered nor counted: a series of seven reads "7 / 7" at its last picture
     // rather than "8 / 8", and a series of one reads "1 / 1".
     var onStatement = plates[index].classList.contains("plate-statement");
-    counter.textContent = onStatement ? "" : index + 1 + " / " + photographs;
+    counter.textContent = onStatement ? "" : index + 1 + "/" + photographs;
   }
 
   function show(n) {

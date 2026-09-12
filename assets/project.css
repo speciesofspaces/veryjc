@@ -76,16 +76,14 @@ body.project main{
 /* The mark carries the identity here, the way the top bar carries it on every
    other page. The name sits under it as a caption rather than as a heading —
    at 52px the glyph is doing the work a 26px name used to do. */
-/* One row inside the column: the name at its left edge, where the menu below
-   starts, and the mark at its right. The markup has the mark first, so
-   `row-reverse` puts it at the far end without reordering anything — and
-   `space-between` then pins one to each edge of the column. */
+/* Two lines. The mark has the first to itself, pushed to the column's right
+   edge; the name and the tagline follow on the left, where the menu below
+   starts. So the block is bracketed: mark at one corner, everything else
+   squared up under the other. */
 .ident{
   display:flex;
-  flex-direction:row-reverse;
-  justify-content:space-between;
-  align-items:flex-end;
-  column-gap:12px;
+  flex-direction:column;
+  align-items:flex-start;
   row-gap:0;
 }
 
@@ -93,33 +91,35 @@ body.project main{
   --mark:clamp(42px, 3.4vw, 56px);
   display:block;
   width:var(--mark);
-  margin-bottom:0;
+  align-self:flex-end;
+  margin-bottom:10px;
   color:var(--ink);
   transition:color .2s ease;
 }
 .ident-mark:hover{ color:var(--accent); opacity:1; }
 
 .ident-name{
-  font-size:clamp(19px, 1.4vw, 22px);
+  font-size:17px;
   font-weight:500;
   letter-spacing:.02em;
-  line-height:1.2;
-  color:var(--muted);
+  line-height:1.35;
+  color:var(--ink);
 }
 .ident-role{
   font-size:13px;
   font-weight:var(--w-body);
-  letter-spacing:.07em;
+  letter-spacing:.05em;
+  line-height:1.4;
   color:var(--muted);
 }
 
 .side-nav{
   display:flex;
   flex-direction:column;
-  margin-top:30px;
-  font-size:14px;
-  letter-spacing:.045em;
-  line-height:1.85;
+  margin-top:18px;
+  font-size:16px;
+  letter-spacing:.03em;
+  line-height:1.75;
 }
 .side-nav a{ color:var(--ink); transition:color .2s ease; }
 .side-nav a:hover,
@@ -129,11 +129,11 @@ body.project main{
    at #eaeaea on white it sits around 1.2:1 and reads as nothing at all. */
 .side-nav .pending{ color:var(--faint); cursor:default; }
 
-/* First item of the menu block now, so this is what holds it clear of the
-   identity above. */
+/* First item of the menu block, so this is what holds it clear of the identity
+   above — and it sits close to the list, which it belongs to. */
 .counter{
-  margin-top:clamp(44px, 7vh, 86px);
-  font-size:13px;
+  margin-top:clamp(36px, 5.5vh, 58px);
+  font-size:14px;
   color:var(--muted);
   letter-spacing:.08em;
   font-variant-numeric:tabular-nums;
@@ -142,10 +142,10 @@ body.project main{
 .side-contact{
   display:flex;
   flex-direction:column;
-  margin-top:56px;
-  font-size:13px;
+  margin-top:clamp(56px, 9vh, 88px);
+  font-size:14px;
   line-height:1.75;
-  letter-spacing:.045em;
+  letter-spacing:.03em;
 }
 .side-contact a{ color:var(--muted); transition:color .2s ease; }
 .side-contact a:hover{ color:var(--accent); }
@@ -154,7 +154,7 @@ body.project main{
   flex:0 0 auto;
   display:flex;
   flex-direction:column;
-  font-size:12px;
+  font-size:12.5px;
   line-height:1.55;
   color:var(--muted);
 }
@@ -343,12 +343,17 @@ body.project main{
      stacks on the wide layout, so this is a row only here. */
   .ident{
     flex-direction:row;
+    flex-wrap:wrap;
     align-items:center;
     justify-content:space-between;
     width:100%;
     row-gap:0;
   }
-  .ident-mark{ margin-bottom:0; }
+  .ident-mark{ align-self:center; margin-bottom:0; }
+  /* The tagline takes the other end of the top row, where the name used to sit.
+     Give it `width:100%` again if a name ever returns above it and it needs a
+     line of its own. */
+  .ident-role{ width:auto; text-align:right; margin-top:0; }
 
   /* The menu alone is set against the right edge. The arrows, the contact lines
      and the credit stay at the left, so the page is anchored on both sides

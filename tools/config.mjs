@@ -72,17 +72,29 @@ export const projects = [
       body: [],
     },
   },
+  {
+    slug: "photo-poetry",
+    title: "Photo Poetry",
+    page: "photo-poetry.html",
+    statement: {
+      meta: "",
+      body: [],
+    },
+  },
 ];
 
 // The side menu on project pages. Projects above are listed automatically;
 // one without a `page` yet is shown as plain text rather than a dead link.
 // `placeholders` are names reserved in the menu before any photographs exist.
 export const sideMenu = {
-  // `role` is left in place because the build still honours it — put a string
-  // back and a second line returns under the name.
-  name: "Jué Chen",
-  role: "",
-  placeholders: ["Photo Poetry"],
+  // The mark is the identity now, with the tagline under it. Either of these
+  // can be empty and the build leaves that line out altogether rather than
+  // writing an empty span — put a string back and the line returns.
+  name: "",
+  role: "fine art photography",
+  // Names held in the menu before any photographs exist. Empty now that every
+  // project has a page of its own.
+  placeholders: [],
   hideFromMenu: [],
   // Everything after the projects, in the same list. Studies is deliberately
   // not here for now — it is still reachable from the top bar on Home, Studies
@@ -167,6 +179,24 @@ export const pages = [
     description:
       "The Meadow — a photographic series by Jué Chen made in Edinburgh, 2012.",
     ogImage: "assets/images/projects/the-meadow/cover-1440.jpg",
+  },
+  {
+    file: "species-of-spaces.html",
+    path: "/species-of-spaces.html",
+    priority: "0.7",
+    title: "Species of Spaces — Jué Chen",
+    description:
+      "Species of Spaces — a photographic series by Jué Chen.",
+    ogImage: "assets/images/projects/species-of-spaces/01-1440.jpg",
+  },
+  {
+    file: "photo-poetry.html",
+    path: "/photo-poetry.html",
+    priority: "0.7",
+    title: "Photo Poetry — Jué Chen",
+    description:
+      "Photo Poetry — a photographic series by Jué Chen.",
+    ogImage: "assets/images/projects/photo-poetry/01-1440.jpg",
   },
   {
     file: "studies.html",

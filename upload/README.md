@@ -7,6 +7,7 @@ Drop new photographs here, commit, push. The build does the rest.
 | `upload/studies/`       | Studies        |
 | `upload/projects/the-meadow/` | The Meadow |
 | `upload/projects/species-of-spaces/` | Species of Spaces |
+| `upload/projects/photo-poetry/` | Photo Poetry |
 
 File names don't matter — they're renumbered on from the highest existing
 photograph in that set, then moved into `assets/images/…`. This folder is
