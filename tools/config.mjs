@@ -70,6 +70,8 @@ export const projects = [
 // `placeholders` are names reserved in the menu before any photographs exist.
 export const sideMenu = {
   name: "Jué Chen",
+  // Empty and the line is left out altogether rather than written as an empty
+  // span.
   role: "fine art photography",
   placeholders: ["Species of Spaces", "Photo Poetry"],
   hideFromMenu: [],

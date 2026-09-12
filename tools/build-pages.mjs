@@ -205,7 +205,9 @@ function sideBlock(file) {
     `      <div class="ident">`,
     `        <a class="ident-mark" href="/">${markSvg("mark")}</a>`,
     `        <span class="ident-name">${esc(sideMenu.name)}</span>`,
-    `        <span class="ident-role">${esc(sideMenu.role)}</span>`,
+    ...(sideMenu.role
+      ? [`        <span class="ident-role">${esc(sideMenu.role)}</span>`]
+      : []),
     `      </div>`,
     ``,
     `      <div class="counter" aria-live="polite">1 / 1</div>`,

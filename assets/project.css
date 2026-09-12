@@ -76,14 +76,13 @@ body.project main{
 /* The mark carries the identity here, the way the top bar carries it on every
    other page. The name sits under it as a caption rather than as a heading —
    at 52px the glyph is doing the work a 26px name used to do. */
-/* Set to the right, against the window edge, so the mark reads as the corner of
-   the page rather than as the first item of a list. The menu below stays
-   left-aligned — a ragged left edge on a run of links is hard to scan. */
+/* Everything in the column shares one left edge — mark, name, count, menu,
+   contact, credit. Nothing is measured or right-aligned: the block simply
+   starts where the menu starts. */
 .ident{
   display:flex;
   flex-direction:column;
-  align-items:flex-end;
-  text-align:right;
+  align-items:flex-start;
   row-gap:4px;
 }
 
@@ -91,7 +90,7 @@ body.project main{
   --mark:clamp(42px, 3.4vw, 56px);
   display:block;
   width:var(--mark);
-  margin-bottom:14px;
+  margin-bottom:5px;
   color:var(--ink);
   transition:color .2s ease;
 }
@@ -114,7 +113,7 @@ body.project main{
 .side-nav{
   display:flex;
   flex-direction:column;
-  margin-top:14px;
+  margin-top:30px;
   font-size:14px;
   letter-spacing:.045em;
   line-height:1.85;
@@ -140,7 +139,7 @@ body.project main{
 .side-contact{
   display:flex;
   flex-direction:column;
-  margin-top:26px;
+  margin-top:56px;
   font-size:13px;
   line-height:1.75;
   letter-spacing:.045em;
@@ -290,8 +289,55 @@ body.project main{
   .side-contact{ order:5; }
   .side-foot{ order:6; margin-top:30px; }
 
-  .ident-mark{ --mark:38px; margin-bottom:10px; }
+  .ident-mark{ --mark:38px; margin-bottom:4px; }
   .ident{ margin-bottom:24px; }
+
+  /* --------------------------------------------------------------- stack ---
+     The viewer becomes a scroll. Every photograph comes out of the absolute
+     stack and into the flow, one under the other, and the browser does the
+     paging — momentum, lazy loading and a remembered position on the way back,
+     none of which a bespoke pager gives you. project.js stands down below this
+     width (see STACK_BELOW there) and clears the inline size it wrote on the
+     frame, so no !important is needed here. */
+  .stage{
+    display:block;
+    min-height:0;
+    user-select:auto;
+  }
+
+  .frame{
+    width:auto;
+    height:auto;
+    transition:none;
+  }
+
+  .plate{
+    position:static;
+    opacity:1;
+    pointer-events:auto;
+    transition:none;
+    margin-bottom:clamp(18px, 5vw, 34px);
+  }
+  .plate:last-child{ margin-bottom:0; }
+
+  /* The photographs are square-ish but not identical, so height goes back to
+     auto and each one keeps its own shape down the column. */
+  .plate img{
+    width:100%;
+    height:auto;
+  }
+
+  /* The picture is no longer a control — the halves would sit over the whole
+     column and swallow every tap. */
+  .zone{ display:none; }
+
+  /* The statement stops being a plate in a square and becomes the closing text
+     at the foot of the scroll, which is what it reads as anyway. */
+  .plate-statement{
+    display:block;
+    overflow:visible;
+    margin-top:clamp(8px, 2vw, 16px);
+  }
 }
 
 @media (prefers-reduced-motion:reduce){

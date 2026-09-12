@@ -1,6 +1,11 @@
 // Project page viewer. The photographs are already in the HTML as <picture>
 // elements — this only decides which one is visible and how wide the frame is.
 // If it never runs, the first photograph still shows (see .no-js in project.css).
+//
+// Below STACK_BELOW the page stops being a viewer and becomes a scroll: every
+// photograph in the flow, one under the other, paged by the browser. This file
+// stands down there — it clears the sizes it wrote and ignores every gesture —
+// and project.css does the rest. The two numbers must stay in step.
 
 (function () {
   var frame = document.querySelector(".frame");
@@ -14,6 +19,16 @@
 
   var counter = document.querySelector(".counter");
   var index = 0;
+
+  var STACK_BELOW = 820; // keep in step with the media query in project.css
+  var stackQuery = window.matchMedia("(max-width:" + STACK_BELOW + "px)");
+  function stacked() { return stackQuery.matches; }
+
+  // The closing plate is a statement, not a photograph, so it is not counted
+  // when the count is spelled out.
+  var photographs = plates.filter(function (p) {
+    return !p.classList.contains("plate-statement");
+  }).length;
 
   var sizes = plates.map(function (p) {
     return { w: +p.dataset.w || 1, h: +p.dataset.h || 1 };
@@ -34,6 +49,15 @@
   }
 
   function layout() {
+    // In the stack the browser does the sizing. The width and height this
+    // function wrote inline while the viewer was running would override it, so
+    // they have to go rather than merely be ignored.
+    if (stacked()) {
+      frame.style.width = "";
+      frame.style.height = "";
+      return;
+    }
+
     var s = sizes[index];
     var cs = getComputedStyle(stage);
     var availH = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
@@ -51,11 +75,31 @@
     frame.style.height = Math.round(s.h * scale) + "px";
   }
 
+  function updateCounter() {
+    if (!counter) return;
+    counter.textContent = stacked()
+      ? photographs + " photographs"
+      : index + 1 + " / " + plates.length;
+  }
+
   function show(n) {
+    if (stacked()) return; // they are all on screen; there is nothing to show
     index = (n + plates.length) % plates.length;
     plates.forEach(function (p, k) { p.classList.toggle("on", k === index); });
-    if (counter) counter.textContent = (index + 1) + " / " + plates.length;
+    updateCounter();
     layout();
+  }
+
+  // Called at startup and whenever the window crosses the breakpoint, so a
+  // rotation or a resized desktop window lands in the right mode rather than
+  // keeping the other one's inline styles.
+  function sync() {
+    if (stacked()) {
+      layout();
+      updateCounter();
+    } else {
+      show(index);
+    }
   }
 
 
@@ -65,6 +109,7 @@
   if (next) next.addEventListener("click", function () { show(index + 1); });
 
   document.addEventListener("keydown", function (e) {
+    if (stacked()) return; // the arrow keys belong to the scroll
     if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
     var t = e.target;
     if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
@@ -74,11 +119,13 @@
 
   var tx = 0, ty = 0;
   stage.addEventListener("touchstart", function (e) {
+    if (stacked()) return;
     tx = e.touches[0].clientX;
     ty = e.touches[0].clientY;
   }, { passive: true });
 
   stage.addEventListener("touchend", function (e) {
+    if (stacked()) return; // a sideways swipe must not steal the scroll
     var dx = e.changedTouches[0].clientX - tx;
     var dy = e.changedTouches[0].clientY - ty;
     if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy)) show(dx > 0 ? index - 1 : index + 1);
@@ -90,5 +137,8 @@
     pending = requestAnimationFrame(layout);
   });
 
-  show(0);
+  if (stackQuery.addEventListener) stackQuery.addEventListener("change", sync);
+  else stackQuery.addListener(sync); // Safari before 14
+
+  sync();
 })();
