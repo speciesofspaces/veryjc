@@ -5,10 +5,20 @@
 ------------------------------------------------------------ */
 
 :root{
-  /* Ceiling on how tall a photograph is allowed to get, in CSS pixels. On a
-     tall monitor the frame stops here instead of filling the window. Change
-     this one number to make every project page larger or smaller. */
-  --plate-max-height:620px;
+  /* How the photograph is sized, in two parts.
+
+     ratio — the share of the space between header and caption that the
+     photograph takes. The remainder becomes white space, split evenly above
+     and below, so the margin stays proportional at any window height instead
+     of being whatever happens to be left over. 0.88 leaves about 6% of the
+     space as air on each side.
+
+     max — a ceiling in CSS pixels. Set to the height of the source files, so a
+     photograph is never displayed larger than it actually is. It only bites on
+     windows taller than about 1330px; below that the ratio governs and the
+     margin stays proportional. */
+  --plate-height-ratio:0.88;
+  --plate-max-height:1000px;
 }
 
 body.project{
@@ -151,5 +161,6 @@ body.project main{
 body.project .footer{
   flex:0 0 auto;
   margin-top:0;
-  padding:13px 0 15px;
+  /* room to breathe beneath the credit rather than sitting on the window edge */
+  padding:14px 0 32px;
 }
