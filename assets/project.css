@@ -76,34 +76,34 @@ body.project main{
 /* The mark carries the identity here, the way the top bar carries it on every
    other page. The name sits under it as a caption rather than as a heading —
    at 52px the glyph is doing the work a 26px name used to do. */
-/* Everything in the column shares one left edge — mark, name, count, menu,
-   contact, credit. Nothing is measured or right-aligned: the block simply
-   starts where the menu starts. */
+/* One row inside the column: the name at its left edge, where the menu below
+   starts, and the mark at its right. The markup has the mark first, so
+   `row-reverse` puts it at the far end without reordering anything — and
+   `space-between` then pins one to each edge of the column. */
 .ident{
   display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  row-gap:4px;
+  flex-direction:row-reverse;
+  justify-content:space-between;
+  align-items:flex-end;
+  column-gap:12px;
+  row-gap:0;
 }
 
 .ident-mark{
   --mark:clamp(42px, 3.4vw, 56px);
   display:block;
   width:var(--mark);
-  margin-bottom:5px;
+  margin-bottom:0;
   color:var(--ink);
   transition:color .2s ease;
 }
 .ident-mark:hover{ color:var(--accent); opacity:1; }
 
-/* The colour was already --muted; it was the heading weight that kept it
-   reading as dark. At the body weight it sits back the way the tagline it
-   replaced did. */
 .ident-name{
-  font-size:15px;
-  font-weight:var(--w-body);
-  letter-spacing:.04em;
-  line-height:1.3;
+  font-size:clamp(19px, 1.4vw, 22px);
+  font-weight:500;
+  letter-spacing:.02em;
+  line-height:1.2;
   color:var(--muted);
 }
 .ident-role{
@@ -246,7 +246,7 @@ body.project main{
   width:100%;
   height:22px;
   align-items:center;
-  justify-content:flex-end;
+  justify-content:flex-start;   /* at the left edge, as the reference's are */
   flex:0 0 auto;
   appearance:none;
   background:none;
@@ -350,17 +350,17 @@ body.project main{
   }
   .ident-mark{ margin-bottom:0; }
 
-  /* Everything under the top row is set against the right edge — the
-     reference's `#menu{ text-align:end }`. The wide layout stays left-aligned
-     throughout, as its wide layout does. */
+  /* The menu alone is set against the right edge. The arrows, the contact lines
+     and the credit stay at the left, so the page is anchored on both sides
+     rather than everything sliding to one. */
   .counter,
-  .side-nav,
+  .side-nav{ text-align:right; }
   .side-contact,
-  .side-foot{ text-align:right; }
+  .side-foot{ text-align:left; }
 
   /* Everything drops to roughly the reference site's scale. */
-  .ident-mark{ --mark:24px; margin-bottom:3px; }
-  .ident-name{ font-size:14px; }
+  .ident-mark{ --mark:24px; margin-bottom:0; }
+  .ident-name{ font-size:15px; letter-spacing:.04em; }
   .ident-role{ font-size:12px; letter-spacing:.06em; }
 
   /* Hidden rather than removed: it is still written, and the short-viewport
