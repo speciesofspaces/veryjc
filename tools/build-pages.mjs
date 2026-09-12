@@ -23,6 +23,7 @@ import {
   nav,
   footer,
   brand,
+  brandPath,
   sideMenu,
 } from "./config.mjs";
 
@@ -39,6 +40,16 @@ const esc = (s) =>
     .replace(/"/g, "&quot;");
 
 const abs = (rel) => `${site.url.replace(/\/$/, "")}/${String(rel).replace(/^\//, "")}`;
+
+// The mark, inlined. Inline rather than <img> so it costs no request, inherits
+// currentColor and can be sized by CSS; the accessible name is the character
+// itself, so a screen reader still reads it as 陳.
+function markSvg(cls) {
+  return (
+    `<svg class="${cls}" viewBox="0 0 100 100" role="img" ` +
+    `aria-label="${esc(brand)}" focusable="false"><path d="${brandPath}"/></svg>`
+  );
+}
 
 function srcset(image, ext) {
   return image.widths.map((w) => `${image.base}-${w}.${ext} ${w}w`).join(", ");
@@ -147,7 +158,7 @@ function navBlock(file) {
   };
 
   return [
-    `    <a class="brand" href="/">${esc(brand)}</a>`,
+    `    <a class="brand" href="/">${markSvg("mark")}</a>`,
     ``,
     `    <!-- Desktop links -->`,
     `    <div class="nav-links">`,
@@ -172,13 +183,16 @@ function navBlock(file) {
 // counter, contact. Built from `projects` and `sideMenu` in config.mjs, so a
 // new project appears on every project page at once.
 function sideBlock(file) {
-  const items = [];
+  // Two lists, not one. The first is the body of work; the second is the rest
+  // of the site, which used to be a single "About" and left a project page with
+  // no way back to Projects or Studies.
+  const work = [];
   for (const project of projects) {
     if (sideMenu.hideFromMenu.includes(project.slug)) continue;
-    items.push({ label: project.title, href: project.page });
+    work.push({ label: project.title, href: project.page });
   }
-  for (const label of sideMenu.placeholders) items.push({ label, href: null });
-  for (const entry of sideMenu.extra) items.push(entry);
+  for (const label of sideMenu.placeholders) work.push({ label, href: null });
+  const also = [...sideMenu.extra];
 
   const line = (item) => {
     if (!item.href) {
@@ -191,12 +205,18 @@ function sideBlock(file) {
 
   return [
     `      <div class="ident">`,
-    `        <span class="ident-name"><a href="/">${esc(sideMenu.name)}</a></span>`,
+    `        <a class="ident-mark" href="/">${markSvg("mark")}</a>`,
+    `        <span class="ident-name">${esc(sideMenu.name)}</span>`,
     `        <span class="ident-role">${esc(sideMenu.role)}</span>`,
     `      </div>`,
     ``,
     `      <div class="side-nav">`,
-    ...items.map(line),
+    ...work.map(line),
+    `      </div>`,
+    ``,
+    `      <div class="side-nav side-nav-also">`,
+    `        <div class="group">${esc(sideMenu.alsoLabel)}</div>`,
+    ...also.map(line),
     `      </div>`,
     ``,
     `      <div class="counter" aria-live="polite">1 / 1</div>`,
@@ -371,10 +391,13 @@ function singleBlock(single) {
 
 // ------------------------------------------------------------------ main ----
 
-// Pages with the horizontal top bar.
-const navPages = [...pages.map((p) => p.file), ...excludedPages];
 // Pages with the vertical menu column.
 const projectPages = projects.map((p) => p.page).filter(Boolean);
+// Pages with the horizontal top bar. A project page is listed in `pages` so it
+// gets a generated <head> and a sitemap entry, but it has no top bar to fill.
+const navPages = [...pages.map((p) => p.file), ...excludedPages].filter(
+  (file) => !projectPages.includes(file),
+);
 
 const blocksByPage = new Map();
 const add = (file, name, body) => {

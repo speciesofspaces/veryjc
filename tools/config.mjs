@@ -69,20 +69,37 @@ export const projects = [
 // one without a `page` yet is shown as plain text rather than a dead link.
 // `placeholders` are names reserved in the menu before any photographs exist.
 export const sideMenu = {
-  name: "Jué Chen",
+  name: "Jué Chen · 陳覺",
   role: "fine art photography",
   placeholders: ["Species of Spaces", "Photo Poetry"],
   hideFromMenu: [],
-  extra: [{ label: "About", href: "about.html" }],
+  // Everything that is not a project, listed under its own small heading so a
+  // project page is not a dead end — before this there was no route from a
+  // project to Projects or Studies at all.
+  alsoLabel: "Also",
+  extra: [
+    { label: "Projects", href: "projects.html" },
+    { label: "Studies", href: "studies.html" },
+    { label: "About", href: "about.html" },
+  ],
   contact: [
     { label: site.email, href: `mailto:${site.email}` },
     { label: "instagram", href: site.instagram },
   ],
 };
 
-// The mark in the top-left of every page. Just the character — the full name
-// lives in the footer and in the page title.
+// The mark. `brand` is the character itself, used as the accessible name;
+// `brandPath` is the same glyph as an outline, taken from assets/icons/favicon.svg
+// and inlined into every page by build-pages.mjs.
+//
+// It has to be a path, not the character: Inter carries no CJK, so a typed 陳
+// falls back to PingFang on a Mac, Microsoft YaHei on Windows and Noto on
+// Android — a different letterform for every reader, and font-weight on it gets
+// synthesised into a fake bold. The outline looks the same everywhere, scales,
+// and takes its colour from currentColor.
 export const brand = "陳";
+export const brandPath =
+  "M40.01 32.33V61.63H51.34C46.39 68.85 38.83 75.48 31.28 78.92C33.04 80.44 35.39 83.29 36.57 85.14C44.21 80.94 51.68 73.64 56.88 65.41V88.92H64.61V64.99C69.14 73.05 75.61 80.44 82.41 84.63C83.58 82.7 86.02 79.85 87.7 78.42C80.9 75.06 74.18 68.6 69.73 61.63H82.16V32.33H64.61V26.11H85.43V19.31H64.61V11H56.88V19.31H36.73V26.11H56.88V32.33ZM46.98 49.62H56.88V55.84H46.98ZM64.61 49.62H74.85V55.84H64.61ZM46.98 38.04H56.88V44.16H46.98ZM64.61 38.04H74.85V44.16H64.61ZM12.3 14.61V89H19.27V21.75H28.34C26.66 27.46 24.56 34.93 22.46 40.72C27.92 46.85 29.26 52.39 29.26 56.59C29.26 59.11 28.93 61.04 27.75 61.96C27.08 62.47 26.16 62.64 25.23 62.72C23.97 62.72 22.63 62.72 20.87 62.64C21.96 64.57 22.63 67.59 22.71 69.44C24.64 69.52 26.66 69.52 28.25 69.35C30.02 69.02 31.61 68.51 32.79 67.67C35.31 65.91 36.31 62.38 36.31 57.51C36.31 52.48 35.05 46.6 29.35 39.88C32.03 33.25 34.97 24.35 37.32 17.3L32.12 14.27L30.94 14.61Z";
 
 // The header menu, generated into every page so a new project appears
 // everywhere at once. Project pages are inserted directly after Projects.
@@ -131,6 +148,15 @@ export const pages = [
     title: "Projects — Jué Chen",
     description:
       "Photographic series by Jué Chen.",
+    ogImage: "assets/images/projects/the-meadow/cover-1440.jpg",
+  },
+  {
+    file: "the-meadow.html",
+    path: "/the-meadow.html",
+    priority: "0.7",
+    title: "The Meadow — Jué Chen",
+    description:
+      "The Meadow — a photographic series by Jué Chen made in Edinburgh, 2012.",
     ogImage: "assets/images/projects/the-meadow/cover-1440.jpg",
   },
   {
