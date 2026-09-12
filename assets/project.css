@@ -319,21 +319,26 @@ body.project main{
      items of .page and can be ordered around the stage. */
   .side, .side-top{ display:contents; }
 
+  /* The reference's order on a phone, which is not the order of the markup:
+     the mark alone at the top left, then the menu set against the right edge,
+     then the photograph filling what is left, and the credit on the bottom
+     edge. The stage is the only thing that flexes, so it absorbs all the slack
+     and the credit is held against the bottom without being positioned. */
   .ident{ order:1; flex:0 0 auto; }
-  .nav-arrow.up{ order:2; margin-bottom:6px; }
-  .stage{ order:3; flex:1 1 auto; min-height:0; }
-  .nav-arrow.down{ order:4; margin-top:6px; }
-  .counter{ order:5; }
-  .side-nav{ order:6; flex:0 0 auto; }
-  .side-contact{ order:7; flex:0 0 auto; }
+  .counter{ order:2; }
+  .side-nav{ order:3; flex:0 0 auto; }
+  .side-contact{ order:4; flex:0 0 auto; }
+  .nav-arrow.up{ order:5; margin:14px 0 6px; }
+  .stage{ order:6; flex:1 1 auto; min-height:0; }
+  .nav-arrow.down{ order:7; margin-top:6px; }
   .side-foot{ order:8; flex:0 0 auto; }
 
   .nav-arrow{ display:flex; }
 
-  /* The column sets itself against the right edge here, as the reference's does
-     on a phone — `#menu{ text-align:end }` there. On the wide layout both sites
-     stay left-aligned. */
-  .ident{ align-items:flex-end; text-align:right; }
+  /* The mark and the name sit top left, the way the reference's logo does in
+     its top bar. Everything below is set against the right edge — its
+     `#menu{ text-align:end }`. The wide layout stays left-aligned throughout. */
+  .ident{ align-items:flex-start; text-align:left; }
   .counter,
   .side-nav,
   .side-contact,
