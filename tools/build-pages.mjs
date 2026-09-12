@@ -264,30 +264,6 @@ function platesBlock(project) {
     .join("\n\n");
 }
 
-// The closing plate of a series: the statement, shown in the same square the
-// photographs occupy. Its data-w/data-h are taken from the project's own
-// photographs so the frame keeps its shape when you reach it.
-function statementBlock(project) {
-  const data = manifest.projects[project.slug];
-  const images = data ? data.images : [];
-  // A project can exist in the menu before a single photograph has been
-  // uploaded. There is nothing to size the statement against and nothing for it
-  // to close, so the block stays empty until there is.
-  if (!images.length) return "";
-
-  const last = images[images.length - 1];
-  const st = project.statement || {};
-  const lines = [
-    `      <div class="plate plate-statement" data-w="${last.width}" data-h="${last.height}">`,
-    `        <div class="statement">`,
-    `          <h2>${esc(project.title)}</h2>`,
-  ];
-  if (st.meta) lines.push(`          <p class="statement-meta">${esc(st.meta)}</p>`);
-  for (const para of st.body || []) lines.push(`          <p>${esc(para)}</p>`);
-  lines.push(`        </div>`, `      </div>`);
-  return lines.join("\n");
-}
-
 // The stacked credit at the foot of a project page's menu.
 function sideFootBlock() {
   const year = new Date().getFullYear();
@@ -454,7 +430,6 @@ for (const file of projectPages) add(file, "side", sideBlock(file));
 for (const project of projects) {
   if (!project.page) continue;
   add(project.page, "plates", platesBlock(project));
-  add(project.page, "statement", statementBlock(project));
 }
 for (const file of projectPages) add(file, "sidefoot", sideFootBlock());
 

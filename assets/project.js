@@ -46,12 +46,6 @@
     return narrowQuery.matches ? "pager" : "viewer";
   }
 
-  // The closing plate is a statement, not a photograph, so it is left out when
-  // the count is spelled out rather than given as a position.
-  var photographs = plates.filter(function (p) {
-    return !p.classList.contains("plate-statement");
-  }).length;
-
   var sizes = plates.map(function (p) {
     return { w: +p.dataset.w || 1, h: +p.dataset.h || 1 };
   });
@@ -150,15 +144,10 @@
 
   function updateCounter() {
     if (!counter) return;
-    if (mode() === "stack") {
-      counter.textContent = photographs + " photographs";
-      return;
-    }
-    // The closing statement is a plate but not a photograph, so it is neither
-    // numbered nor counted: a series of seven reads "7 / 7" at its last picture
-    // rather than "8 / 8", and a series of one reads "1 / 1".
-    var onStatement = plates[index].classList.contains("plate-statement");
-    counter.textContent = onStatement ? "" : index + 1 + "/" + photographs;
+    counter.textContent =
+      mode() === "stack"
+        ? plates.length + " photographs"
+        : index + 1 + "/" + plates.length;
   }
 
   function show(n) {

@@ -76,10 +76,8 @@ body.project main{
 /* The mark carries the identity here, the way the top bar carries it on every
    other page. The name sits under it as a caption rather than as a heading —
    at 52px the glyph is doing the work a 26px name used to do. */
-/* Two lines. The mark has the first to itself, pushed to the column's right
-   edge; the name and the tagline follow on the left, where the menu below
-   starts. So the block is bracketed: mark at one corner, everything else
-   squared up under the other. */
+/* Two lines, both starting at the column's left edge, where the menu below
+   starts: the mark on the first, the tagline under it on the second. */
 .ident{
   display:flex;
   flex-direction:column;
@@ -91,7 +89,6 @@ body.project main{
   --mark:clamp(42px, 3.4vw, 56px);
   display:block;
   width:var(--mark);
-  align-self:flex-end;
   margin-bottom:10px;
   color:var(--ink);
   transition:color .2s ease;
@@ -198,48 +195,13 @@ body.project main{
 .plate.on{ opacity:1; }
 .plate img{ width:100%; height:100%; object-fit:contain; display:block; }
 
-/* The closing plate: the statement, set in the square the photographs occupy.
-   It scrolls inside itself rather than overflowing, because on a phone that
-   square is only about 350px across. */
-.plate-statement{
-  display:flex;
-  align-items:flex-end;
-  overflow-y:auto;
-  scrollbar-width:none;
-}
-.plate-statement::-webkit-scrollbar{ display:none; }
-
-.statement{
-  width:100%;
-  max-width:46ch;
-  padding:0 2px 2px 0;
-}
-.statement h2{
-  margin:0 0 4px;
-  font-size:clamp(15px, .5vw + 12px, 19px);
-  font-weight:var(--w-heading);
-  letter-spacing:-0.015em;
-}
-.statement .statement-meta{
-  margin:0 0 18px;
-  font-size:11px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:var(--muted);
-}
-.statement p{
-  margin:0 0 13px;
-  font-size:clamp(13px, .32vw + 11px, 15px);
-  line-height:1.72;
-  color:var(--ink);
-}
-.statement p:last-child{ margin-bottom:0; }
-
 /* ---------------------------------------------------------------- arrows ---
    A chevron above and below the photo space, as the reference site has: an 8px
    square with two of its borders drawn, rotated. project.js builds them, so no
    project page has to carry them in its markup and a page without JavaScript
-   never shows a control that cannot work.
+   never shows a control that cannot work. Hidden everywhere but the pager —
+   without this rule a browser's default button styling shows through as a grey
+   bar beside the photograph on the wide layout.
 --------------------------------------------------------------------------- */
 .nav-arrow{
   display:none;            /* the pager turns them on */
@@ -412,11 +374,6 @@ body.project main{
      move. */
   .zone{ display:none; }
 
-  .plate-statement{
-    align-items:center;
-    overflow-y:auto;
-  }
-  .statement{ max-width:none; }
 }
 
 /* ---------------------------------------------------- narrow and short ---
@@ -460,11 +417,6 @@ body.project main{
   /* Nothing to step through — the scroll is the navigation. */
   .nav-arrow{ display:none; }
 
-  .plate-statement{
-    display:block;
-    overflow:visible;
-    margin-top:clamp(8px, 2vw, 16px);
-  }
 }
 
 @media (prefers-reduced-motion:reduce){

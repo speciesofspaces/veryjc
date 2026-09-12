@@ -50,36 +50,21 @@ export const galleries = [
 // Each project has its own page and its own run of images. The cover is still
 // built, because it is the page's Open Graph image; a project without a `page`
 // of its own falls back to the full-screen viewer.
-// `statement` becomes the last plate of the series — text shown in the same
-// square the photographs occupy. Each string in `body` is one paragraph; leave
-// the array empty and only the title and place are shown.
 export const projects = [
   {
     slug: "the-meadow",
     title: "The Meadow",
     page: "the-meadow.html",
-    statement: {
-      meta: "Edinburgh · 2012",
-      body: [],
-    },
   },
   {
     slug: "species-of-spaces",
     title: "Species of Spaces",
     page: "species-of-spaces.html",
-    statement: {
-      meta: "",
-      body: [],
-    },
   },
   {
     slug: "photo-poetry",
     title: "Photo Poetry",
     page: "photo-poetry.html",
-    statement: {
-      meta: "",
-      body: [],
-    },
   },
 ];
 
