@@ -141,3 +141,10 @@ export const icons = [
 
 // Browser chrome colour on mobile. Matches --bg in assets/style.css.
 export const themeColor = "#ffffff";
+
+// The footer, generated into every page so it stays identical everywhere and
+// the year looks after itself.
+export const footer = {
+  owner: site.author,
+  links: [{ label: "Instagram", href: site.instagram }],
+};

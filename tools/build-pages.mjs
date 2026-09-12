@@ -21,6 +21,7 @@ import {
   themeColor,
   excludedPages,
   nav,
+  footer,
 } from "./config.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -161,6 +162,26 @@ function navBlock(file) {
   ].join("\n");
 }
 
+// ---------------------------------------------------------------- footer ----
+
+// One footer for the whole site, year included, so it cannot drift between
+// pages and nobody has to remember to change it in January.
+function footerBlock() {
+  const year = new Date().getFullYear();
+  const links = footer.links
+    .map(
+      (l) =>
+        `    <a class="footer-right" href="${esc(l.href)}" target="_blank" rel="noreferrer">${esc(l.label)}</a>`,
+    )
+    .join("\n");
+  return [
+    `  <div class="footer-inner">`,
+    `    <div class="footer-left">\u00a9 ${year} ${esc(footer.owner)}</div>`,
+    links,
+    `  </div>`,
+  ].join("\n");
+}
+
 // The favicon links, shared by every page including the ones kept out of the
 // sitemap — a 404 or the viewer should still show the mark.
 function iconBlock(indent = "  ") {
@@ -295,6 +316,8 @@ for (const p of pages) add(p.file, "head", headBlock(p));
 for (const file of excludedPages) add(file, "icons", iconBlock());
 // Every page that has a header carries the same menu.
 for (const file of navPages) add(file, "nav", navBlock(file));
+// ...and the same footer.
+for (const file of navPages) add(file, "footer", footerBlock());
 
 let changed = 0;
 for (const [file, blocks] of blocksByPage) {

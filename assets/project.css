@@ -39,7 +39,8 @@ body.project main{
   align-items:center;
   justify-content:center;
   padding-inline:var(--padX);
-  padding-block:clamp(14px, 3vh, 34px);
+  /* tighter underneath, so the caption sits close to the photograph */
+  padding-block:clamp(14px, 3vh, 34px) clamp(10px, 1.6vh, 18px);
   touch-action:pan-y;
   user-select:none;
 }
@@ -93,14 +94,15 @@ body.project main{
 /* ---------------------------------------------------------------- caption -- */
 .plate-bar{
   flex:0 0 auto;
-  border-top:1px solid var(--hair);
+  /* no rule above: the caption belongs to the photograph, not to the
+     furniture below it. The footer's own border does the separating. */
   display:flex;
   align-items:center;
   gap:14px;
   max-width:var(--max);
   width:100%;
   margin:0 auto;
-  padding:15px var(--padX) 17px;
+  padding:4px var(--padX) 14px;
 }
 
 .plate-bar h1{
@@ -135,9 +137,16 @@ body.project main{
 
 @media (max-width:720px){
   .ticks{ display:none; }
-  .plate-bar{ padding-block:12px 14px; }
+  .plate-bar{ padding-block:2px 12px; }
 }
 
 @media (prefers-reduced-motion:reduce){
   .frame, .plate, .tick{ transition:none; }
+}
+
+/* The site footer, kept compact so it does not eat into the photograph. */
+body.project .footer{
+  flex:0 0 auto;
+  margin-top:0;
+  padding:13px 0 15px;
 }
