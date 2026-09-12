@@ -232,12 +232,46 @@ body.project main{
 }
 .statement p:last-child{ margin-bottom:0; }
 
+/* ---------------------------------------------------------------- arrows ---
+   A chevron above and below the photo space, as the reference site has: an 8px
+   square with two of its borders drawn, rotated. project.js builds them, so no
+   project page has to carry them in its markup and a page without JavaScript
+   never shows a control that cannot work.
+--------------------------------------------------------------------------- */
+.nav-arrow{
+  display:none;            /* the pager turns them on */
+  width:100%;
+  height:22px;
+  align-items:center;
+  justify-content:flex-end;
+  flex:0 0 auto;
+  appearance:none;
+  background:none;
+  border:0;
+  padding:0;
+  cursor:pointer;
+  transition:opacity .25s ease;
+}
+.nav-arrow span{
+  display:block;
+  width:8px;
+  height:8px;
+  border-left:1px solid var(--ink);
+  border-top:1px solid var(--ink);
+}
+.nav-arrow.up span{ transform:translateY(3px) rotate(45deg); }
+.nav-arrow.down span{ transform:translateY(-3px) rotate(225deg); }
+
+/* Bounded rather than looping in the pager, which is what an arrow that can be
+   spent implies — and what the reference does. */
+.nav-arrow.disabled{ opacity:.15; pointer-events:none; }
+
 /* Without JavaScript the first photograph is simply visible. */
 .no-js .frame{ width:auto; height:auto; max-height:86vh; }
 .no-js .plate{ position:static; opacity:1; }
 .no-js .plate:not(.on){ display:none; }
 .no-js .plate img{ max-height:86vh; width:auto; }
-.no-js .zone, .no-js .counter{ display:none; }
+.no-js .zone, .no-js .counter, .no-js .nav-arrow{ display:none; }
 
 /* The picture itself is the control — the zones sit inside the frame, so a
    click only counts when it lands on the photograph. */
@@ -263,76 +297,145 @@ body.project main{
 .has-custom-cursor .zone.prev,
 .has-custom-cursor .zone.next{ cursor:none; }
 
-/* --------------------------------------------------------------- narrow --- */
-/* Below this the two columns stop making sense: the photograph goes on top
-   and the menu underneath, and the page is allowed to scroll. */
+/* --------------------------------------------------------------- narrow ---
+   One column, locked to the window. The page does not scroll here: the menu
+   sits above and below at a much smaller size, and the stage takes everything
+   left over — that leftover is the dedicated space the photographs page
+   through, one at a time, on a vertical swipe.
+
+   The sizes below are not arbitrary. Measured on the previous layout, the menu
+   was eating about 490px before a photograph got any room at all, which left
+   280px on a 390x844 phone and 130px on an SE. At the sizes here it comes to
+   roughly 290px, leaving about 510px and 335px respectively.
+--------------------------------------------------------------------------- */
 @media (max-width:820px){
-  body.project{ height:auto; overflow:visible; }
   .page{
-    height:auto;
     flex-direction:column;
     gap:0;
+    padding:clamp(16px, 2.4vh, 22px) clamp(16px, 4vw, 22px);
   }
 
-  /* One column, and the photograph has to lead it. Stacking the two columns in
-     source order put the entire menu — identity, projects, counter, contact —
-     above the picture, so on a phone you scrolled past all of it before you saw
-     any work. Letting the menu's two wrappers fall out of the layout promotes
-     their children to items of .page, so the mark can stay at the top where it
-     belongs and everything else can drop below the photograph. */
+  /* The menu's two wrappers fall out of the layout so their children become
+     items of .page and can be ordered around the stage. */
   .side, .side-top{ display:contents; }
 
-  .ident{ order:1; }
-  .stage{ order:2; min-height:58vh; }
-  .counter{ order:3; }
-  .side-nav{ order:4; }
-  .side-contact{ order:5; }
-  .side-foot{ order:6; margin-top:30px; }
+  .ident{ order:1; flex:0 0 auto; }
+  .nav-arrow.up{ order:2; margin-bottom:6px; }
+  .stage{ order:3; flex:1 1 auto; min-height:0; }
+  .nav-arrow.down{ order:4; margin-top:6px; }
+  .counter{ order:5; }
+  .side-nav{ order:6; flex:0 0 auto; }
+  .side-contact{ order:7; flex:0 0 auto; }
+  .side-foot{ order:8; flex:0 0 auto; }
 
-  .ident-mark{ --mark:38px; margin-bottom:4px; }
-  .ident{ margin-bottom:24px; }
+  .nav-arrow{ display:flex; }
 
-  /* --------------------------------------------------------------- stack ---
-     The viewer becomes a scroll. Every photograph comes out of the absolute
-     stack and into the flow, one under the other, and the browser does the
-     paging — momentum, lazy loading and a remembered position on the way back,
-     none of which a bespoke pager gives you. project.js stands down below this
-     width (see STACK_BELOW there) and clears the inline size it wrote on the
-     frame, so no !important is needed here. */
+  /* The column sets itself against the right edge here, as the reference's does
+     on a phone — `#menu{ text-align:end }` there. On the wide layout both sites
+     stay left-aligned. */
+  .ident{ align-items:flex-end; text-align:right; }
+  .counter,
+  .side-nav,
+  .side-contact,
+  .side-foot{ text-align:right; }
+
+  /* Everything drops to roughly the reference site's scale. */
+  .ident-mark{ --mark:24px; margin-bottom:3px; }
+  .ident-name{ font-size:14px; }
+  .ident-role{ font-size:12px; letter-spacing:.06em; }
+
+  /* Hidden rather than removed: it is still written, and the short-viewport
+     fallback below brings it back, where a scroll has no other way of saying
+     how many photographs there are. */
+  .counter{ display:none; }
+
+  .side-nav{ margin-top:16px; font-size:12.5px; line-height:1.55; }
+  .side-contact{ margin-top:14px; font-size:12px; line-height:1.6; }
+  .side-foot{ margin-top:12px; font-size:11px; }
+
+  /* ---- the pager ----
+     The stage becomes the window and the frame becomes the track: the plates
+     are stacked in a column, each the full height of the stage, and the track
+     is moved by whole screens. project.js writes --i and nothing else. */
   .stage{
-    display:block;
-    min-height:0;
-    user-select:auto;
+    position:relative;
+    overflow:hidden;
+    touch-action:none;   /* or an upward swipe fights iOS overscroll */
   }
 
   .frame{
-    width:auto;
-    height:auto;
-    transition:none;
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    height:100%;
+    transform:translateY(calc(var(--i, 0) * -100%));
+    transition:transform .42s cubic-bezier(.22,.68,.28,1);
   }
 
   .plate{
     position:static;
+    flex:0 0 100%;
+    width:100%;
+    height:100%;
     opacity:1;
-    pointer-events:auto;
     transition:none;
+  }
+  .plate img{ width:100%; height:100%; object-fit:contain; }
+
+  /* The tap halves live inside the frame, and a transformed element is the
+     containing block for everything inside it — so they would slide away with
+     the track. project.js reads the tap off the stage instead, which does not
+     move. */
+  .zone{ display:none; }
+
+  .plate-statement{
+    align-items:center;
+    overflow-y:auto;
+  }
+  .statement{ max-width:none; }
+}
+
+/* ---------------------------------------------------- narrow and short ---
+   A phone on its side, or any window too short to give the photographs a
+   usable box: the pager would leave about 60px for the picture. Below this the
+   page becomes an ordinary scroll — every photograph in the flow, one under
+   the other, the browser doing the paging — and project.js stands down
+   entirely. The reference site does the same thing under 380px of height.
+------------------------------------------------------------------------- */
+@media (max-width:820px) and (max-height:560px){
+  body.project{ height:auto; overflow:visible; }
+  .page{ height:auto; }
+
+  .stage{
+    display:block;
+    overflow:visible;
+    min-height:0;
+    touch-action:auto;
+    user-select:auto;
+  }
+
+  .frame{
+    display:block;
+    width:auto;
+    height:auto;
+    transform:none;
+    transition:none;
+  }
+
+  .plate{
+    flex:none;
+    height:auto;
+    pointer-events:auto;
     margin-bottom:clamp(18px, 5vw, 34px);
   }
   .plate:last-child{ margin-bottom:0; }
+  .plate img{ height:auto; }
 
-  /* The photographs are square-ish but not identical, so height goes back to
-     auto and each one keeps its own shape down the column. */
-  .plate img{
-    width:100%;
-    height:auto;
-  }
+  .counter{ display:block; }
 
-  /* The picture is no longer a control — the halves would sit over the whole
-     column and swallow every tap. */
-  .zone{ display:none; }
+  /* Nothing to step through — the scroll is the navigation. */
+  .nav-arrow{ display:none; }
 
-  /* The statement stops being a plate in a square and becomes the closing text
-     at the foot of the scroll, which is what it reads as anyway. */
   .plate-statement{
     display:block;
     overflow:visible;
