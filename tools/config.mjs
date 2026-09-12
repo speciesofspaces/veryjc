@@ -50,11 +50,13 @@ export const galleries = [
 // Each project has its own page and its own run of images. The cover is still
 // built, because it is the page's Open Graph image; a project without a `page`
 // of its own falls back to the full-screen viewer.
+// The order here is the order of both menus — the column on a project page
+// and the top bar on the others. Newest first.
 export const projects = [
   {
-    slug: "the-meadow",
-    title: "The Meadow",
-    page: "the-meadow.html",
+    slug: "photo-poetry",
+    title: "Photo Poetry",
+    page: "photo-poetry.html",
   },
   {
     slug: "species-of-spaces",
@@ -62,9 +64,9 @@ export const projects = [
     page: "species-of-spaces.html",
   },
   {
-    slug: "photo-poetry",
-    title: "Photo Poetry",
-    page: "photo-poetry.html",
+    slug: "the-meadow",
+    title: "The Meadow",
+    page: "the-meadow.html",
   },
 ];
 
@@ -205,6 +207,12 @@ export const pages = [
 
 // Files that carry an image but should never be crawled or listed.
 export const excludedPages = ["viewer.html", "404.html"];
+
+// Pages that wear a project page's chrome — the menu column and the stage —
+// without being a project. They get `side` and `sidefoot` but no photographs,
+// no top bar and no wide footer, and no frame counter: there is nothing to
+// count.
+export const sidebarPages = ["about.html"];
 
 // Pages with no top bar and no footer — the photograph and its line of text and
 // nothing else. The build generates neither block for these, so the markup has

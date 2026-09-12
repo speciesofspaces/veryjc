@@ -21,6 +21,7 @@ import {
   themeColor,
   excludedPages,
   barePages,
+  sidebarPages,
   nav,
   navProjectsAfter,
   footer,
@@ -181,7 +182,7 @@ function navBlock(file) {
 // The menu on a project page: identity, the list of projects, the frame
 // counter, contact. Built from `projects` and `sideMenu` in config.mjs, so a
 // new project appears on every project page at once.
-function sideBlock(file) {
+function sideBlock(file, { counter = true } = {}) {
   const items = [];
   for (const project of projects) {
     if (sideMenu.hideFromMenu.includes(project.slug)) continue;
@@ -212,9 +213,7 @@ function sideBlock(file) {
       : []),
     `      </div>`,
     ``,
-    `      <div class="counter" aria-live="polite">1 / 1</div>`,
-    ``,
-    `      <div class="side-nav">`,
+    `      ${counter ? '<div class="counter" aria-live="polite">1 / 1</div>\n\n      ' : ""}<div class="side-nav">`,
     ...items.map(line),
     `      </div>`,
     ``,
@@ -400,13 +399,15 @@ function singleBlock(single) {
 
 // ------------------------------------------------------------------ main ----
 
-// Pages with the vertical menu column.
+// Pages with the vertical menu column: every project, plus any page that
+// borrows the same chrome.
 const projectPages = projects.map((p) => p.page).filter(Boolean);
+const sidePages = [...projectPages, ...sidebarPages];
 // Pages with the horizontal top bar. A project page is listed in `pages` so it
 // gets a generated <head> and a sitemap entry, but it has no top bar to fill,
 // and a bare page has neither bar nor footer by design.
 const navPages = [...pages.map((p) => p.file), ...excludedPages].filter(
-  (file) => !projectPages.includes(file) && !barePages.includes(file),
+  (file) => !sidePages.includes(file) && !barePages.includes(file),
 );
 
 const blocksByPage = new Map();
@@ -426,12 +427,14 @@ for (const file of excludedPages) add(file, "icons", iconBlock());
 for (const file of navPages) add(file, "nav", navBlock(file));
 for (const file of navPages) add(file, "footer", footerBlock());
 // Project pages have their own column instead.
-for (const file of projectPages) add(file, "side", sideBlock(file));
+for (const file of sidePages) {
+  add(file, "side", sideBlock(file, { counter: projectPages.includes(file) }));
+  add(file, "sidefoot", sideFootBlock());
+}
 for (const project of projects) {
   if (!project.page) continue;
   add(project.page, "plates", platesBlock(project));
 }
-for (const file of projectPages) add(file, "sidefoot", sideFootBlock());
 
 let changed = 0;
 for (const [file, blocks] of blocksByPage) {

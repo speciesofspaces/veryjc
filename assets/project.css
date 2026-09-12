@@ -195,6 +195,43 @@ body.project main{
 .plate.on{ opacity:1; }
 .plate img{ width:100%; height:100%; object-fit:contain; display:block; }
 
+/* ----------------------------------------------------------------- prose ---
+   A page that wears the project chrome but holds words instead of photographs.
+   The text sits where a photograph would and scrolls inside the stage rather
+   than making the page scroll, so the column beside it stays put.
+--------------------------------------------------------------------------- */
+body.about .stage{
+  justify-content:flex-start;   /* words start at the edge; a picture is centred */
+}
+
+.prose{
+  width:100%;
+  max-width:58ch;
+  max-height:100%;
+  overflow-y:auto;
+  scrollbar-width:none;
+  color:var(--muted);
+}
+.prose::-webkit-scrollbar{ display:none; }
+
+.prose h1{
+  margin:0 0 22px;
+  font-size:17px;
+  font-weight:500;
+  letter-spacing:.02em;
+  color:var(--ink);
+}
+
+.prose p{
+  margin:0 0 14px;
+  font-size:14px;
+  line-height:1.75;
+  letter-spacing:.02em;
+}
+.prose p:last-child{ margin-bottom:0; }
+.prose a{ color:var(--muted); transition:color .2s ease; }
+.prose a:hover{ color:var(--accent); opacity:1; }
+
 /* ---------------------------------------------------------------- arrows ---
    A chevron above and below the photo space, as the reference site has: an 8px
    square with two of its borders drawn, rotated. project.js builds them, so no
@@ -300,22 +337,17 @@ body.project main{
 
   .nav-arrow{ display:flex; }
 
-  /* The top row: the mark at one end and the name at the other, the way the
-     reference's top bar carries its logo and its language link. The column
-     stacks on the wide layout, so this is a row only here. */
+  /* The mark in the top right corner with the tagline squared up under it —
+     the mirror of the wide layout, which starts both at the left. */
   .ident{
-    flex-direction:row;
-    flex-wrap:wrap;
-    align-items:center;
-    justify-content:space-between;
+    flex-direction:column;
+    align-items:flex-end;
+    text-align:right;
     width:100%;
     row-gap:0;
   }
-  .ident-mark{ align-self:center; margin-bottom:0; }
-  /* The tagline takes the other end of the top row, where the name used to sit.
-     Give it `width:100%` again if a name ever returns above it and it needs a
-     line of its own. */
-  .ident-role{ width:auto; text-align:right; margin-top:0; }
+  .ident-mark{ align-self:flex-end; margin-bottom:4px; }
+  .ident-role{ width:auto; margin-top:0; }
 
   /* The menu alone is set against the right edge. The arrows, the contact lines
      and the credit stay at the left, so the page is anchored on both sides
@@ -374,6 +406,22 @@ body.project main{
      move. */
   .zone{ display:none; }
 
+  /* Words, not a pager: nothing to clip and nothing to page through, so the
+     stage gives up its window behaviour and the page scrolls normally. */
+  body.about{ height:auto; overflow:visible; }
+  body.about .page{ height:auto; }
+  body.about .stage{
+    display:block;
+    overflow:visible;
+    min-height:0;
+    touch-action:auto;
+    user-select:auto;
+    margin:24px 0 0;
+  }
+  body.about .prose{ max-height:none; overflow:visible; }
+  /* Nothing between the words and the contact lines here — the down arrow that
+     usually separates them does not exist on this page. */
+  body.about .side-contact{ margin-top:34px; }
 }
 
 /* ---------------------------------------------------- narrow and short ---
