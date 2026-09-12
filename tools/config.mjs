@@ -63,17 +63,26 @@ export const projects = [
       body: [],
     },
   },
+  {
+    slug: "species-of-spaces",
+    title: "Species of Spaces",
+    page: "species-of-spaces.html",
+    statement: {
+      meta: "",
+      body: [],
+    },
+  },
 ];
 
 // The side menu on project pages. Projects above are listed automatically;
 // one without a `page` yet is shown as plain text rather than a dead link.
 // `placeholders` are names reserved in the menu before any photographs exist.
 export const sideMenu = {
-  name: "Jué Chen",
-  // Empty and the line is left out altogether rather than written as an empty
-  // span.
-  role: "fine art photography",
-  placeholders: ["Species of Spaces", "Photo Poetry"],
+  // One line under the mark, not two. `role` is left in place because the build
+  // still honours it — put a string back and the second line returns.
+  name: "Jué Chen Photography",
+  role: "",
+  placeholders: ["Photo Poetry"],
   hideFromMenu: [],
   // Everything after the projects, in the same list. Studies sits with the work
   // because it is work; About closes the list.
@@ -119,6 +128,9 @@ export const navProjectsAfter = "/";
 export const projectsPage = {
   page: null,
   marker: "projects",
+  // How a photograph is measured on a project page itself: nearly the full
+  // width of a phone, and a share of the window height on a wide screen.
+  plateSizes: "(max-width: 1023px) 92vw, 80vh",
   dir: "assets/images/projects",
   sizes: "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
 };

@@ -227,13 +227,51 @@ function sideBlock(file) {
   ].join("\n");
 }
 
+// The run of photographs on a project page. Until now these were written into
+// the page by hand, which meant uploading a photograph did not actually change
+// the page it belonged to. Generated from the manifest like everything else, so
+// a new project only needs an empty file with the markers in it.
+function platesBlock(project) {
+  const data = manifest.projects[project.slug];
+  const images = data ? data.images : [];
+  if (!images.length) return ""; // nothing uploaded yet
+
+  const sizes = projectsPage.plateSizes;
+  const n = images.length;
+
+  return images
+    .map((image, idx) => {
+      const alt = image.alt || `${project.title}, photograph ${idx + 1} of ${n}`;
+      const jpegWidths = image.jpegWidths ?? image.widths;
+      const fallback = jpegWidths.includes(fallbackWidth)
+        ? fallbackWidth
+        : jpegWidths[jpegWidths.length - 1];
+      // The first is what the reader waits for; the rest can arrive late.
+      const loading = idx === 0 ? 'fetchpriority="high"' : 'loading="lazy"';
+
+      return [
+        `      <picture class="plate${idx === 0 ? " on" : ""}" data-w="${image.width}" data-h="${image.height}">`,
+        `        <source type="image/avif" srcset="${srcset(image, "avif")}" sizes="${esc(sizes)}">`,
+        `        <source type="image/webp" srcset="${srcset(image, "webp")}" sizes="${esc(sizes)}">`,
+        `        <img src="${image.base}-${fallback}.jpg" width="${image.width}" height="${image.height}"`,
+        `             alt="${esc(alt)}"`,
+        `             ${loading} decoding="async">`,
+        `      </picture>`,
+      ].join("\n");
+    })
+    .join("\n\n");
+}
+
 // The closing plate of a series: the statement, shown in the same square the
 // photographs occupy. Its data-w/data-h are taken from the project's own
 // photographs so the frame keeps its shape when you reach it.
 function statementBlock(project) {
   const data = manifest.projects[project.slug];
   const images = data ? data.images : [];
-  if (!images.length) throw new Error(`${project.slug}: no photographs to size the statement plate against`);
+  // A project can exist in the menu before a single photograph has been
+  // uploaded. There is nothing to size the statement against and nothing for it
+  // to close, so the block stays empty until there is.
+  if (!images.length) return "";
 
   const last = images[images.length - 1];
   const st = project.statement || {};
@@ -412,7 +450,9 @@ for (const file of navPages) add(file, "footer", footerBlock());
 // Project pages have their own column instead.
 for (const file of projectPages) add(file, "side", sideBlock(file));
 for (const project of projects) {
-  if (project.page) add(project.page, "statement", statementBlock(project));
+  if (!project.page) continue;
+  add(project.page, "plates", platesBlock(project));
+  add(project.page, "statement", statementBlock(project));
 }
 for (const file of projectPages) add(file, "sidefoot", sideFootBlock());
 

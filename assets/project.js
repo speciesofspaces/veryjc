@@ -22,11 +22,17 @@
 
   document.documentElement.classList.remove("no-js");
 
-  var plates = [].slice.call(frame.querySelectorAll(".plate"));
-  if (plates.length < 1) return;
-
   var counter = document.querySelector(".counter");
   var index = 0;
+
+  var plates = [].slice.call(frame.querySelectorAll(".plate"));
+  if (plates.length < 1) {
+    // A project that exists in the menu but has no photographs yet. The count is
+    // written into the page as a placeholder, and "1 / 1" against an empty
+    // stage reads like a fault rather than an empty room.
+    if (counter) counter.textContent = "";
+    return;
+  }
 
   var NARROW = 820;
   var SHORT = 560;
