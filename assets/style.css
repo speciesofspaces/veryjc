@@ -65,6 +65,7 @@
   --ink:#000000;
   --muted:#6b6b6b;
   --hair:#eaeaea;
+  --accent:#ff7f50;   /* coral — the pointer, and any accent that follows */
   --max:1200px;
   --gapTop: 40px;     /* space between header and page content */
   --gapBottom: 46px;  /* space before footer */
@@ -498,4 +499,73 @@ picture{ display:contents; }
 .thumb img,
 .hero-banner img{
   background:var(--line, #e9e9e9);
+}
+
+/* ------------------------------------------------------------
+   Pointer
+   A ring that follows the mouse, fills coral over anything clickable,
+   and turns into a directional pill over the halves of a project
+   photograph. Built in assets/cursor.js, which only runs on a device
+   with a real mouse — everything else keeps its native cursor.
+------------------------------------------------------------ */
+.custom-cursor{
+  position:fixed;
+  top:0; left:0;
+  width:14px; height:14px;
+  margin:-7px 0 0 -7px;          /* centred on the pointer */
+  border:1px solid var(--ink);
+  border-radius:50%;
+  pointer-events:none;
+  opacity:0;
+  z-index:9999;
+  transition:width .22s ease, height .22s ease, opacity .2s ease,
+             background-color .22s ease, border-color .22s ease,
+             border-radius .22s ease;
+}
+.custom-cursor.visible{ opacity:1; }
+
+/* over a link or a button */
+.custom-cursor.active{
+  width:22px; height:22px;
+  margin:-11px 0 0 -11px;
+  background:var(--accent);
+  border-color:transparent;
+  opacity:.75;
+}
+
+/* over the left or right half of a photograph */
+.custom-cursor.directional{
+  width:26px; height:15px;
+  margin:-7.5px 0 0 -13px;
+  border-radius:999px;
+  background:transparent;
+  border-color:var(--ink);
+}
+.custom-cursor.directional::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  width:5px; height:5px;
+  background:var(--accent);
+  border-radius:50%;
+  transform:translateY(-50%);
+  transition:left .18s ease, right .18s ease;
+}
+.custom-cursor.directional.left::after{ left:3px; }
+.custom-cursor.directional.right::after{ right:3px; }
+
+.custom-cursor.pressed{ transform-origin:50% 50%; opacity:1; }
+
+/* Hide the native pointer only where the ring actually exists. */
+@media (hover: hover) and (pointer: fine) and (min-width:1025px){
+  .has-custom-cursor,
+  .has-custom-cursor body,
+  .has-custom-cursor a,
+  .has-custom-cursor button,
+  .has-custom-cursor .zone,
+  .has-custom-cursor .thumb{ cursor:none; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .custom-cursor, .custom-cursor::after{ transition:none; }
 }
