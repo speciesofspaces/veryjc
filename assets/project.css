@@ -90,14 +90,14 @@ body.project main{
 
 .ident-name{
   font-size:15px;
-  font-weight:400;
+  font-weight:var(--w-heading);
   letter-spacing:.04em;
   line-height:1.3;
   color:var(--ink);
 }
 .ident-role{
   font-size:13px;
-  font-weight:400;
+  font-weight:var(--w-body);
   letter-spacing:.07em;
   color:var(--muted);
 }
@@ -117,17 +117,6 @@ body.project main{
 /* A project named in the menu that has no page yet. --hair is a border tone:
    at #eaeaea on white it sits around 1.2:1 and reads as nothing at all. */
 .side-nav .pending{ color:var(--faint); cursor:default; }
-
-/* The rest of the site, under its own small heading. Without it a project page
-   is a cul-de-sac — there was no link from here to Projects or Studies. */
-.side-nav-also{ margin-top:26px; }
-.side-nav .group{
-  font-size:11px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:var(--muted);
-  line-height:2.2;
-}
 
 .counter{
   margin-top:30px;
@@ -215,7 +204,7 @@ body.project main{
 .statement h2{
   margin:0 0 4px;
   font-size:clamp(15px, .5vw + 12px, 19px);
-  font-weight:500;
+  font-weight:var(--w-heading);
   letter-spacing:-0.015em;
 }
 .statement .statement-meta{
@@ -286,10 +275,9 @@ body.project main{
   .ident{ order:1; }
   .stage{ order:2; min-height:58vh; }
   .side-nav{ order:3; margin-top:30px; }
-  .side-nav-also{ order:4; }
-  .counter{ order:5; }
-  .side-contact{ order:6; }
-  .side-foot{ order:7; margin-top:30px; }
+  .counter{ order:4; }
+  .side-contact{ order:5; }
+  .side-foot{ order:6; margin-top:30px; }
 
   .ident-mark{ --mark:38px; margin-bottom:10px; }
   .ident{ margin-bottom:24px; }

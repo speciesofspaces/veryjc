@@ -21,6 +21,7 @@ import {
   themeColor,
   excludedPages,
   nav,
+  navProjectsAfter,
   footer,
   brand,
   brandPath,
@@ -127,16 +128,16 @@ function ogImageUrl(spec, file) {
 
 // ------------------------------------------------------------------- nav ----
 
-// Menu items in order, with each project page slotted in under Projects.
+// Menu items in order, with each project page slotted in after the entry named
+// by `navProjectsAfter`. They sit beside the other entries rather than under a
+// Projects parent, so there is no child level any more.
 function navItems() {
   const items = [];
   for (const entry of nav) {
-    items.push({ label: entry.label, href: entry.href, child: false });
-    if (entry.href === projectsPage.page) {
+    items.push({ label: entry.label, href: entry.href });
+    if (entry.href === navProjectsAfter) {
       for (const project of projects) {
-        if (project.page) {
-          items.push({ label: project.title, href: project.page, child: true });
-        }
+        if (project.page) items.push({ label: project.title, href: project.page });
       }
     }
   }
@@ -150,10 +151,7 @@ function navBlock(file) {
   const isActive = (href) => (href === "/" ? "index.html" : href) === file;
 
   const link = (item, indent) => {
-    const classes = [];
-    if (isActive(item.href)) classes.push("active");
-    if (item.child) classes.push("nav-child");
-    const attr = classes.length ? ` class="${classes.join(" ")}"` : "";
+    const attr = isActive(item.href) ? ' class="active"' : "";
     return `${indent}<a${attr} href="${item.href}">${esc(item.label)}</a>`;
   };
 
@@ -183,16 +181,15 @@ function navBlock(file) {
 // counter, contact. Built from `projects` and `sideMenu` in config.mjs, so a
 // new project appears on every project page at once.
 function sideBlock(file) {
-  // Two lists, not one. The first is the body of work; the second is the rest
-  // of the site, which used to be a single "About" and left a project page with
-  // no way back to Projects or Studies.
-  const work = [];
+  const items = [];
   for (const project of projects) {
     if (sideMenu.hideFromMenu.includes(project.slug)) continue;
-    work.push({ label: project.title, href: project.page });
+    items.push({ label: project.title, href: project.page });
   }
-  for (const label of sideMenu.placeholders) work.push({ label, href: null });
-  const also = [...sideMenu.extra];
+  for (const label of sideMenu.placeholders) items.push({ label, href: null });
+  // Studies and About close the same list — a project page used to have no
+  // route to either.
+  for (const entry of sideMenu.extra) items.push(entry);
 
   const line = (item) => {
     if (!item.href) {
@@ -211,12 +208,7 @@ function sideBlock(file) {
     `      </div>`,
     ``,
     `      <div class="side-nav">`,
-    ...work.map(line),
-    `      </div>`,
-    ``,
-    `      <div class="side-nav side-nav-also">`,
-    `        <div class="group">${esc(sideMenu.alsoLabel)}</div>`,
-    ...also.map(line),
+    ...items.map(line),
     `      </div>`,
     ``,
     `      <div class="counter" aria-live="polite">1 / 1</div>`,
@@ -406,7 +398,8 @@ const add = (file, name, body) => {
 };
 
 for (const g of galleries) add(g.page, g.marker, galleryBlock(g));
-add(projectsPage.page, projectsPage.marker, projectsBlock());
+// Only when there is still an index page to put the covers on.
+if (projectsPage.page) add(projectsPage.page, projectsPage.marker, projectsBlock());
 for (const s of singles) add(s.page, s.marker, singleBlock(s));
 for (const p of pages) add(p.file, "head", headBlock(p));
 // Pages with no generated <head> still get the mark.

@@ -47,9 +47,9 @@ export const galleries = [
   },
 ];
 
-// Projects each get a cover on projects.html and their own run of images.
-// `page` is the project's own page; a project without one still gets a cover,
-// which falls back to the old full-screen viewer.
+// Each project has its own page and its own run of images. The cover is still
+// built, because it is the page's Open Graph image; a project without a `page`
+// of its own falls back to the full-screen viewer.
 // `statement` becomes the last plate of the series — text shown in the same
 // square the photographs occupy. Each string in `body` is one paragraph; leave
 // the array empty and only the title and place are shown.
@@ -73,12 +73,9 @@ export const sideMenu = {
   role: "fine art photography",
   placeholders: ["Species of Spaces", "Photo Poetry"],
   hideFromMenu: [],
-  // Everything that is not a project, listed under its own small heading so a
-  // project page is not a dead end — before this there was no route from a
-  // project to Projects or Studies at all.
-  alsoLabel: "Also",
+  // Everything after the projects, in the same list. Studies sits with the work
+  // because it is work; About closes the list.
   extra: [
-    { label: "Projects", href: "projects.html" },
     { label: "Studies", href: "studies.html" },
     { label: "About", href: "about.html" },
   ],
@@ -105,13 +102,20 @@ export const brandPath =
 // everywhere at once. Project pages are inserted directly after Projects.
 export const nav = [
   { label: "Home", href: "/" },
-  { label: "Projects", href: "projects.html" },
   { label: "Studies", href: "studies.html" },
   { label: "About", href: "about.html" },
 ];
 
+// Project pages are slotted into the menu directly after this entry, so a new
+// project appears site-wide without touching `nav`.
+export const navProjectsAfter = "/";
+
+// There is no longer a Projects index — a project is reached from the menu
+// directly. `page` is null, which switches the cover grid off; `dir` and `sizes`
+// stay because build-images.mjs still reads them to find and size the
+// photographs, and the covers are still used as Open Graph images.
 export const projectsPage = {
-  page: "projects.html",
+  page: null,
   marker: "projects",
   dir: "assets/images/projects",
   sizes: "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
@@ -124,8 +128,8 @@ export const singles = [
     page: "index.html",
     marker: "hero",
     sizes: "(max-width: 1100px) 100vw, 1100px",
-    link: "projects.html",
-    linkLabel: "Enter projects",
+    link: "the-meadow.html",
+    linkLabel: "Enter The Meadow",
   },
 ];
 
@@ -140,15 +144,6 @@ export const pages = [
     description:
       "Fine art photography by Jué Chen. Minimal stills of light, distance and absence. Based in London.",
     ogImage: "assets/images/hero-1440.jpg",
-  },
-  {
-    file: "projects.html",
-    path: "/projects.html",
-    priority: "0.9",
-    title: "Projects — Jué Chen",
-    description:
-      "Photographic series by Jué Chen.",
-    ogImage: "assets/images/projects/the-meadow/cover-1440.jpg",
   },
   {
     file: "the-meadow.html",
@@ -200,6 +195,6 @@ export const themeColor = "#ffffff";
 // The footer, generated into every page so it stays identical everywhere and
 // the year looks after itself.
 export const footer = {
-  credit: `\u00a9 {year} ${site.author} \u2022 \u9673\u89ba`,
+  credit: `\u00a9 {year} ${site.author} \u00b7 \u9673\u89ba`,
   links: [{ label: "Instagram", href: site.instagram }],
 };

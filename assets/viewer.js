@@ -110,7 +110,8 @@ function render() {
   }
   if (el.counter) el.counter.textContent = `${index + 1} / ${images.length}`;
   if (el.back) {
-    el.back.href = type === "studies" ? "studies.html" : "projects.html";
+    // Whichever page sent us here; the home page if the link arrived without it.
+    el.back.href = params.get("from") || (type === "studies" ? "studies.html" : "/");
     el.back.textContent = "⧉ Grid";
     el.back.setAttribute("aria-label", "Back to grid");
   }

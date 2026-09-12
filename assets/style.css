@@ -1,62 +1,30 @@
 /* ------------------------------------------------------------
-   Inter, served from this site rather than from Google
+   IBM Plex Sans, served from this site rather than from Google
+   The same face the reference site uses. One variable file per subset
+   carries every weight from 100 to 700, so the three static Inter
+   weights become two files and about 76 KB instead of 180 KB, and any
+   weight in between is now available without another download.
    A third-party font request is exactly what Safari's tracking and
    fingerprinting protection warns about, and it costs two extra DNS
-   lookups and a TLS handshake before any text can render. These are the
-   three weights the site actually uses; latin-ext loads only when a
-   character needs it.
+   lookups and a TLS handshake before any text can render — hence the
+   local copy. Licence in assets/fonts/IBM-Plex-Sans-OFL.txt.
+   latin-ext loads only when a character needs it.
 ------------------------------------------------------------ */
 @font-face{
-  font-family:'Inter';
+  font-family:'IBM Plex Sans';
   font-style:normal;
-  font-weight:400;
+  font-weight:100 700;
   font-display:swap;
-  src:url('fonts/inter-latin-ext-400-normal.woff2') format('woff2');
+  src:url('fonts/ibm-plex-sans-latin-ext-wght-normal.woff2') format('woff2-variations');
   unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
 
 @font-face{
-  font-family:'Inter';
+  font-family:'IBM Plex Sans';
   font-style:normal;
-  font-weight:400;
+  font-weight:100 700;
   font-display:swap;
-  src:url('fonts/inter-latin-400-normal.woff2') format('woff2');
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-
-@font-face{
-  font-family:'Inter';
-  font-style:normal;
-  font-weight:500;
-  font-display:swap;
-  src:url('fonts/inter-latin-ext-500-normal.woff2') format('woff2');
-  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
-
-@font-face{
-  font-family:'Inter';
-  font-style:normal;
-  font-weight:500;
-  font-display:swap;
-  src:url('fonts/inter-latin-500-normal.woff2') format('woff2');
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-
-@font-face{
-  font-family:'Inter';
-  font-style:normal;
-  font-weight:700;
-  font-display:swap;
-  src:url('fonts/inter-latin-ext-700-normal.woff2') format('woff2');
-  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
-
-@font-face{
-  font-family:'Inter';
-  font-style:normal;
-  font-weight:700;
-  font-display:swap;
-  src:url('fonts/inter-latin-700-normal.woff2') format('woff2');
+  src:url('fonts/ibm-plex-sans-latin-wght-normal.woff2') format('woff2-variations');
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 
@@ -68,6 +36,12 @@
   --faint:#b8b8b8;    /* text that is deliberately quiet but still legible */
   --accent:#ff7f50;   /* coral — the pointer, and any accent that follows */
   --max:1200px;
+
+  /* Type. The reference site's weights: Plex carries more ink than Inter at
+     the same number, and these are where it settles down. */
+  --w-body:300;
+  --w-heading:420;
+  --w-display:350;
   --gapTop: 40px;     /* space between header and page content */
   --gapBottom: 46px;  /* space before footer */
 
@@ -99,11 +73,16 @@ body{
   margin:0;
   background:var(--bg);
   color:var(--ink);
-  font-family:"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
+  font-family:"IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
+  font-weight:var(--w-body);
   -webkit-font-smoothing:antialiased;
-  letter-spacing:-0.01em;
+  /* Inter was tracked in by a hundredth to tighten it; Plex is drawn wider and
+     does not want it. */
+  letter-spacing:0;
   cursor:crosshair;
 }
+
+h1, h2, h3{ font-weight:var(--w-heading); }
 
 a{ text-decoration:none; color:inherit; }
 a:hover{ opacity:.8; }
@@ -305,7 +284,7 @@ main{
   top:-18px;              /* desktop tweak point */
   z-index:2;
   margin:0;
-  font-weight:700;
+  font-weight:var(--w-display);
   line-height:.92;
   letter-spacing:-0.04em;
   font-size:clamp(38px, 6vw, 86px);
@@ -342,17 +321,6 @@ main{
   font-size:12px;
   color:var(--muted);
   letter-spacing:.02em;
-}
-
-/* Projects-only overrides
-   NOTE: requires <body class="projects"> on projects.html */
-body.projects .grid{
-  grid-template-columns:repeat(3, 1fr); /* bigger thumbs */
-  gap:22px;
-}
-
-body.projects .thumb{
-  aspect-ratio:1 / 1;     /* square thumbs on Projects */
 }
 
 /* ------------------------------------------------------------
@@ -477,12 +445,6 @@ body.projects .thumb{
   }
 
   .grid{
-    grid-template-columns:repeat(2, 1fr);
-    gap:18px;
-  }
-
-  /* Projects on mobile: two per row (bigger) */
-  body.projects .grid{
     grid-template-columns:repeat(2, 1fr);
     gap:18px;
   }
