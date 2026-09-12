@@ -139,7 +139,10 @@ function navItems() {
     items.push({ label: entry.label, href: entry.href });
     if (entry.href === navProjectsAfter) {
       for (const project of projects) {
-        if (project.page) items.push({ label: project.title, href: project.page });
+        // A project that *is* the front page is already in the bar as Home.
+        if (project.page && project.page !== "index.html") {
+          items.push({ label: project.title, href: project.page });
+        }
       }
     }
   }
@@ -209,7 +212,11 @@ function sideBlock(file, { counter = true } = {}) {
       ? [`        <span class="ident-name">${esc(sideMenu.name)}</span>`]
       : []),
     ...(sideMenu.role
-      ? [`        <span class="ident-role">${esc(sideMenu.role)}</span>`]
+      ? [
+          sideMenu.roleHref
+            ? `        <span class="ident-role"><a href="${esc(sideMenu.roleHref)}">${esc(sideMenu.role)}</a></span>`
+            : `        <span class="ident-role">${esc(sideMenu.role)}</span>`,
+        ]
       : []),
     `      </div>`,
     ``,
@@ -428,7 +435,9 @@ for (const file of navPages) add(file, "nav", navBlock(file));
 for (const file of navPages) add(file, "footer", footerBlock());
 // Project pages have their own column instead.
 for (const file of sidePages) {
-  add(file, "side", sideBlock(file, { counter: projectPages.includes(file) }));
+  add(file, "side", sideBlock(file, {
+    counter: projectPages.includes(file) && !sideMenu.hideCounterOn.includes(file),
+  }));
   add(file, "sidefoot", sideFootBlock());
 }
 for (const project of projects) {

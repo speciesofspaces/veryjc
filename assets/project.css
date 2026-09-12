@@ -109,6 +109,10 @@ body.project main{
   line-height:1.4;
   color:var(--muted);
 }
+/* The tagline is the front page's link, so it answers to the pointer the way
+   the menu does. */
+.ident-role a{ color:inherit; transition:color .2s ease; }
+.ident-role a:hover{ color:var(--accent); opacity:1; }
 
 .side-nav{
   display:flex;

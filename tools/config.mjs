@@ -56,7 +56,9 @@ export const projects = [
   {
     slug: "photo-poetry",
     title: "Photo Poetry",
-    page: "photo-poetry.html",
+    // The front page. Its own link lives in the tagline under the mark, which
+    // is why it is kept out of the menu below.
+    page: "index.html",
   },
   {
     slug: "species-of-spaces",
@@ -78,16 +80,23 @@ export const sideMenu = {
   // can be empty and the build leaves that line out altogether rather than
   // writing an empty span — put a string back and the line returns.
   name: "",
-  role: "fine art photography",
+  role: "Photopoetry",
+  // The tagline is a link when this is set — it is how the front page is
+  // reached from everywhere else.
+  roleHref: "/",
   // Names held in the menu before any photographs exist. Empty now that every
   // project has a page of its own.
   placeholders: [],
-  hideFromMenu: [],
+  // Photo Poetry is the front page and is reached through the tagline, so it is
+  // not repeated in the list.
+  hideFromMenu: ["photo-poetry"],
   // Everything after the projects, in the same list. Both Studies and About are
   // deliberately unlinked for now — the pages are still built and still
   // reachable by URL, they simply are not advertised. Add an entry back here to
   // put either one in the menu again.
   extra: [],
+  // Pages that carry the menu but no frame counter.
+  hideCounterOn: ["index.html"],
   contact: [
     { label: site.email, href: `mailto:${site.email}` },
     { label: "instagram", href: site.instagram },
@@ -136,7 +145,7 @@ export const projectsPage = {
 export const singles = [
   {
     src: "assets/images/hero.jpg",
-    page: "index.html",
+    page: "entry.html",
     marker: "hero",
     sizes: "(max-width: 1100px) 100vw, 1100px",
     link: "the-meadow.html",
@@ -151,10 +160,10 @@ export const pages = [
     file: "index.html",
     path: "/",
     priority: "1.0",
-    title: "Jué Chen — fine art photography",
+    title: "Photo Poetry — Jué Chen",
     description:
-      "Fine art photography by Jué Chen. Minimal stills of light, distance and absence. Based in London.",
-    ogImage: "assets/images/hero-1440.jpg",
+      "Photo Poetry — photographs by Jué Chen. Minimal stills of light, distance and absence. London.",
+    ogImage: "assets/images/projects/photo-poetry/01-1440.jpg",
   },
   {
     file: "the-meadow.html",
@@ -173,15 +182,6 @@ export const pages = [
     description:
       "Species of Spaces — a photographic series by Jué Chen.",
     ogImage: "assets/images/projects/species-of-spaces/01-1440.jpg",
-  },
-  {
-    file: "photo-poetry.html",
-    path: "/photo-poetry.html",
-    priority: "0.7",
-    title: "Photo Poetry — Jué Chen",
-    description:
-      "Photo Poetry — a photographic series by Jué Chen.",
-    ogImage: "assets/images/projects/photo-poetry/01-1440.jpg",
   },
   {
     file: "studies.html",
@@ -204,7 +204,7 @@ export const pages = [
 ];
 
 // Files that carry an image but should never be crawled or listed.
-export const excludedPages = ["viewer.html", "404.html"];
+export const excludedPages = ["viewer.html", "404.html", "entry.html"];
 
 // Pages that wear a project page's chrome — the menu column and the stage —
 // without being a project. They get `side` and `sidefoot` but no photographs,
@@ -215,7 +215,7 @@ export const sidebarPages = ["about.html"];
 // Pages with no top bar and no footer — the photograph and its line of text and
 // nothing else. The build generates neither block for these, so the markup has
 // to be absent from the file as well.
-export const barePages = ["index.html"];
+export const barePages = ["entry.html"];
 
 // The 陳 mark. Generated once from Noto Sans CJK TC Medium with the outline
 // embedded, so no font has to be present on the reader's machine. The SVG is
