@@ -80,7 +80,7 @@ export const sideMenu = {
   // can be empty and the build leaves that line out altogether rather than
   // writing an empty span — put a string back and the line returns.
   name: "",
-  role: "Photopoetry",
+  role: "photo poetry",
   // The tagline is a link when this is set — it is how the front page is
   // reached from everywhere else.
   roleHref: "/",
@@ -148,8 +148,8 @@ export const singles = [
     page: "entry.html",
     marker: "hero",
     sizes: "(max-width: 1100px) 100vw, 1100px",
-    link: "the-meadow.html",
-    linkLabel: "Enter The Meadow",
+    link: "/",
+    linkLabel: "Enter",
   },
 ];
 
