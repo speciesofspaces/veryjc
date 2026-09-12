@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T20:03:06.685Z",
+  "generatedAt": "2026-09-12T20:12:33.148Z",
   "galleries": {
     "studies": {
       "title": "Studies",
@@ -551,6 +551,21 @@
           ],
           "jpegWidths": [
             961
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/species-of-spaces/02.jpg",
+          "base": "assets/images/projects/species-of-spaces/02",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
           ],
           "alt": ""
         }
