@@ -150,10 +150,15 @@
 
   function updateCounter() {
     if (!counter) return;
-    counter.textContent =
-      mode() === "stack"
-        ? photographs + " photographs"
-        : index + 1 + " / " + plates.length;
+    if (mode() === "stack") {
+      counter.textContent = photographs + " photographs";
+      return;
+    }
+    // The closing statement is a plate but not a photograph, so it is neither
+    // numbered nor counted: a series of seven reads "7 / 7" at its last picture
+    // rather than "8 / 8", and a series of one reads "1 / 1".
+    var onStatement = plates[index].classList.contains("plate-statement");
+    counter.textContent = onStatement ? "" : index + 1 + " / " + photographs;
   }
 
   function show(n) {

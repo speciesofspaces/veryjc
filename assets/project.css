@@ -96,9 +96,12 @@ body.project main{
 }
 .ident-mark:hover{ color:var(--accent); opacity:1; }
 
+/* The colour was already --muted; it was the heading weight that kept it
+   reading as dark. At the body weight it sits back the way the tagline it
+   replaced did. */
 .ident-name{
   font-size:15px;
-  font-weight:var(--w-heading);
+  font-weight:var(--w-body);
   letter-spacing:.04em;
   line-height:1.3;
   color:var(--muted);
