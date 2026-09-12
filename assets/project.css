@@ -1,0 +1,136 @@
+/* ------------------------------------------------------------
+   Project page — one frame, held in place
+   Loaded only by project pages, after style.css. Everything here is
+   scoped to body.project so no other page is affected.
+------------------------------------------------------------ */
+
+body.project{
+  /* The page itself never scrolls; the frame keeps its position. */
+  height:100dvh;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  padding-top:var(--headerH);   /* clears the fixed .header */
+}
+
+/* style.css gives main a max-width, centring margins and a big top padding.
+   Here it is just the space the frame lives in. */
+body.project main{
+  max-width:none;
+  margin:0;
+  padding:0;
+  flex:1 1 auto;
+  min-height:0;
+  display:flex;
+}
+
+.stage{
+  position:relative;
+  flex:1 1 auto;
+  min-height:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-inline:var(--padX);
+  padding-block:clamp(14px, 3vh, 34px);
+  touch-action:pan-y;
+  user-select:none;
+}
+
+/* The frame is the only thing that moves. Its width becomes the width of
+   whichever photograph is showing while the height stays put, so the picture
+   grows and shrinks about its centre instead of jumping. */
+.frame{
+  position:relative;
+  transition:width .42s cubic-bezier(.22,.68,.28,1),
+             height .42s cubic-bezier(.22,.68,.28,1);
+}
+
+.plate{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition:opacity .34s ease;
+  pointer-events:none;
+}
+.plate.on{ opacity:1; }
+
+.plate img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+/* Without JavaScript the first photograph is simply visible. */
+.no-js .frame{ width:auto; height:auto; }
+.no-js .plate{ position:static; opacity:1; }
+.no-js .plate:not(.on){ display:none; }
+.no-js .zone, .no-js .counter, .no-js .ticks{ display:none; }
+
+/* The picture itself is the control. */
+.zone{
+  position:absolute;
+  top:0; bottom:0;
+  width:50%;
+  appearance:none;
+  background:none;
+  border:0;
+  padding:0;
+  z-index:2;
+}
+.zone.prev{ left:0;  cursor:w-resize; }
+.zone.next{ right:0; cursor:e-resize; }
+.zone:focus-visible{ outline:1px solid var(--ink); outline-offset:-5px; }
+
+/* ---------------------------------------------------------------- caption -- */
+.plate-bar{
+  flex:0 0 auto;
+  border-top:1px solid var(--hair);
+  display:flex;
+  align-items:center;
+  gap:14px;
+  max-width:var(--max);
+  width:100%;
+  margin:0 auto;
+  padding:15px var(--padX) 17px;
+}
+
+.plate-bar h1{
+  margin:0;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+}
+
+.plate-bar .place{
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.counter{
+  margin-left:auto;
+  font-size:12px;
+  color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
+
+.ticks{ display:flex; gap:5px; }
+.tick{
+  width:4px; height:4px;
+  border-radius:50%;
+  background:var(--hair);
+  transition:background-color .25s ease;
+}
+.tick.on{ background:var(--ink); }
+
+@media (max-width:720px){
+  .ticks{ display:none; }
+  .plate-bar{ padding-block:12px 14px; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .frame, .plate, .tick{ transition:none; }
+}
