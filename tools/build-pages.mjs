@@ -220,7 +220,13 @@ function sideBlock(file, { counter = true } = {}) {
       : []),
     `      </div>`,
     ``,
-    `      ${counter ? '<div class="counter" aria-live="polite">1 / 1</div>\n\n      ' : ""}<div class="side-nav">`,
+    // A page without a count still reserves the line, so the menu below starts
+    // at the same height on every page.
+    `      ${counter
+      ? '<div class="counter" aria-live="polite">1 / 1</div>'
+      : '<div class="counter-space" aria-hidden="true"></div>'}`,
+    ``,
+    `      <div class="side-nav">`,
     ...items.map(line),
     `      </div>`,
     ``,

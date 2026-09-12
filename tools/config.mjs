@@ -79,7 +79,7 @@ export const sideMenu = {
   // The mark is the identity now, with the tagline under it. Either of these
   // can be empty and the build leaves that line out altogether rather than
   // writing an empty span — put a string back and the line returns.
-  name: "",
+  name: "Jué Chen",
   role: "photo poetry",
   // The tagline is a link when this is set — it is how the front page is
   // reached from everywhere else.

@@ -131,14 +131,24 @@ body.project main{
 .side-nav .pending{ color:var(--faint); cursor:default; }
 
 /* First item of the menu block, so this is what holds it clear of the identity
-   above — and it sits close to the list, which it belongs to. */
-.counter{
+   above — and it sits close to the list, which it belongs to.
+
+   `.counter-space` is the same box with nothing in it, written on to a page that
+   has no count. Without it the menu on the front page and on About would start
+   higher than on a series page and the column would jump as you moved between
+   them. It is not a spacer for its own sake: it is the count's line, held open. */
+.counter,
+.counter-space{
   margin-top:clamp(36px, 5.5vh, 58px);
   font-size:14px;
+  line-height:1.3;
+}
+.counter{
   color:var(--muted);
   letter-spacing:.08em;
   font-variant-numeric:tabular-nums;
 }
+.counter-space{ height:1.3em; }
 
 .side-contact{
   display:flex;
@@ -331,7 +341,8 @@ body.about .stage{
      absorbs all the slack and everything after it is held against the bottom
      without being positioned. */
   .ident{ order:1; flex:0 0 auto; }
-  .counter{ order:2; }
+  .counter,
+  .counter-space{ order:2; }
   .side-nav{ order:3; flex:0 0 auto; }
   .nav-arrow.up{ order:4; margin:14px 0 6px; }
   .stage{ order:5; flex:1 1 auto; min-height:0; }
@@ -357,6 +368,7 @@ body.about .stage{
      and the credit stay at the left, so the page is anchored on both sides
      rather than everything sliding to one. */
   .counter,
+  .counter-space,
   .side-nav{ text-align:right; }
   .side-contact,
   .side-foot{ text-align:left; }
@@ -369,7 +381,8 @@ body.about .stage{
   /* Hidden rather than removed: it is still written, and the short-viewport
      fallback below brings it back, where a scroll has no other way of saying
      how many photographs there are. */
-  .counter{ display:none; }
+  .counter,
+  .counter-space{ display:none; }
 
   .side-nav{ margin-top:16px; font-size:12.5px; line-height:1.55; }
   .side-contact{ margin-top:14px; font-size:12px; line-height:1.6; }
