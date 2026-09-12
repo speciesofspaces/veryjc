@@ -8,7 +8,7 @@
   /* Ceiling on how tall a photograph is allowed to get, in CSS pixels. On a
      tall monitor the frame stops here instead of filling the window. Change
      this one number to make every project page larger or smaller. */
-  --plate-max-height:1000px;
+  --plate-max-height:620px;
 }
 
 body.project{
@@ -35,12 +35,16 @@ body.project main{
   position:relative;
   flex:1 1 auto;
   min-height:0;
+  /* Photograph and caption are one block, centred together. Centring the
+     picture alone would reopen a gap beneath it whenever the picture is
+     smaller than the space available. */
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
+  gap:clamp(10px, 1.6vh, 16px);
   padding-inline:var(--padX);
-  /* tighter underneath, so the caption sits close to the photograph */
-  padding-block:clamp(14px, 3vh, 34px) clamp(10px, 1.6vh, 18px);
+  padding-block:clamp(14px, 3vh, 34px);
   touch-action:pan-y;
   user-select:none;
 }
@@ -76,7 +80,8 @@ body.project main{
 .no-js .plate:not(.on){ display:none; }
 .no-js .zone, .no-js .counter, .no-js .ticks{ display:none; }
 
-/* The picture itself is the control. */
+/* The picture itself is the control — the zones sit inside the frame, so a
+   click only counts when it lands on the photograph. */
 .zone{
   position:absolute;
   top:0; bottom:0;
@@ -101,8 +106,7 @@ body.project main{
   gap:14px;
   max-width:var(--max);
   width:100%;
-  margin:0 auto;
-  padding:4px var(--padX) 14px;
+  padding:0;
 }
 
 .plate-bar h1{
@@ -137,7 +141,6 @@ body.project main{
 
 @media (max-width:720px){
   .ticks{ display:none; }
-  .plate-bar{ padding-block:2px 12px; }
 }
 
 @media (prefers-reduced-motion:reduce){

@@ -37,7 +37,12 @@
   function layout() {
     var s = sizes[index];
     var cs = getComputedStyle(stage);
-    var availH = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    // The caption shares the stage now, so it and the gap come off the height
+    // the photograph is allowed to use.
+    var bar = stage.querySelector(".plate-bar");
+    var gap = parseFloat(cs.rowGap) || 0;
+    var availH = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom)
+      - (bar ? bar.offsetHeight + gap : 0);
     var availW = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     if (availH <= 0 || availW <= 0) return;
 

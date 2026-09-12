@@ -55,6 +55,10 @@ export const projects = [
   { slug: "empty-room", title: "Empty Room", page: null },
 ];
 
+// The mark in the top-left of every page. Just the character — the full name
+// lives in the footer and in the page title.
+export const brand = "陳";
+
 // The header menu, generated into every page so a new project appears
 // everywhere at once. Project pages are inserted directly after Projects.
 export const nav = [
@@ -145,6 +149,6 @@ export const themeColor = "#ffffff";
 // The footer, generated into every page so it stays identical everywhere and
 // the year looks after itself.
 export const footer = {
-  owner: site.author,
+  credit: `\u00a9 {year} ${site.author} \u2022 \u9673\u89ba`,
   links: [{ label: "Instagram", href: site.instagram }],
 };

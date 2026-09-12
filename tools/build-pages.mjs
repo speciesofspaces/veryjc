@@ -22,6 +22,7 @@ import {
   excludedPages,
   nav,
   footer,
+  brand,
 } from "./config.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -145,6 +146,8 @@ function navBlock(file) {
   };
 
   return [
+    `    <a class="brand" href="/">${esc(brand)}</a>`,
+    ``,
     `    <!-- Desktop links -->`,
     `    <div class="nav-links">`,
     ...items.map((it) => link(it, "      ")),
@@ -176,7 +179,7 @@ function footerBlock() {
     .join("\n");
   return [
     `  <div class="footer-inner">`,
-    `    <div class="footer-left">\u00a9 ${year} ${esc(footer.owner)}</div>`,
+    `    <div class="footer-left">${esc(footer.credit.replace("{year}", String(year)))}</div>`,
     links,
     `  </div>`,
   ].join("\n");

@@ -69,42 +69,14 @@ a:hover{ opacity:.8; }
 }
 
 /* Brand (single, identical mark/name, smooth crossfade) */
-.brand{
+/* `.nav a` sets font-size:14px and outranks a bare `.brand`, so the mark has
+   to be selected with at least as much weight or it renders at nav size. */
+.nav a.brand{
   margin-right:auto;
-  display:inline-flex;
-  align-items:flex-end;
-}
-
-/* One text node, clipped from the right, so only 陳 shows at rest and the rest
-   of the name unfurls on hover. Keeping it as a single string matters: two
-   spans leave a stray space between 陳 and 覺 for anything reading the page,
-   and two copies of 陳 is what search engines were picking up.
-
-   The clip lives on the span, not on .brand — `.nav a` sets font-size:14px and
-   outranks `.brand`, so an em on the link would resolve against the wrong size
-   and cut the glyph in half. */
-.brand-name{
   font-weight:700;
   font-size:18px;
   line-height:1;
   color:#000;
-  display:inline-block;
-  max-width:1em;            /* a CJK glyph is exactly one em wide */
-  overflow:hidden;
-  white-space:nowrap;
-  vertical-align:bottom;
-  /* generous cap so the reveal never clips if Inter's metrics differ
-     from the fallback; the span stops at its own content width */
-  transition:max-width .3s ease-out;
-}
-
-.brand:hover .brand-name,
-.brand:focus-visible .brand-name{
-  max-width:11em;
-}
-
-@media (prefers-reduced-motion: reduce){
-  .brand-name{ transition:none; }
 }
 
 /* Desktop links */
