@@ -71,37 +71,40 @@ a:hover{ opacity:.8; }
 /* Brand (single, identical mark/name, smooth crossfade) */
 .brand{
   margin-right:auto;
-  display:inline-grid;      /* overlap both */
-  align-items:baseline;
+  display:inline-flex;
+  align-items:flex-end;
 }
 
-.brand-mark,
+/* One text node, clipped from the right, so only 陳 shows at rest and the rest
+   of the name unfurls on hover. Keeping it as a single string matters: two
+   spans leave a stray space between 陳 and 覺 for anything reading the page,
+   and two copies of 陳 is what search engines were picking up.
+
+   The clip lives on the span, not on .brand — `.nav a` sets font-size:14px and
+   outranks `.brand`, so an em on the link would resolve against the wrong size
+   and cut the glyph in half. */
 .brand-name{
-  grid-area:1 / 1;
-  font: inherit;            /* inherits Inter + any nav font settings */
   font-weight:700;
-  font-size:18px;           /* SAME for both */
+  font-size:18px;
   line-height:1;
   color:#000;
+  display:inline-block;
+  max-width:1em;            /* a CJK glyph is exactly one em wide */
+  overflow:hidden;
   white-space:nowrap;
-  transition:opacity .18s ease;
+  vertical-align:bottom;
+  /* generous cap so the reveal never clips if Inter's metrics differ
+     from the fallback; the span stops at its own content width */
+  transition:max-width .3s ease-out;
 }
-
-/* default: show mark only */
-.brand-mark{ opacity:1; }
-.brand-name{
-  opacity:0;
-  pointer-events:none;
-}
-
-/* hover/focus: swap */
-.brand:hover .brand-mark,
-.brand:focus-visible .brand-mark{ opacity:0; }
 
 .brand:hover .brand-name,
 .brand:focus-visible .brand-name{
-  opacity:1;
-  pointer-events:auto;
+  max-width:11em;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .brand-name{ transition:none; }
 }
 
 /* Desktop links */

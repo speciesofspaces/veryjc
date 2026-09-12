@@ -115,3 +115,18 @@ export const pages = [
 
 // Files that carry an image but should never be crawled or listed.
 export const excludedPages = ["viewer.html", "404.html"];
+
+// The 陳 mark. Generated once from Noto Sans CJK TC Medium with the outline
+// embedded, so no font has to be present on the reader's machine. The SVG is
+// listed first because every current browser prefers it; the .ico is the
+// fallback for old ones and for the bare /favicon.ico request browsers make on
+// their own. Regenerate only if the mark itself changes.
+export const icons = [
+  { rel: "icon", href: "/assets/icons/favicon.svg", type: "image/svg+xml" },
+  { rel: "icon", href: "/favicon.ico", sizes: "48x48 32x32 16x16" },
+  { rel: "apple-touch-icon", href: "/assets/icons/apple-touch-icon.png" },
+  { rel: "manifest", href: "/site.webmanifest" },
+];
+
+// Browser chrome colour on mobile. Matches --bg in assets/style.css.
+export const themeColor = "#ffffff";

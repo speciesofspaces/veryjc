@@ -17,6 +17,9 @@ import {
   singles,
   pages,
   fallbackWidth,
+  icons,
+  themeColor,
+  excludedPages,
 } from "./config.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -107,6 +110,19 @@ function ogImageUrl(spec, file) {
   return abs(`${base}-${jpegWidths[jpegWidths.length - 1]}.jpg`);
 }
 
+// The favicon links, shared by every page including the ones kept out of the
+// sitemap — a 404 or the viewer should still show the mark.
+function iconBlock(indent = "  ") {
+  const lines = icons.map((icon) => {
+    const attrs = Object.entries(icon)
+      .map(([key, value]) => `${key}="${esc(value)}"`)
+      .join(" ");
+    return `${indent}<link ${attrs}>`;
+  });
+  lines.push(`${indent}<meta name="theme-color" content="${esc(themeColor)}">`);
+  return lines.join("\n");
+}
+
 function headBlock(page) {
   const canonical = abs(page.path === "/" ? "" : page.path.replace(/^\//, ""));
   const image = ogImageUrl(page.ogImage, page.file);
@@ -137,6 +153,7 @@ function headBlock(page) {
     `  <meta property="og:url" content="${canonical}">`,
     `  <meta property="og:image" content="${image}">`,
     `  <meta name="twitter:card" content="summary_large_image">`,
+    iconBlock(),
     `  <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`,
   ].join("\n");
 }
@@ -213,6 +230,8 @@ for (const g of galleries) add(g.page, g.marker, galleryBlock(g));
 add(projectsPage.page, projectsPage.marker, projectsBlock());
 for (const s of singles) add(s.page, s.marker, singleBlock(s));
 for (const p of pages) add(p.file, "head", headBlock(p));
+// Pages with no generated <head> still get the mark.
+for (const file of excludedPages) add(file, "icons", iconBlock());
 
 let changed = 0;
 for (const [file, blocks] of blocksByPage) {
