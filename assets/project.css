@@ -90,6 +90,16 @@ body.project main{
 }
 .ident-mark:hover{ color:var(--accent); opacity:1; }
 
+/* One anchor around the whole line, so the target is the line and not just the
+   last two words. The spans inside keep their own size, weight and colour. */
+.ident-line{
+  display:inline;
+  color:inherit;
+}
+.ident-line:hover{ opacity:1; }
+.ident-line:hover .ident-name,
+.ident-line:hover .ident-role{ color:var(--accent); }
+
 .ident-name{
   display:inline;
   font-size:17px;
@@ -100,17 +110,15 @@ body.project main{
 }
 .ident-role{
   display:inline;
-  margin-left:.45em;
+  margin-left:.2em;
   font-size:13px;
   font-weight:var(--w-body);
   letter-spacing:.05em;
   line-height:1.4;
   color:var(--muted);
 }
-/* The tagline is the front page's link, so it answers to the pointer the way
-   the menu does. */
-.ident-role a{ color:inherit; transition:color .2s ease; }
-.ident-role a:hover{ color:var(--accent); opacity:1; }
+.ident-name,
+.ident-role{ transition:color .2s ease; }
 
 .side-nav{
   display:flex;
@@ -140,13 +148,18 @@ body.project main{
   margin-top:clamp(36px, 5.5vh, 58px);
   font-size:14px;
   line-height:1.3;
+  /* The line is held open whether or not there is anything in it. That covers
+     three cases with one rule: a page that never has a count, and a project
+     whose photographs have not been uploaded yet — where project.js empties the
+     element rather than writing "1 / 1" against an empty stage. Without it the
+     menu on a new project sits 37px higher than everywhere else. */
+  min-height:1.3em;
 }
 .counter{
   color:var(--muted);
   letter-spacing:.08em;
   font-variant-numeric:tabular-nums;
 }
-.counter-space{ height:1.3em; }
 
 .side-contact{
   display:flex;
@@ -281,7 +294,7 @@ body.about .stage{
 
 /* Bounded rather than looping in the pager, which is what an arrow that can be
    spent implies — and what the reference does. */
-.nav-arrow.disabled{ opacity:.15; pointer-events:none; }
+.nav-arrow.disabled{ opacity:.3; pointer-events:none; }
 
 /* Without JavaScript the first photograph is simply visible. */
 .no-js .frame{ width:auto; height:auto; max-height:86vh; }

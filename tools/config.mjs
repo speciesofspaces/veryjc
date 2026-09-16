@@ -61,6 +61,11 @@ export const projects = [
     page: "index.html",
   },
   {
+    slug: "minimal",
+    title: "Minimal",
+    page: "minimal.html",
+  },
+  {
     slug: "species-of-spaces",
     title: "Species of Spaces",
     page: "species-of-spaces.html",
@@ -80,10 +85,11 @@ export const sideMenu = {
   // can be empty and the build leaves that line out altogether rather than
   // writing an empty span — put a string back and the line returns.
   name: "Jué Chen",
-  role: "photo poetry",
-  // The tagline is a link when this is set — it is how the front page is
-  // reached from everywhere else.
-  roleHref: "/",
+  role: "photopoetry",
+  // The name and the tagline are wrapped in one link when this is set — the
+  // whole line is the target, not just the last two words. It is how the front
+  // page is reached from everywhere else.
+  identHref: "/",
   // Names held in the menu before any photographs exist. Empty now that every
   // project has a page of its own.
   placeholders: [],
@@ -176,6 +182,15 @@ export const pages = [
     description:
       "The Meadow — a photographic series by Jué Chen made in Edinburgh, 2012.",
     ogImage: "assets/images/projects/the-meadow/cover-1440.jpg",
+  },
+  {
+    file: "minimal.html",
+    path: "/minimal.html",
+    priority: "0.7",
+    title: "Minimal — Jué Chen",
+    description:
+      "Minimal — photographs by Jué Chen.",
+    ogImage: "assets/images/projects/minimal/01-1440.jpg",
   },
   {
     file: "species-of-spaces.html",

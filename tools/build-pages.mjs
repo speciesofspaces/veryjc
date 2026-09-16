@@ -208,16 +208,20 @@ function sideBlock(file, { counter = true } = {}) {
   return [
     `      <div class="ident">`,
     `        <a class="ident-mark" href="/">${markSvg("mark")}</a>`,
-    ...(sideMenu.name
-      ? [`        <span class="ident-name">${esc(sideMenu.name)}</span>`]
-      : []),
-    ...(sideMenu.role
-      ? [
-          sideMenu.roleHref
-            ? `        <span class="ident-role"><a href="${esc(sideMenu.roleHref)}">${esc(sideMenu.role)}</a></span>`
-            : `        <span class="ident-role">${esc(sideMenu.role)}</span>`,
-        ]
-      : []),
+    // The name and the tagline are one line and one link. They keep separate
+    // spans because they are set differently, but the anchor is around both so
+    // the whole line is clickable rather than just the tagline.
+    ...(() => {
+      const parts = [
+        ...(sideMenu.name ? [`<span class="ident-name">${esc(sideMenu.name)}</span>`] : []),
+        ...(sideMenu.role ? [`<span class="ident-role">${esc(sideMenu.role)}</span>`] : []),
+      ];
+      if (!parts.length) return [];
+      const line = parts.join(" ");
+      return sideMenu.identHref
+        ? [`        <a class="ident-line" href="${esc(sideMenu.identHref)}">${line}</a>`]
+        : [`        <span class="ident-line">${line}</span>`];
+    })(),
     `      </div>`,
     ``,
     // A page without a count still reserves the line, so the menu below starts
