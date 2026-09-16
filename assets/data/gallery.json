@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T21:26:28.463Z",
+  "generatedAt": "2026-09-16T21:32:49.270Z",
   "galleries": {
     "studies": {
       "title": "Studies",
@@ -534,6 +534,21 @@
         {
           "src": "assets/images/projects/haiku/03.jpg",
           "base": "assets/images/projects/haiku/03",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/haiku/04.jpg",
+          "base": "assets/images/projects/haiku/04",
           "width": 566,
           "height": 707,
           "widths": [
@@ -542,72 +557,6 @@
           ],
           "jpegWidths": [
             566
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/haiku/04.jpg",
-          "base": "assets/images/projects/haiku/04",
-          "width": 900,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            900
-          ],
-          "jpegWidths": [
-            900
-          ],
-          "alt": ""
-        }
-      ]
-    },
-    "species-of-spaces": {
-      "title": "Species of Spaces",
-      "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
-      "cover": {
-        "src": "assets/images/projects/species-of-spaces/01.jpg",
-        "base": "assets/images/projects/species-of-spaces/01",
-        "width": 900,
-        "height": 1200,
-        "widths": [
-          480,
-          720,
-          900
-        ],
-        "jpegWidths": [
-          900
-        ],
-        "alt": ""
-      },
-      "images": [
-        {
-          "src": "assets/images/projects/species-of-spaces/01.jpg",
-          "base": "assets/images/projects/species-of-spaces/01",
-          "width": 900,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            900
-          ],
-          "jpegWidths": [
-            900
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/species-of-spaces/02.jpg",
-          "base": "assets/images/projects/species-of-spaces/02",
-          "width": 960,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            960
-          ],
-          "jpegWidths": [
-            960
           ],
           "alt": ""
         }
@@ -723,6 +672,57 @@
           ],
           "jpegWidths": [
             1440
+          ],
+          "alt": ""
+        }
+      ]
+    },
+    "species-of-spaces": {
+      "title": "Species of Spaces",
+      "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
+      "cover": {
+        "src": "assets/images/projects/species-of-spaces/01.jpg",
+        "base": "assets/images/projects/species-of-spaces/01",
+        "width": 900,
+        "height": 1200,
+        "widths": [
+          480,
+          720,
+          900
+        ],
+        "jpegWidths": [
+          900
+        ],
+        "alt": ""
+      },
+      "images": [
+        {
+          "src": "assets/images/projects/species-of-spaces/01.jpg",
+          "base": "assets/images/projects/species-of-spaces/01",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/species-of-spaces/02.jpg",
+          "base": "assets/images/projects/species-of-spaces/02",
+          "width": 960,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            960
+          ],
+          "jpegWidths": [
+            960
           ],
           "alt": ""
         }

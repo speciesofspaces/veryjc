@@ -96,16 +96,10 @@
     "hash": "c15ef94dce4a0fc5"
   },
   "assets/images/projects/haiku/03.jpg": {
-    "hash": "24a16bf5a595cbfe"
-  },
-  "assets/images/projects/haiku/04.jpg": {
     "hash": "0368287d9515fa3d"
   },
-  "assets/images/projects/species-of-spaces/01.jpg": {
-    "hash": "5509fc780610b493"
-  },
-  "assets/images/projects/species-of-spaces/02.jpg": {
-    "hash": "c31a0c9aaed07031"
+  "assets/images/projects/haiku/04.jpg": {
+    "hash": "24a16bf5a595cbfe"
   },
   "assets/images/projects/margins/01.jpg": {
     "hash": "e0a04c3b0b94025b"
@@ -124,6 +118,12 @@
   },
   "assets/images/projects/margins/06.jpg": {
     "hash": "9a62b4e21d0394ea"
+  },
+  "assets/images/projects/species-of-spaces/01.jpg": {
+    "hash": "5509fc780610b493"
+  },
+  "assets/images/projects/species-of-spaces/02.jpg": {
+    "hash": "c31a0c9aaed07031"
   },
   "assets/images/projects/the-meadow/01.jpg": {
     "hash": "911a349b2a96c065"

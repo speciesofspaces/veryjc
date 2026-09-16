@@ -66,14 +66,14 @@ export const projects = [
     page: "haiku.html",
   },
   {
-    slug: "species-of-spaces",
-    title: "Species of Spaces",
-    page: "species-of-spaces.html",
-  },
-  {
     slug: "margins",
     title: "Margins",
     page: "margins.html",
+  },
+  {
+    slug: "species-of-spaces",
+    title: "Species of Spaces",
+    page: "species-of-spaces.html",
   },
   {
     slug: "the-meadow",
