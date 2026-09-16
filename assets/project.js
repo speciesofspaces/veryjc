@@ -142,26 +142,26 @@
     arrows.down.classList.toggle("disabled", index === plates.length - 1);
   }
 
-  // The count is drawn as one solid dot per photograph rather than "3/7".
-  // The dots are built once and then only their class changes, so nothing
-  // reflows as the viewer moves. Screen readers get the position in words
-  // from the visually-hidden span, which is what the aria-live region
-  // announces — a row of dots says nothing out loud.
-  var dots = null;
+  // The count is drawn as one hairline rule per photograph rather than "3/7".
+  // The rules are built once and then only their class changes, so nothing
+  // reflows as the viewer moves. Screen readers get the position in words from
+  // the visually-hidden span, which is what the aria-live region announces —
+  // a row of rules says nothing out loud.
+  var rules = null;
   var counterText = null;
 
   function buildCounter() {
-    if (!counter || dots) return;
+    if (!counter || rules) return;
     counter.textContent = "";
     var row = document.createElement("span");
-    row.className = "dots";
+    row.className = "rules";
     row.setAttribute("aria-hidden", "true");
-    dots = [];
+    rules = [];
     for (var i = 0; i < plates.length; i++) {
-      var d = document.createElement("span");
-      d.className = "dot";
-      row.appendChild(d);
-      dots.push(d);
+      var r = document.createElement("span");
+      r.className = "rule";
+      row.appendChild(r);
+      rules.push(r);
     }
     counterText = document.createElement("span");
     counterText.className = "counter-text";
@@ -179,8 +179,8 @@
       return;
     }
     counterText.textContent = index + 1 + " of " + plates.length;
-    for (var i = 0; i < dots.length; i++) {
-      dots[i].classList.toggle("on", i === index);
+    for (var i = 0; i < rules.length; i++) {
+      rules[i].classList.toggle("on", i === index);
     }
   }
 

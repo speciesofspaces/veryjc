@@ -163,25 +163,31 @@ body.project main{
   font-variant-numeric:tabular-nums;
 }
 
-/* One solid dot per photograph; the current one takes the accent. The row is
+/* One hairline rule per photograph, the current one in the accent. The row is
    sized so it occupies the same 1.3em line the old "3/7" did, which is what
-   keeps every menu on the site starting at the same y. */
-.counter .dots{
+   keeps every menu on the site starting at the same y. The rules shrink rather
+   than wrap if a series ever grows long enough to fill the column — a second
+   line here would push the menu down and break that alignment. */
+.counter .rules{
   display:flex;
   align-items:center;
-  gap:7px;
+  gap:6px;
   min-height:1.3em;
 }
 
-.counter .dot{
-  width:5px;
-  height:5px;
-  border-radius:50%;
+.counter .rule{
+  /* The width is set on width, not flex-basis: an empty element contributes its
+     content size to the row's intrinsic width, so a bare `flex:0 1 16px` left
+     every rule shrunk to its 4px minimum. */
+  width:16px;
+  flex:0 1 auto;
+  min-width:4px;
+  height:1px;
   background:var(--faint);
   transition:background .35s ease;
 }
 
-.counter .dot.on{ background:var(--accent); }
+.counter .rule.on{ background:var(--accent); }
 
 /* The words are for screen readers only in the wide viewer and the pager.
    In the short/stack mode there are no dots to track, so the line goes back
@@ -199,7 +205,7 @@ body.project main{
   white-space:nowrap;
 }
 
-.counter-stacked .dots{ display:none; }
+.counter-stacked .rules{ display:none; }
 
 .counter-stacked .counter-text{
   position:static;
@@ -279,8 +285,22 @@ body.project main{
    The text sits where a photograph would and scrolls inside the stage rather
    than making the page scroll, so the column beside it stays put.
 --------------------------------------------------------------------------- */
-body.about .stage{
-  justify-content:flex-start;   /* words start at the edge; a picture is centred */
+/* The words are given the box a photograph would have had — the same 94% of
+   the stage height, the same square the meadow and 1:1 plates resolve to, on
+   the same centre line — so the About page reads as one more plate in the
+   series rather than a column pushed against the left edge. The text is held
+   in the middle of that box; the paragraphs keep their own readable measure
+   inside it, so widening the box does not widen the line. */
+.prose-frame{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  height:calc(100% * var(--plate-height-ratio));
+  max-height:var(--plate-max-height);
+  aspect-ratio:1 / 1;
+  max-width:100%;
+  min-height:0;
 }
 
 .prose{
@@ -492,6 +512,14 @@ body.about .stage{
     touch-action:auto;
     user-select:auto;
     margin:24px 0 0;
+  }
+  /* No photograph to match on a phone: the box gives up its square and the
+     words simply follow the menu. */
+  .prose-frame{
+    display:block;
+    height:auto;
+    max-height:none;
+    aspect-ratio:auto;
   }
   body.about .prose{ max-height:none; overflow:visible; }
   /* Nothing between the words and the contact lines here — the down arrow that
