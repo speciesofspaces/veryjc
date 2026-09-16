@@ -142,12 +142,46 @@
     arrows.down.classList.toggle("disabled", index === plates.length - 1);
   }
 
+  // The count is drawn as one solid dot per photograph rather than "3/7".
+  // The dots are built once and then only their class changes, so nothing
+  // reflows as the viewer moves. Screen readers get the position in words
+  // from the visually-hidden span, which is what the aria-live region
+  // announces — a row of dots says nothing out loud.
+  var dots = null;
+  var counterText = null;
+
+  function buildCounter() {
+    if (!counter || dots) return;
+    counter.textContent = "";
+    var row = document.createElement("span");
+    row.className = "dots";
+    row.setAttribute("aria-hidden", "true");
+    dots = [];
+    for (var i = 0; i < plates.length; i++) {
+      var d = document.createElement("span");
+      d.className = "dot";
+      row.appendChild(d);
+      dots.push(d);
+    }
+    counterText = document.createElement("span");
+    counterText.className = "counter-text";
+    counter.appendChild(row);
+    counter.appendChild(counterText);
+  }
+
   function updateCounter() {
     if (!counter) return;
-    counter.textContent =
-      mode() === "stack"
-        ? plates.length + " photographs"
-        : index + 1 + "/" + plates.length;
+    buildCounter();
+    var stacked = mode() === "stack";
+    counter.classList.toggle("counter-stacked", stacked);
+    if (stacked) {
+      counterText.textContent = plates.length + " photographs";
+      return;
+    }
+    counterText.textContent = index + 1 + " of " + plates.length;
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].classList.toggle("on", i === index);
+    }
   }
 
   function show(n) {

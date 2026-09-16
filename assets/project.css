@@ -156,9 +156,60 @@ body.project main{
   min-height:1.3em;
 }
 .counter{
+  display:flex;
+  align-items:center;
   color:var(--muted);
   letter-spacing:.08em;
   font-variant-numeric:tabular-nums;
+}
+
+/* One solid dot per photograph; the current one takes the accent. The row is
+   sized so it occupies the same 1.3em line the old "3/7" did, which is what
+   keeps every menu on the site starting at the same y. */
+.counter .dots{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-height:1.3em;
+}
+
+.counter .dot{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--faint);
+  transition:background .35s ease;
+}
+
+.counter .dot.on{ background:var(--accent); }
+
+/* The words are for screen readers only in the wide viewer and the pager.
+   In the short/stack mode there are no dots to track, so the line goes back
+   to plain text and the span is shown. */
+.counter .counter-text{
+  position:absolute;
+  width:1px;
+  height:1px;
+  margin:-1px;
+  padding:0;
+  border:0;
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+  clip-path:inset(50%);
+  white-space:nowrap;
+}
+
+.counter-stacked .dots{ display:none; }
+
+.counter-stacked .counter-text{
+  position:static;
+  width:auto;
+  height:auto;
+  margin:0;
+  overflow:visible;
+  clip:auto;
+  clip-path:none;
+  white-space:normal;
 }
 
 .side-contact{

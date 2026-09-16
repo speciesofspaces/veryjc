@@ -61,9 +61,9 @@ export const projects = [
     page: "index.html",
   },
   {
-    slug: "minimal",
-    title: "Minimal",
-    page: "minimal.html",
+    slug: "one-to-one",
+    title: "1:1",
+    page: "one-to-one.html",
   },
   {
     slug: "species-of-spaces",
@@ -184,13 +184,13 @@ export const pages = [
     ogImage: "assets/images/projects/the-meadow/cover-1440.jpg",
   },
   {
-    file: "minimal.html",
-    path: "/minimal.html",
+    file: "one-to-one.html",
+    path: "/one-to-one.html",
     priority: "0.7",
-    title: "Minimal — Jué Chen",
+    title: "1:1 — Jué Chen",
     description:
-      "Minimal — photographs by Jué Chen.",
-    ogImage: "assets/images/projects/minimal/01-1440.jpg",
+      "1:1 — square photographs by Jué Chen.",
+    ogImage: "assets/images/projects/one-to-one/01-1440.jpg",
   },
   {
     file: "species-of-spaces.html",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T19:36:04.757Z",
+  "generatedAt": "2026-09-16T19:50:45.735Z",
   "galleries": {
     "studies": {
       "title": "Studies",
@@ -480,58 +480,29 @@
         }
       ]
     },
-    "minimal": {
-      "title": "Minimal",
+    "one-to-one": {
+      "title": "1:1",
       "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
       "cover": {
-        "src": "assets/images/projects/minimal/01.jpg",
-        "base": "assets/images/projects/minimal/01",
-        "width": 900,
-        "height": 1200,
+        "src": "assets/images/projects/one-to-one/01.jpg",
+        "base": "assets/images/projects/one-to-one/01",
+        "width": 1080,
+        "height": 1079,
         "widths": [
           480,
           720,
-          900
+          960,
+          1080
         ],
         "jpegWidths": [
-          900
+          1080
         ],
         "alt": ""
       },
       "images": [
         {
-          "src": "assets/images/projects/minimal/01.jpg",
-          "base": "assets/images/projects/minimal/01",
-          "width": 900,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            900
-          ],
-          "jpegWidths": [
-            900
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/minimal/02.jpg",
-          "base": "assets/images/projects/minimal/02",
-          "width": 867,
-          "height": 867,
-          "widths": [
-            480,
-            720,
-            867
-          ],
-          "jpegWidths": [
-            867
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/minimal/03.jpg",
-          "base": "assets/images/projects/minimal/03",
+          "src": "assets/images/projects/one-to-one/01.jpg",
+          "base": "assets/images/projects/one-to-one/01",
           "width": 1080,
           "height": 1079,
           "widths": [
@@ -542,6 +513,21 @@
           ],
           "jpegWidths": [
             1080
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/one-to-one/02.jpg",
+          "base": "assets/images/projects/one-to-one/02",
+          "width": 867,
+          "height": 867,
+          "widths": [
+            480,
+            720,
+            867
+          ],
+          "jpegWidths": [
+            867
           ],
           "alt": ""
         }
