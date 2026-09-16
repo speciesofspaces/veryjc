@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T20:48:53.939Z",
+  "generatedAt": "2026-09-16T21:13:13.124Z",
   "galleries": {
     "studies": {
       "title": "Studies",
@@ -544,6 +544,21 @@
             566
           ],
           "alt": ""
+        },
+        {
+          "src": "assets/images/projects/haiku/04.jpg",
+          "base": "assets/images/projects/haiku/04",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
         }
       ]
     },
@@ -553,17 +568,15 @@
       "cover": {
         "src": "assets/images/projects/species-of-spaces/01.jpg",
         "base": "assets/images/projects/species-of-spaces/01",
-        "width": 4083,
-        "height": 5444,
+        "width": 900,
+        "height": 1200,
         "widths": [
           480,
           720,
-          960,
-          1440,
-          2048
+          900
         ],
         "jpegWidths": [
-          1440
+          900
         ],
         "alt": ""
       },
@@ -571,6 +584,134 @@
         {
           "src": "assets/images/projects/species-of-spaces/01.jpg",
           "base": "assets/images/projects/species-of-spaces/01",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/species-of-spaces/02.jpg",
+          "base": "assets/images/projects/species-of-spaces/02",
+          "width": 960,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            960
+          ],
+          "jpegWidths": [
+            960
+          ],
+          "alt": ""
+        }
+      ]
+    },
+    "margins": {
+      "title": "Margins",
+      "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
+      "cover": {
+        "src": "assets/images/projects/margins/01.jpg",
+        "base": "assets/images/projects/margins/01",
+        "width": 900,
+        "height": 1200,
+        "widths": [
+          480,
+          720,
+          900
+        ],
+        "jpegWidths": [
+          900
+        ],
+        "alt": ""
+      },
+      "images": [
+        {
+          "src": "assets/images/projects/margins/01.jpg",
+          "base": "assets/images/projects/margins/01",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/margins/02.jpg",
+          "base": "assets/images/projects/margins/02",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/margins/03.jpg",
+          "base": "assets/images/projects/margins/03",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/margins/04.jpg",
+          "base": "assets/images/projects/margins/04",
+          "width": 949,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            949
+          ],
+          "jpegWidths": [
+            949
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/margins/05.jpg",
+          "base": "assets/images/projects/margins/05",
+          "width": 1600,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            960,
+            1440,
+            1600
+          ],
+          "jpegWidths": [
+            1440
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/margins/06.jpg",
+          "base": "assets/images/projects/margins/06",
           "width": 4083,
           "height": 5444,
           "widths": [
@@ -582,51 +723,6 @@
           ],
           "jpegWidths": [
             1440
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/species-of-spaces/02.jpg",
-          "base": "assets/images/projects/species-of-spaces/02",
-          "width": 900,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            900
-          ],
-          "jpegWidths": [
-            900
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/species-of-spaces/03.jpg",
-          "base": "assets/images/projects/species-of-spaces/03",
-          "width": 900,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            900
-          ],
-          "jpegWidths": [
-            900
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/species-of-spaces/04.jpg",
-          "base": "assets/images/projects/species-of-spaces/04",
-          "width": 900,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            900
-          ],
-          "jpegWidths": [
-            900
           ],
           "alt": ""
         }

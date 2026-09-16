@@ -7,6 +7,7 @@ Drop new photographs here, commit, push. The build does the rest.
 | `upload/studies/`       | Studies        |
 | `upload/projects/the-meadow/` | The Meadow |
 | `upload/projects/species-of-spaces/` | Species of Spaces |
+| `upload/projects/margins/` | Margins |
 | `upload/projects/photo-poetry/` | Photo Poetry (the front page) |
 | `upload/projects/haiku/` | Haiku |
 

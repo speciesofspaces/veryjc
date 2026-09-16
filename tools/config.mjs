@@ -71,6 +71,11 @@ export const projects = [
     page: "species-of-spaces.html",
   },
   {
+    slug: "margins",
+    title: "Margins",
+    page: "margins.html",
+  },
+  {
     slug: "the-meadow",
     title: "The Meadow",
     page: "the-meadow.html",
@@ -200,6 +205,15 @@ export const pages = [
     description:
       "Species of Spaces — a photographic series by Jué Chen.",
     ogImage: "assets/images/projects/species-of-spaces/01-1440.jpg",
+  },
+  {
+    file: "margins.html",
+    path: "/margins.html",
+    priority: "0.7",
+    title: "Margins — Jué Chen",
+    description:
+      "Margins — a photographic series by Jué Chen.",
+    ogImage: "assets/images/projects/margins/01-1440.jpg",
   },
   {
     file: "studies.html",
