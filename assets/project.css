@@ -253,13 +253,15 @@ body.project main{
   user-select:none;
 }
 
-/* The frame is the only thing that moves: its width becomes the width of
-   whichever photograph is showing while the height stays put, so the picture
-   grows and shrinks about its centre instead of jumping. */
+/* One window for the whole series. project.js sizes it from the widest
+   photograph and then leaves it alone, so it no longer animates: there is
+   nothing left for it to animate to. overflow:hidden is what makes the slide
+   a slide — it is the edge the photographs pass behind. The pager and the
+   stack set this back to visible, because there the frame is a track taller
+   than itself and hiding its overflow would leave one photograph on screen. */
 .frame{
   position:relative;
-  transition:width .42s cubic-bezier(.22,.68,.28,1),
-             height .42s cubic-bezier(.22,.68,.28,1);
+  overflow:hidden;
 }
 
 /* display:block is load-bearing. Every plate is a <picture>, and style.css
@@ -274,7 +276,11 @@ body.project main{
   position:absolute;
   inset:0;
   opacity:0;
-  transition:opacity .34s ease;
+  /* No transition here. The plates used to crossfade, which meant the outgoing
+     photograph was being re-fitted inside a box that was changing shape
+     underneath it — it appeared to squash before it had finished leaving.
+     They slide now, and project.js writes the transform transition inline on
+     the two plates that are actually moving. */
   pointer-events:none;
 }
 .plate.on{ opacity:1; }
@@ -481,6 +487,7 @@ body.project main{
     flex-direction:column;
     width:100%;
     height:100%;
+    overflow:visible;   /* the track is taller than itself; the stage clips */
     transform:translateY(calc(var(--i, 0) * -100%));
     transition:transform .42s cubic-bezier(.22,.68,.28,1);
   }
@@ -550,6 +557,7 @@ body.project main{
     display:block;
     width:auto;
     height:auto;
+    overflow:visible;
     transform:none;
     transition:none;
   }

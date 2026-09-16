@@ -4,8 +4,9 @@
 //
 // Three modes, matching the three blocks in project.css:
 //
-//   viewer  wide   the frame takes each photograph's own shape and the
-//                  photographs crossfade; you click the halves or press ← →.
+//   viewer  wide   the frame is one fixed window for the whole series and the
+//                  photographs slide through it sideways, the arriving one
+//                  pushing the last out; you click the halves or press ← →.
 //   pager   narrow the stage is a window and the frame is a track; the
 //                  photographs are a column moved a whole screen at a time,
 //                  by an upward or downward swipe, a tap, or ↑ ↓.
@@ -68,9 +69,12 @@
 
     if (m !== "viewer") {
       // The width and height written inline while the viewer was running would
-      // override the stylesheet, so they are cleared rather than ignored.
+      // override the stylesheet, so they are cleared rather than ignored. So
+      // would the transforms the slide leaves on the plates — in the pager the
+      // plates are flex items in a track and must sit at the origin.
       frame.style.width = "";
       frame.style.height = "";
+      clearSlide();
     }
     if (m === "pager") {
       frame.style.setProperty("--i", String(index));
@@ -79,21 +83,75 @@
     frame.style.removeProperty("--i");
     if (m === "stack") return;
 
-    var s = sizes[index];
     var cs = getComputedStyle(stage);
     var availH = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
     var availW = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     if (availH <= 0 || availW <= 0) return;
 
-    // Three limits, whichever is smallest: a share of the height available, the
-    // width the widest frame in the series needs, and the ceiling.
+    // One window for the whole series, not a box that takes each photograph's
+    // own shape. A slide needs somewhere to slide through: if the window
+    // changed size as the plates moved, the arriving photograph would be
+    // re-fitted while it was still travelling. So the window is sized once,
+    // from the widest photograph in the series, and every plate is contained
+    // inside it — a portrait in a series that also holds a landscape simply
+    // leaves air either side.
+    //
+    // Three limits, whichever is smallest: a share of the height available,
+    // the width the widest photograph needs, and the ceiling.
     var byHeight = availH * cssNumber("--plate-height-ratio", 1);
     var byWidth = availW / widest;
     var height = Math.min(byHeight, byWidth, cssNumber("--plate-max-height", Infinity));
-    var scale = Math.min(height / s.h, availW / s.w);
 
-    frame.style.width = Math.round(s.w * scale) + "px";
-    frame.style.height = Math.round(s.h * scale) + "px";
+    frame.style.width = Math.round(height * widest) + "px";
+    frame.style.height = Math.round(height) + "px";
+  }
+
+  // ---------------------------------------------------------------- slide ---
+  // Only two plates ever move: the one leaving and the one arriving. They
+  // travel together by a whole window width, so the window is always full.
+  // Everything else is parked at the origin with nothing showing.
+  var SLIDE_MS = 480;
+  var SLIDE_EASE = "cubic-bezier(.22,.68,.28,1)";
+  var slideTimer = null;
+  var reduceQuery = window.matchMedia("(prefers-reduced-motion:reduce)");
+
+  // Puts every plate back to rest: no inline transition, no transform, and
+  // only the current one showing. Called when the slide finishes, when a new
+  // slide starts (so a fast second click cannot strand the first one's
+  // outgoing plate half way across), and when the viewer hands over to the
+  // pager, whose plates must sit at the origin to stack into a track.
+  function clearSlide(except) {
+    clearTimeout(slideTimer);
+    slideTimer = null;
+    plates.forEach(function (p, k) {
+      if (except && except.indexOf(k) !== -1) return;
+      p.style.transition = "none";
+      p.style.transform = "";
+      p.classList.toggle("on", k === index);
+    });
+  }
+
+  function slide(from, dir) {
+    var out = plates[from];
+    var into = plates[index];
+    if (!out || !into || out === into) return;
+
+    clearSlide([from, index]);
+
+    // The arriving plate is placed off the edge it is coming from, made
+    // visible, and only then given a transition — otherwise it would animate
+    // in from wherever it happened to be.
+    into.style.transition = "none";
+    into.style.transform = "translateX(" + dir * 100 + "%)";
+    into.classList.add("on");
+    void into.offsetWidth;
+
+    into.style.transition = "transform " + SLIDE_MS + "ms " + SLIDE_EASE;
+    out.style.transition = "transform " + SLIDE_MS + "ms " + SLIDE_EASE;
+    into.style.transform = "translateX(0%)";
+    out.style.transform = "translateX(" + -dir * 100 + "%)";
+
+    slideTimer = setTimeout(function () { clearSlide(); }, SLIDE_MS);
   }
 
   // In the pager the other plates are genuinely off screen, so a lazy image
@@ -187,6 +245,7 @@
   function show(n) {
     var m = mode();
     if (m === "stack") return; // they are all on screen already
+    var was = index;
 
     // The pager is bounded, not looping: an arrow that greys out at the end
     // implies an end, and the reference site works the same way. The wide
@@ -196,7 +255,17 @@
         ? Math.max(0, Math.min(plates.length - 1, n))
         : (n + plates.length) % plates.length;
 
-    plates.forEach(function (p, k) { p.classList.toggle("on", k === index); });
+    if (m === "viewer" && index !== was && !reduceQuery.matches) {
+      // Which way the photographs travel. Every caller moves by one, so the
+      // only jumps are the two ends meeting: last to first reads forward,
+      // first to last reads back.
+      var step = index - was;
+      if (step === plates.length - 1) step = -1;
+      else if (step === -(plates.length - 1)) step = 1;
+      slide(was, step > 0 ? 1 : -1);
+    } else {
+      clearSlide();
+    }
     updateCounter();
     refreshArrows();
     layout();

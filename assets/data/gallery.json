@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T21:13:13.124Z",
+  "generatedAt": "2026-09-16T21:26:28.463Z",
   "galleries": {
     "studies": {
       "title": "Studies",
@@ -680,6 +680,23 @@
         {
           "src": "assets/images/projects/margins/04.jpg",
           "base": "assets/images/projects/margins/04",
+          "width": 4083,
+          "height": 5444,
+          "widths": [
+            480,
+            720,
+            960,
+            1440,
+            2048
+          ],
+          "jpegWidths": [
+            1440
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/margins/05.jpg",
+          "base": "assets/images/projects/margins/05",
           "width": 949,
           "height": 1200,
           "widths": [
@@ -693,8 +710,8 @@
           "alt": ""
         },
         {
-          "src": "assets/images/projects/margins/05.jpg",
-          "base": "assets/images/projects/margins/05",
+          "src": "assets/images/projects/margins/06.jpg",
+          "base": "assets/images/projects/margins/06",
           "width": 1600,
           "height": 1200,
           "widths": [
@@ -703,23 +720,6 @@
             960,
             1440,
             1600
-          ],
-          "jpegWidths": [
-            1440
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/margins/06.jpg",
-          "base": "assets/images/projects/margins/06",
-          "width": 4083,
-          "height": 5444,
-          "widths": [
-            480,
-            720,
-            960,
-            1440,
-            2048
           ],
           "jpegWidths": [
             1440
