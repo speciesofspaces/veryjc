@@ -61,9 +61,9 @@ export const projects = [
     page: "index.html",
   },
   {
-    slug: "one-to-one",
-    title: "1:1",
-    page: "one-to-one.html",
+    slug: "haiku",
+    title: "Haiku",
+    page: "haiku.html",
   },
   {
     slug: "species-of-spaces",
@@ -184,13 +184,13 @@ export const pages = [
     ogImage: "assets/images/projects/the-meadow/cover-1440.jpg",
   },
   {
-    file: "one-to-one.html",
-    path: "/one-to-one.html",
+    file: "haiku.html",
+    path: "/haiku.html",
     priority: "0.7",
-    title: "1:1 — Jué Chen",
+    title: "Haiku — Jué Chen",
     description:
-      "1:1 — square photographs by Jué Chen.",
-    ogImage: "assets/images/projects/one-to-one/01-1440.jpg",
+      "Haiku — square photographs by Jué Chen.",
+    ogImage: "assets/images/projects/haiku/01-1440.jpg",
   },
   {
     file: "species-of-spaces.html",

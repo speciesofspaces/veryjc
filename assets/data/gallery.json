@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T20:03:48.170Z",
+  "generatedAt": "2026-09-16T20:48:53.939Z",
   "galleries": {
     "studies": {
       "title": "Studies",
@@ -480,12 +480,12 @@
         }
       ]
     },
-    "one-to-one": {
-      "title": "1:1",
+    "haiku": {
+      "title": "Haiku",
       "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
       "cover": {
-        "src": "assets/images/projects/one-to-one/01.jpg",
-        "base": "assets/images/projects/one-to-one/01",
+        "src": "assets/images/projects/haiku/01.jpg",
+        "base": "assets/images/projects/haiku/01",
         "width": 1080,
         "height": 1079,
         "widths": [
@@ -501,8 +501,8 @@
       },
       "images": [
         {
-          "src": "assets/images/projects/one-to-one/01.jpg",
-          "base": "assets/images/projects/one-to-one/01",
+          "src": "assets/images/projects/haiku/01.jpg",
+          "base": "assets/images/projects/haiku/01",
           "width": 1080,
           "height": 1079,
           "widths": [
@@ -517,8 +517,8 @@
           "alt": ""
         },
         {
-          "src": "assets/images/projects/one-to-one/02.jpg",
-          "base": "assets/images/projects/one-to-one/02",
+          "src": "assets/images/projects/haiku/02.jpg",
+          "base": "assets/images/projects/haiku/02",
           "width": 867,
           "height": 867,
           "widths": [
@@ -528,6 +528,20 @@
           ],
           "jpegWidths": [
             867
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/haiku/03.jpg",
+          "base": "assets/images/projects/haiku/03",
+          "width": 566,
+          "height": 707,
+          "widths": [
+            480,
+            566
+          ],
+          "jpegWidths": [
+            566
           ],
           "alt": ""
         }
