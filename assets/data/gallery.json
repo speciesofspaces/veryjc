@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T21:32:49.270Z",
+  "generatedAt": "2026-09-16T21:41:47.551Z",
   "galleries": {
     "studies": {
       "title": "Studies",
@@ -629,17 +629,16 @@
         {
           "src": "assets/images/projects/margins/04.jpg",
           "base": "assets/images/projects/margins/04",
-          "width": 4083,
-          "height": 5444,
+          "width": 961,
+          "height": 1200,
           "widths": [
             480,
             720,
             960,
-            1440,
-            2048
+            961
           ],
           "jpegWidths": [
-            1440
+            961
           ],
           "alt": ""
         },
@@ -723,6 +722,36 @@
           ],
           "jpegWidths": [
             960
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/species-of-spaces/03.jpg",
+          "base": "assets/images/projects/species-of-spaces/03",
+          "width": 901,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            901
+          ],
+          "jpegWidths": [
+            901
+          ],
+          "alt": ""
+        },
+        {
+          "src": "assets/images/projects/species-of-spaces/04.jpg",
+          "base": "assets/images/projects/species-of-spaces/04",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
           ],
           "alt": ""
         }
