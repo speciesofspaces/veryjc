@@ -61,9 +61,9 @@ export const projects = [
     page: "index.html",
   },
   {
-    slug: "haiku",
-    title: "Haiku",
-    page: "haiku.html",
+    slug: "dream",
+    title: "Dream",
+    page: "dream.html",
   },
   {
     slug: "margins",
@@ -189,13 +189,13 @@ export const pages = [
     ogImage: "assets/images/projects/the-meadow/cover-1440.jpg",
   },
   {
-    file: "haiku.html",
-    path: "/haiku.html",
+    file: "dream.html",
+    path: "/dream.html",
     priority: "0.7",
-    title: "Haiku — Jué Chen",
+    title: "Dream — Jué Chen",
     description:
-      "Haiku — square photographs by Jué Chen.",
-    ogImage: "assets/images/projects/haiku/01-1440.jpg",
+      "Dream — photographs by Jué Chen.",
+    ogImage: "assets/images/projects/dream/01-1440.jpg",
   },
   {
     file: "species-of-spaces.html",

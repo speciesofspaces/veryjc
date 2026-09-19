@@ -9,7 +9,7 @@ Drop new photographs here, commit, push. The build does the rest.
 | `upload/projects/species-of-spaces/` | Species of Spaces |
 | `upload/projects/margins/` | Margins |
 | `upload/projects/photo-poetry/` | Photo Poetry (the front page) |
-| `upload/projects/haiku/` | Haiku |
+| `upload/projects/dream/` | Dream |
 
 File names don't matter — they're renumbered on from the highest existing
 photograph in that set, then moved into `assets/images/…`. This folder is

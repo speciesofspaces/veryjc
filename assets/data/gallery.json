@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T21:43:50.065Z",
+  "generatedAt": "2026-09-19T15:54:31.199Z",
   "galleries": {
     "studies": {
       "title": "Studies",
@@ -480,12 +480,12 @@
         }
       ]
     },
-    "haiku": {
-      "title": "Haiku",
+    "dream": {
+      "title": "Dream",
       "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
       "cover": {
-        "src": "assets/images/projects/haiku/01.jpg",
-        "base": "assets/images/projects/haiku/01",
+        "src": "assets/images/projects/dream/01.jpg",
+        "base": "assets/images/projects/dream/01",
         "width": 1080,
         "height": 1079,
         "widths": [
@@ -501,8 +501,8 @@
       },
       "images": [
         {
-          "src": "assets/images/projects/haiku/01.jpg",
-          "base": "assets/images/projects/haiku/01",
+          "src": "assets/images/projects/dream/01.jpg",
+          "base": "assets/images/projects/dream/01",
           "width": 1080,
           "height": 1079,
           "widths": [
@@ -517,8 +517,8 @@
           "alt": ""
         },
         {
-          "src": "assets/images/projects/haiku/02.jpg",
-          "base": "assets/images/projects/haiku/02",
+          "src": "assets/images/projects/dream/02.jpg",
+          "base": "assets/images/projects/dream/02",
           "width": 867,
           "height": 867,
           "widths": [
@@ -532,8 +532,8 @@
           "alt": ""
         },
         {
-          "src": "assets/images/projects/haiku/03.jpg",
-          "base": "assets/images/projects/haiku/03",
+          "src": "assets/images/projects/dream/03.jpg",
+          "base": "assets/images/projects/dream/03",
           "width": 900,
           "height": 1200,
           "widths": [
@@ -547,8 +547,8 @@
           "alt": ""
         },
         {
-          "src": "assets/images/projects/haiku/04.jpg",
-          "base": "assets/images/projects/haiku/04",
+          "src": "assets/images/projects/dream/04.jpg",
+          "base": "assets/images/projects/dream/04",
           "width": 566,
           "height": 707,
           "widths": [
