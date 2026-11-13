@@ -5,7 +5,7 @@ export const site = {
   title: "Jué Chen",
   author: "Jué Chen",
   description:
-    "Fine art photography — minimal stills of light, distance and absence. London.",
+    "Photographs by Jué Chen. How silence looks, and breaks.",
   lang: "en",
   instagram: "https://instagram.com/veryjc",
   email: "contact@juechen.uk",
@@ -55,7 +55,7 @@ export const galleries = [
 export const projects = [
   {
     slug: "photo-poetry",
-    title: "Photo Poetry",
+    title: "Selected photographs",
     // The front page. Its own link lives in the tagline under the mark, which
     // is why it is kept out of the menu below.
     page: "index.html",
@@ -90,7 +90,7 @@ export const sideMenu = {
   // can be empty and the build leaves that line out altogether rather than
   // writing an empty span — put a string back and the line returns.
   name: "Jué Chen",
-  role: "photopoetry",
+  role: "How silence looks, and breaks.",
   // The name and the tagline are wrapped in one link when this is set — the
   // whole line is the target, not just the last two words. It is how the front
   // page is reached from everywhere else.
@@ -98,14 +98,14 @@ export const sideMenu = {
   // Names held in the menu before any photographs exist. Empty now that every
   // project has a page of its own.
   placeholders: [],
-  // Photo Poetry is the front page and is reached through the tagline, so it is
+  // The selected photographs are the front page and is reached through the tagline, so it is
   // not repeated in the list.
   hideFromMenu: ["photo-poetry"],
-  // Everything after the projects, in the same list. Both Studies and About are
-  // deliberately unlinked for now — the pages are still built and still
-  // reachable by URL, they simply are not advertised. Add an entry back here to
-  // put either one in the menu again.
-  extra: [],
+  // Everything after the projects, in the same list. About is linked; Studies
+  // is deliberately unlinked for now — the page is still built and still
+  // reachable by URL, it simply is not advertised. Add an entry here to put it
+  // in the menu again.
+  extra: [{ label: "About", href: "about.html" }],
   // Pages that carry the menu but no frame counter.
   hideCounterOn: ["index.html"],
   // An entry with no `href` is printed as plain text. The address is there to
@@ -174,9 +174,9 @@ export const pages = [
     file: "index.html",
     path: "/",
     priority: "1.0",
-    title: "Photo Poetry — Jué Chen",
+    title: "Jué Chen — Photographs",
     description:
-      "Photo Poetry — photographs by Jué Chen. Minimal stills of light, distance and absence. London.",
+      "Photographs by Jué Chen. How silence looks, and breaks.",
     ogImage: "assets/images/projects/photo-poetry/01-1440.jpg",
   },
   {
@@ -221,7 +221,7 @@ export const pages = [
     priority: "0.8",
     title: "Studies — Jué Chen",
     description:
-      "Fragments and experiments — a running set of photographic studies by Jué Chen, London and the UK.",
+      "Fragments and experiments — a running set of photographic studies by Jué Chen.",
     ogImage: "assets/images/studies/01-1440.jpg",
   },
   {
@@ -230,7 +230,7 @@ export const pages = [
     priority: "0.5",
     title: "About — Jué Chen",
     description:
-      "Jué Chen is a fine art photographer based in London, working in minimal stills of light, distance and absence.",
+      "About Jué Chen, photographer. How silence looks, and breaks.",
     ogImage: "assets/images/hero-1440.jpg",
   },
 ];

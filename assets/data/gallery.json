@@ -385,7 +385,7 @@
   },
   "projects": {
     "photo-poetry": {
-      "title": "Photo Poetry",
+      "title": "Selected photographs",
       "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
       "cover": {
         "src": "assets/images/projects/photo-poetry/01.jpg",
@@ -400,7 +400,7 @@
         "jpegWidths": [
           900
         ],
-        "alt": ""
+        "alt": "Blossom branches against an evening sky, above a dark house with one lit window."
       },
       "images": [
         {
@@ -416,7 +416,7 @@
           "jpegWidths": [
             900
           ],
-          "alt": ""
+          "alt": "Blossom branches against an evening sky, above a dark house with one lit window."
         },
         {
           "src": "assets/images/projects/photo-poetry/02.jpg",
@@ -431,7 +431,7 @@
           "jpegWidths": [
             895
           ],
-          "alt": ""
+          "alt": "An aeroplane window glowing with the colours of sunset."
         },
         {
           "src": "assets/images/projects/photo-poetry/03.jpg",
@@ -446,7 +446,7 @@
           "jpegWidths": [
             900
           ],
-          "alt": ""
+          "alt": "Blades of grass, blurred and close, against a blue sky."
         },
         {
           "src": "assets/images/projects/photo-poetry/04.jpg",
@@ -461,7 +461,7 @@
           "jpegWidths": [
             900
           ],
-          "alt": ""
+          "alt": "A blurred figure with red hair, head bowed, against pale grey."
         },
         {
           "src": "assets/images/projects/photo-poetry/05.jpg",
@@ -476,7 +476,7 @@
           "jpegWidths": [
             899
           ],
-          "alt": ""
+          "alt": "Sunlight rippling across the surface of a swimming pool."
         }
       ]
     },
@@ -497,7 +497,7 @@
         "jpegWidths": [
           1080
         ],
-        "alt": ""
+        "alt": "A twist of clear film drifting across a deep blue sky."
       },
       "images": [
         {
@@ -514,7 +514,7 @@
           "jpegWidths": [
             1080
           ],
-          "alt": ""
+          "alt": "A twist of clear film drifting across a deep blue sky."
         },
         {
           "src": "assets/images/projects/dream/02.jpg",
@@ -529,7 +529,7 @@
           "jpegWidths": [
             867
           ],
-          "alt": ""
+          "alt": "A face seen from the nose down, a grey bubble of gum covering the mouth."
         },
         {
           "src": "assets/images/projects/dream/03.jpg",
@@ -544,7 +544,7 @@
           "jpegWidths": [
             900
           ],
-          "alt": ""
+          "alt": "Streaks of warm light, like flames, seen through a dark frame."
         },
         {
           "src": "assets/images/projects/dream/04.jpg",
@@ -578,7 +578,7 @@
         "jpegWidths": [
           900
         ],
-        "alt": ""
+        "alt": "A bare white branch against a grey sky beside a dark trunk, in black and white."
       },
       "images": [
         {
@@ -594,7 +594,7 @@
           "jpegWidths": [
             900
           ],
-          "alt": ""
+          "alt": "A bare white branch against a grey sky beside a dark trunk, in black and white."
         },
         {
           "src": "assets/images/projects/margins/02.jpg",
@@ -609,7 +609,7 @@
           "jpegWidths": [
             900
           ],
-          "alt": ""
+          "alt": "A white painted line curving across dark tarmac, in black and white."
         },
         {
           "src": "assets/images/projects/margins/03.jpg",
@@ -624,7 +624,7 @@
           "jpegWidths": [
             900
           ],
-          "alt": ""
+          "alt": "Light patterns on the surface of water, in black and white."
         },
         {
           "src": "assets/images/projects/margins/04.jpg",
@@ -640,7 +640,7 @@
           "jpegWidths": [
             961
           ],
-          "alt": ""
+          "alt": "A dark rectangle on wet ground scattered with points of light, in black and white."
         },
         {
           "src": "assets/images/projects/margins/05.jpg",
@@ -655,7 +655,7 @@
           "jpegWidths": [
             949
           ],
-          "alt": ""
+          "alt": "A brick doorway opening onto a shaded garden."
         },
         {
           "src": "assets/images/projects/margins/06.jpg",
@@ -672,7 +672,7 @@
           "jpegWidths": [
             1440
           ],
-          "alt": ""
+          "alt": "A pale panel catching the last light among dark hedges at dusk."
         }
       ]
     },
@@ -692,7 +692,7 @@
         "jpegWidths": [
           900
         ],
-        "alt": ""
+        "alt": "An open sash window with a patterned curtain, looking out over gardens, in black and white."
       },
       "images": [
         {
@@ -708,26 +708,11 @@
           "jpegWidths": [
             900
           ],
-          "alt": ""
+          "alt": "An open sash window with a patterned curtain, looking out over gardens, in black and white."
         },
         {
           "src": "assets/images/projects/species-of-spaces/02.jpg",
           "base": "assets/images/projects/species-of-spaces/02",
-          "width": 960,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            960
-          ],
-          "jpegWidths": [
-            960
-          ],
-          "alt": ""
-        },
-        {
-          "src": "assets/images/projects/species-of-spaces/03.jpg",
-          "base": "assets/images/projects/species-of-spaces/03",
           "width": 901,
           "height": 1200,
           "widths": [
@@ -738,11 +723,11 @@
           "jpegWidths": [
             901
           ],
-          "alt": ""
+          "alt": "A dark tunnel under a bridge framing a bright green field and blue sky."
         },
         {
-          "src": "assets/images/projects/species-of-spaces/04.jpg",
-          "base": "assets/images/projects/species-of-spaces/04",
+          "src": "assets/images/projects/species-of-spaces/03.jpg",
+          "base": "assets/images/projects/species-of-spaces/03",
           "width": 900,
           "height": 1200,
           "widths": [
@@ -753,7 +738,7 @@
           "jpegWidths": [
             900
           ],
-          "alt": ""
+          "alt": "Bare trees and a walking figure blurred through wet glass, in black and white."
         }
       ]
     },
@@ -774,7 +759,7 @@
         "jpegWidths": [
           1000
         ],
-        "alt": ""
+        "alt": "A figure in a field holding a mirror of sky."
       },
       "images": [
         {
@@ -791,7 +776,7 @@
           "jpegWidths": [
             1000
           ],
-          "alt": ""
+          "alt": "Double exposure of two framed mirrors of sky held up in a field, a chair in the foreground."
         },
         {
           "src": "assets/images/projects/the-meadow/02.jpg",
@@ -807,7 +792,7 @@
           "jpegWidths": [
             1000
           ],
-          "alt": ""
+          "alt": "A figure seated in a field, holding a mirror that shows sky where the head and body would be."
         },
         {
           "src": "assets/images/projects/the-meadow/03.jpg",
@@ -823,7 +808,7 @@
           "jpegWidths": [
             1000
           ],
-          "alt": ""
+          "alt": "Double exposure of a standing figure, a chair and a mirror on grass."
         },
         {
           "src": "assets/images/projects/the-meadow/04.jpg",
@@ -839,7 +824,7 @@
           "jpegWidths": [
             1000
           ],
-          "alt": ""
+          "alt": "Double exposure of trees and a hillside in yellow-green light."
         },
         {
           "src": "assets/images/projects/the-meadow/05.jpg",
@@ -855,7 +840,7 @@
           "jpegWidths": [
             1000
           ],
-          "alt": ""
+          "alt": "A figure on a chair in parkland, holding a mirror of sky in front of the face."
         },
         {
           "src": "assets/images/projects/the-meadow/06.jpg",
@@ -871,7 +856,7 @@
           "jpegWidths": [
             1000
           ],
-          "alt": ""
+          "alt": "A mirror on the grass reflecting clouds and the photographer looking down with a camera."
         },
         {
           "src": "assets/images/projects/the-meadow/07.jpg",
@@ -887,7 +872,7 @@
           "jpegWidths": [
             1000
           ],
-          "alt": ""
+          "alt": "A small mirror lying in red-toned grass, reflecting the sky."
         }
       ]
     }
@@ -908,7 +893,7 @@
       "jpegWidths": [
         1440
       ],
-      "alt": "",
+      "alt": "An outstretched arm in a pale blue sleeve against a soft sky, fingers pinched together.",
       "sizes": "(max-width: 1100px) 100vw, 1100px"
     }
   }
