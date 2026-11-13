@@ -90,7 +90,7 @@ export const sideMenu = {
   // can be empty and the build leaves that line out altogether rather than
   // writing an empty span — put a string back and the line returns.
   name: "Jué Chen",
-  role: "How silence looks, and breaks.",
+  role: "",
   // The name and the tagline are wrapped in one link when this is set — the
   // whole line is the target, not just the last two words. It is how the front
   // page is reached from everywhere else.
@@ -174,7 +174,7 @@ export const pages = [
     file: "index.html",
     path: "/",
     priority: "1.0",
-    title: "Jué Chen — Photographs",
+    title: "Jué Chen — Photography",
     description:
       "Photographs by Jué Chen. How silence looks, and breaks.",
     ogImage: "assets/images/projects/photo-poetry/01-1440.jpg",

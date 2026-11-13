@@ -713,6 +713,21 @@
         {
           "src": "assets/images/projects/species-of-spaces/02.jpg",
           "base": "assets/images/projects/species-of-spaces/02",
+          "width": 960,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            960
+          ],
+          "jpegWidths": [
+            960
+          ],
+          "alt": "A hand making a V sign in front of trees and a tower block, in black and white."
+        },
+        {
+          "src": "assets/images/projects/species-of-spaces/03.jpg",
+          "base": "assets/images/projects/species-of-spaces/03",
           "width": 901,
           "height": 1200,
           "widths": [
@@ -726,8 +741,8 @@
           "alt": "A dark tunnel under a bridge framing a bright green field and blue sky."
         },
         {
-          "src": "assets/images/projects/species-of-spaces/03.jpg",
-          "base": "assets/images/projects/species-of-spaces/03",
+          "src": "assets/images/projects/species-of-spaces/04.jpg",
+          "base": "assets/images/projects/species-of-spaces/04",
           "width": 900,
           "height": 1200,
           "widths": [
