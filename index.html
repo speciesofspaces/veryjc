@@ -30,12 +30,13 @@
       <div class="counter" aria-hidden="true"></div>
 
       <!-- nav start — written by tools/build.mjs from the folders in assets/images/.
-           Each section opens to show the pages under it while it is pointed at;
-           the section you are in stays open. -->
+           The section you are in shows the pages under it; on an upright phone
+           a tap opens a section sideways (nav.js). -->
       <div class="side-nav" id="nav">
         <div class="nav-group">
           <a class="nav-top" href="projects.html">Projects</a>
           <div class="nav-sub"><div>
+            <a href="margin.html">Margin</a>
             <a href="cosa.html">Cosa</a>
             <a href="the-meadow.html">The Meadow</a>
           </div></div>
@@ -44,7 +45,6 @@
           <a class="nav-top" href="studies.html">Studies</a>
           <div class="nav-sub"><div>
             <a href="studies.html#dream">Dream</a>
-            <a href="studies.html#margin">Margin</a>
             <a href="studies.html#space">Space</a>
             <a href="studies.html#distance">Distance</a>
           </div></div>
@@ -65,8 +65,7 @@
   </nav>
 
   <main class="stage">
-    <!-- The hero fills the picture area and is cropped to it; the line sits
-         over its lower left corner. -->
+    <!-- The hero fills the picture area and is cropped to it. -->
     <div class="hero">
       <!-- build:hero start -->
       <picture>
@@ -75,10 +74,6 @@
         <img fetchpriority="high" src="assets/images/000-home/000-00-1440.jpg" width="1600" height="1001" alt="An outstretched arm in a pale blue sleeve against a soft sky, fingers pinched together." decoding="async">
       </picture>
       <!-- build:hero end -->
-      <div class="hero-text">
-        <p class="hero-line">How silence looks,<br>and breaks.</p>
-        <p class="hero-enter"><a href="studies.html">Photographs, 2012 — present</a></p>
-      </div>
     </div>
   </main>
 

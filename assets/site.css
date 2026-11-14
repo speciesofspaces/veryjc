@@ -37,14 +37,16 @@
   --ink:#000000;
   --muted:#6b6b6b;
   --faint:#b8b8b8;
-  --accent:#fa6e7d;      /* the pointer, the hover, and where you are */
+  --accent:#ff6f61;      /* coral — the pointer, the hover, and where you are */
 
   --page-pad-y:clamp(26px, 4vh, 46px);
   --page-pad-x:clamp(20px, 3vw, 44px);
-  /* The page inside its margins is split five to one: the pictures take five
-     sixths, the menu column one sixth (ten and two columns of a twelve-column
-     grid), with the usual gap between. Never narrower than the menu needs. */
-  --side-width:max(170px, calc((100vw - 2 * var(--page-pad-x)) / 6 - var(--page-pad-x)));
+  /* The page inside its margins is split three to one: the pictures take
+     three quarters, the menu column one quarter (nine and three columns of a
+     twelve-column grid), with the usual gap between. Never narrower than the
+     menu needs. */
+  --side-width:max(200px, calc((100vw - 2 * var(--page-pad-x)) / 4 - var(--page-pad-x)));
+  --stage-width:calc(100vw - 2 * var(--page-pad-x) - var(--side-width) - var(--page-pad-x));
   --mark-size:clamp(42px, 3.4vw, 56px);
 
   /* The picture area on a wide screen: a share of the window's height, up to
@@ -52,14 +54,20 @@
   --plate-height-ratio:0.94;
   --plate-max-height:1000px;
   --stage-height:calc(100dvh - 2 * var(--page-pad-y));
-  --plate-height:min(calc(var(--stage-height) * var(--plate-height-ratio)), var(--plate-max-height));
+  /* The picture area keeps one shape, 1.45 wide to 1 high (what it was on a
+     1440 × 900 screen under the old five-to-one split): as the menu column
+     widened the area lost width, so it loses height too, and the space goes
+     to the margins above and below. */
+  --plate-aspect:1.45;
+  --plate-height:min(calc(var(--stage-height) * var(--plate-height-ratio)), var(--plate-max-height),
+                     calc(var(--stage-width) / var(--plate-aspect)));
   --plate-top:calc((var(--stage-height) - var(--plate-height)) / 2);
 
   /* The wall. --wall-fade is how visible a photograph stays when it is NOT in
      the series being pointed at: 0 is gone, 1 is no fade at all. */
   --wall-columns:5;
   --wall-gap:14px;
-  --wall-fade:.15;
+  --wall-fade:.1;
 }
 
 /* ------------------------------------------------------------- base --- */
@@ -112,8 +120,8 @@ button{
 }
 .custom-cursor.visible{ opacity:1; }
 .custom-cursor.active{
-  width:22px; height:22px;
-  margin:-11px 0 0 -11px;
+  width:18px; height:18px;
+  margin:-9px 0 0 -9px;
   background:var(--accent);
   border-color:transparent;
   opacity:.75;
@@ -253,7 +261,7 @@ button{
 .side-nav a.on{ color:var(--accent); }
 
 /* A section and the pages under it. The pages are folded away and open while
-   the section is pointed at (or tabbed into); the section you are in has
+   the section is tabbed into; the section you are in has
    .open and stays that way. The fold animates its height through a grid row
    going from 0fr to 1fr, so nothing has to know how tall the list is. */
 .nav-group{ display:flex; flex-direction:column; align-self:flex-start; }
@@ -273,9 +281,6 @@ button{
    "Projects" could never be closed again. */
 .nav-group.open .nav-sub,
 .nav-group:has(:focus-visible) .nav-sub{ grid-template-rows:1fr; }
-@media (hover:hover){
-  .nav-group:hover .nav-sub{ grid-template-rows:1fr; }
-}
 
 .side-foot{
   font-size:12.5px;
@@ -373,16 +378,16 @@ button{
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:85% 50%;
+  object-position:90% 50%;
   display:block;
   /* Arriving on the site the photograph settles in: it starts a touch faded
      and a touch large, after a short pause, and eases to rest. The fade is
      quicker than the scale so the picture is fully there while it is still
      moving. */
-  transform-origin:85% 50%;
+  transform-origin:90% 50%;
   animation:hero-fade 1.5s ease-out .2s both, hero-settle 2.4s cubic-bezier(.22,.68,.28,1) .2s both;
 }
-@keyframes hero-fade{ from{ opacity:.9; } to{ opacity:1; } }
+@keyframes hero-fade{ from{ opacity:.7; } to{ opacity:1; } }
 @keyframes hero-settle{ from{ transform:scale(1.05); } to{ transform:scale(1); } }
 .hero-text{
   position:absolute;
@@ -441,7 +446,7 @@ button{
 /* Instagram: the official glyph, then the handle. The glyph is a file of
    Instagram's own (assets/icons/instagram.svg); without it only the handle shows. */
 .about .ig{ display:inline-flex; align-items:center; gap:.5em; }
-.about .ig-icon{ display:block; width:14px; height:14px; opacity:.6; transition:opacity .2s ease; }
+.about .ig-icon{ display:block; width:20px; height:20px; opacity:.6; transition:opacity .2s ease; }
 .about .ig:hover .ig-icon{ opacity:1; }
 
 /* ------------------------------------------------------ placeholder ---
@@ -559,7 +564,7 @@ button{
   .ident-mark{ --mark:24px; margin:0 0 0 auto; }
   .ident-name{ font-size:15px; letter-spacing:.04em; }
   .counter{ display:none; }
-  .side-nav{ margin-top:16px; font-size:12.5px; line-height:1.55; }
+  .side-nav{ margin-top:16px; font-size:14px; line-height:1.55; }
   /* The menu is against the right edge here, so everything hangs from the
      right and the pages under a section step in from the right. */
   .nav-group, .side-nav a, .side-nav button.nav-top{ align-self:flex-end; }
@@ -567,7 +572,7 @@ button{
 
   /* Home: the hero is a 3:4 box starting where the wall would. */
   .hero{ height:auto; aspect-ratio:3 / 4; }
-  .hero img{ object-position:60% 50%; transform-origin:60% 50%; }
+  .hero img{ object-position:55% 50%; transform-origin:55% 50%; }
   .hero-text{ padding:0 16px 20px; }
 
   /* About: the title's capitals on the line the wall and the hero start on. */
@@ -618,8 +623,9 @@ button{
    by swiping up and down, or with the arrows; nothing scrolls.
 
    The menu keeps its four lines by opening sideways: tapping Projects or
-   Studies greys the word and lays its pages out on the same line, pushing
-   the word to the left. */
+   Studies turns the word pink where it stands and lays its pages out to its
+   left, on the same line. On a project or series page its section is open
+   with the word greyed and the page you are on in pink. */
 @media (max-width:820px) and (orientation:portrait){
   body{ height:100dvh; overflow:hidden; }
   .page{ height:100dvh; min-height:0; overflow:hidden; }
@@ -637,9 +643,9 @@ button{
   /* The menu: one line per section. */
   .side-nav{ align-items:stretch; }
   .nav-group{
-    flex-direction:row;
+    flex-direction:row-reverse;   /* the section word stays at the right edge, its pages to its left */
     align-self:stretch;
-    justify-content:flex-end;
+    justify-content:flex-start;
     align-items:baseline;
     gap:.9em;
     white-space:nowrap;
@@ -652,6 +658,7 @@ button{
   .nav-group.open .nav-sub{ display:block; animation:nav-in .3s ease both; }
   .nav-sub > div{ flex-direction:row; gap:.9em; padding:0; overflow:visible; }
   .nav-group.open > .nav-top:not(.here){ color:var(--faint); }
+  .nav-group.tapped > .nav-top:not(.here){ color:var(--accent); }
 
   /* The picture area, a 3:4 box. Where there are arrows, their two rows
      (56px) come out of the band first. */

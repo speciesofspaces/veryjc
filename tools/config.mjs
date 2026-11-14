@@ -21,7 +21,7 @@ export const sections = {
 // Folders left off the site for now — no page, not in the menu, not on the
 // wall. Keyed by the part of the folder name after the code. The folders and
 // their photographs are kept.
-export const hidden = ["an-empty-room", "grain"];
+export const hidden = ["grain"];
 
 // A group's name on the site is made from its folder name — 102-the-meadow
 // becomes "The Meadow". Put a name here only when that comes out wrong.
@@ -40,13 +40,13 @@ export const meta = {
 // "<group>, photograph <n>", which works but is worth replacing.
 export const alt = {
   "000-00": "An outstretched arm in a pale blue sleeve against a soft sky, fingers pinched together.",
-  "102-01": "Double exposure of two framed mirrors of sky held up in a field, a chair in the foreground.",
-  "102-02": "A figure seated in a field, holding a mirror that shows sky where the head and body would be.",
-  "102-03": "Double exposure of a standing figure, a chair and a mirror on grass.",
-  "102-04": "Double exposure of trees and a hillside in yellow-green light.",
-  "102-05": "A figure on a chair in parkland, holding a mirror of sky in front of the face.",
-  "102-06": "A mirror on the grass reflecting clouds and the photographer looking down with a camera.",
-  "102-07": "A small mirror lying in red-toned grass, reflecting the sky.",
+  "103-01": "Double exposure of two framed mirrors of sky held up in a field, a chair in the foreground.",
+  "103-02": "A figure seated in a field, holding a mirror that shows sky where the head and body would be.",
+  "103-03": "Double exposure of a standing figure, a chair and a mirror on grass.",
+  "103-04": "Double exposure of trees and a hillside in yellow-green light.",
+  "103-05": "A figure on a chair in parkland, holding a mirror of sky in front of the face.",
+  "103-06": "A mirror on the grass reflecting clouds and the photographer looking down with a camera.",
+  "103-07": "A small mirror lying in red-toned grass, reflecting the sky.",
 };
 
 // The sizes each photograph is made in, in pixels wide. Nothing is enlarged:

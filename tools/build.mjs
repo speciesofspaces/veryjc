@@ -42,6 +42,10 @@ class OutOfTime extends Error {}
 const CACHE_FILE = path.join(ROOT, "tools/image-cache.json");
 const cache = JSON.parse(await fs.readFile(CACHE_FILE, "utf8").catch(() => "{}"));
 const SETTINGS = JSON.stringify({ widths, fallbackWidth, encode });
+// Every version ever recorded. A photograph that moved folder or number
+// arrives under a new name, but if its content matches a recorded version,
+// the sizes that moved with it are the ones made from it.
+const known = new Set(Object.values(cache));
 const saveCache = () => fs.writeFile(CACHE_FILE, JSON.stringify(cache, null, 1) + "\n");
 
 async function pool(tasks, n) {
@@ -110,7 +114,8 @@ async function processGroup(g) {
   files = files.filter((f) => !f.endsWith(".tmp"));
 
   // A made size is "<photo>-<width>.<ext>" next to its photograph.
-  const stems = new Set(files.filter((f) => /\.jpe?g$/i.test(f)).map((f) => f.replace(/\.[^.]+$/, "").toLowerCase()));
+  const stemsOf = (list) => new Set(list.filter((f) => /\.jpe?g$/i.test(f)).map((f) => f.replace(/\.[^.]+$/, "").toLowerCase()));
+  let stems = stemsOf(files);
   const isSize = (f) => {
     const m = f.match(/^(.*)-(\d{3,4})\.(avif|webp|jpe?g)$/i);
     return !!m && (stems.has(m[1].toLowerCase()) || /^\d{3}-\d\d$/.test(m[1]));
@@ -118,9 +123,10 @@ async function processGroup(g) {
   const sizes = files.filter(isSize);
   const originals = files.filter((f) => ORIGINAL.test(f) && !isSize(f));
 
-  // The cover is the first file whose name starts with "00" (or "<code>-00").
+  // The cover is the first file whose name starts with "00" — or with any
+  // code and then 00, so a cover moved in from another folder stays a cover.
   const stem = (f) => f.replace(/\.[^.]+$/, "");
-  const coverRe = new RegExp(`^(${g.code}-)?00(?!\\d)`, "i");
+  const coverRe = /^(\d{3}-)?00(?!\d)/i;
   const cover = originals.filter((f) => coverRe.test(stem(f))).sort(natural)[0] || null;
   const rest = originals.filter((f) => f !== cover);
   const canonical = new RegExp(`^${g.code}-(\\d\\d)\\.jpg$`);
@@ -131,13 +137,21 @@ async function processGroup(g) {
   if (cover) plan.push({ from: cover, to: `${g.code}-00.jpg` });
   [...kept, ...added].forEach((f, i) => plan.push({ from: f, to: `${g.code}-${String(i + 1).padStart(2, "0")}.jpg` }));
 
-  // Two steps, through temporary names, so no rename lands on a file still waiting to move.
+  // Two steps, through temporary names, so no rename lands on a file still
+  // waiting to move. A photograph's sizes move with it, so nothing has to be
+  // made again just because a photograph was renumbered or changed folder.
   const moving = plan.filter((p) => p.from !== p.to);
   for (const [i, p] of moving.entries()) {
     p.tmp = `rename-${i}.tmp`;
     await fs.rename(path.join(dir, p.from), path.join(dir, p.tmp));
+    const prefix = stem(p.from);
+    p.sizes = sizes
+      .filter((f) => f.slice(0, prefix.length).toLowerCase() === prefix.toLowerCase() && /^-\d{3,4}\.(avif|webp|jpe?g)$/i.test(f.slice(prefix.length)))
+      .map((f, j) => ({ file: f, suffix: f.slice(prefix.length).toLowerCase().replace(/\.jpeg$/, ".jpg"), tmp: `rename-${i}-${j}.tmp` }));
+    for (const sz of p.sizes) await fs.rename(path.join(dir, sz.file), path.join(dir, sz.tmp));
   }
   for (const p of moving) {
+    for (const sz of p.sizes) await fs.rename(path.join(dir, sz.tmp), path.join(dir, stem(p.to) + sz.suffix));
     const target = path.join(dir, p.to);
     if (/\.jpe?g$/i.test(p.from)) {
       await fs.rename(path.join(dir, p.tmp), target);
@@ -172,7 +186,7 @@ async function processGroup(g) {
       const have = await exists(out);
       // Up to date if made from this exact file — or, for a photograph the
       // record has never seen, if the size is newer than the photograph.
-      if (have && (cache[key] ? cache[key] === hash : have.mtimeMs >= srcTime)) continue;
+      if (have && (known.has(hash) || (!cache[key] && have.mtimeMs >= srcTime))) continue;
       todo.push(async () => {
         if (Date.now() > DEADLINE) throw new OutOfTime();
         let pipe = sharp(src).rotate().resize({ width: x, withoutEnlargement: true });
@@ -190,7 +204,11 @@ async function processGroup(g) {
     const photo = { base: `assets/images/${g.dir}/${base}`, key: base, w, h, widths: ws, jpg, tall: w / h < 0.95 };
     if (p.to.endsWith("-00.jpg")) g.cover = photo; else g.photos.push(photo);
   }
-  for (const f of sizes) {
+  // Sizes left over from photographs that have gone (looked up again, now
+  // that the renames are done).
+  const now = (await fs.readdir(dir)).filter((f) => !f.startsWith("."));
+  stems = stemsOf(now);
+  for (const f of now.filter(isSize)) {
     if (!wanted.has(f)) { await fs.unlink(path.join(dir, f)); log(`  removed old size ${g.dir}/${f}`); }
   }
   for (const k of Object.keys(cache)) {
@@ -223,8 +241,8 @@ function navBlock(groups, kind, current) {
     `<a class="nav-top${here ? " here" : ""}" href="${href}"${extra}${here ? ' aria-current="page"' : ""}>${label}</a>`;
   const L = [
     "      <!-- nav start — written by tools/build.mjs from the folders in assets/images/.",
-    "           Each section opens to show the pages under it while it is pointed at;",
-    "           the section you are in stays open. -->",
+    "           The section you are in shows the pages under it; on an upright phone",
+    "           a tap opens a section sideways (nav.js). -->",
     '      <div class="side-nav" id="nav">',
     `        <div class="nav-group${kind === "projects" || kind === "project" ? " open" : ""}">`,
     "          " + (sections[1].index === false
@@ -429,6 +447,10 @@ try {
   process.exit(2);
 }
 
+// Forget folders that no longer exist.
+for (const k of Object.keys(cache)) {
+  if (!groups.some((g) => k.startsWith(g.dir + "/")) && !hidden.some((h) => k.split("/")[0].endsWith("-" + h))) delete cache[k];
+}
 await saveCache();
 // The mark at the top of the menu: 陳覺, from assets/icons/mark.svg.
 const markSrc = await fs.readFile(path.join(ROOT, "assets/icons/mark.svg"), "utf8");

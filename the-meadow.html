@@ -31,12 +31,13 @@
       <div class="counter" id="count" aria-live="polite"></div>
 
       <!-- nav start — written by tools/build.mjs from the folders in assets/images/.
-           Each section opens to show the pages under it while it is pointed at;
-           the section you are in stays open. -->
+           The section you are in shows the pages under it; on an upright phone
+           a tap opens a section sideways (nav.js). -->
       <div class="side-nav" id="nav">
         <div class="nav-group open">
           <a class="nav-top" href="projects.html">Projects</a>
           <div class="nav-sub"><div>
+            <a href="margin.html">Margin</a>
             <a href="cosa.html">Cosa</a>
             <a class="on" aria-current="page" href="the-meadow.html">The Meadow</a>
           </div></div>
@@ -45,7 +46,6 @@
           <a class="nav-top" href="studies.html">Studies</a>
           <div class="nav-sub"><div>
             <a href="studies.html#dream">Dream</a>
-            <a href="studies.html#margin">Margin</a>
             <a href="studies.html#space">Space</a>
             <a href="studies.html#distance">Distance</a>
           </div></div>
@@ -66,42 +66,42 @@
   </nav>
 
   <main class="stage">
-    <!-- 102-the-meadow: one photograph at a time; its halves step back and forward. -->
+    <!-- 103-the-meadow: one photograph at a time; its halves step back and forward. -->
     <div class="viewer" id="viewer" aria-roledescription="image viewer" aria-label="The Meadow">
       <picture class="plate on" style="--r:1000/1000;--k:0">
-        <source type="image/avif" srcset="assets/images/102-the-meadow/102-01-480.avif 480w, assets/images/102-the-meadow/102-01-720.avif 720w, assets/images/102-the-meadow/102-01-960.avif 960w, assets/images/102-the-meadow/102-01-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <source type="image/webp" srcset="assets/images/102-the-meadow/102-01-480.webp 480w, assets/images/102-the-meadow/102-01-720.webp 720w, assets/images/102-the-meadow/102-01-960.webp 960w, assets/images/102-the-meadow/102-01-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <img src="assets/images/102-the-meadow/102-01-1000.jpg" width="1000" height="1000" alt="Double exposure of two framed mirrors of sky held up in a field, a chair in the foreground." decoding="async">
+        <source type="image/avif" srcset="assets/images/103-the-meadow/103-01-480.avif 480w, assets/images/103-the-meadow/103-01-720.avif 720w, assets/images/103-the-meadow/103-01-960.avif 960w, assets/images/103-the-meadow/103-01-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <source type="image/webp" srcset="assets/images/103-the-meadow/103-01-480.webp 480w, assets/images/103-the-meadow/103-01-720.webp 720w, assets/images/103-the-meadow/103-01-960.webp 960w, assets/images/103-the-meadow/103-01-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <img src="assets/images/103-the-meadow/103-01-1000.jpg" width="1000" height="1000" alt="Double exposure of two framed mirrors of sky held up in a field, a chair in the foreground." decoding="async">
       </picture>
       <picture class="plate" style="--r:1000/1000;--k:1">
-        <source type="image/avif" srcset="assets/images/102-the-meadow/102-02-480.avif 480w, assets/images/102-the-meadow/102-02-720.avif 720w, assets/images/102-the-meadow/102-02-960.avif 960w, assets/images/102-the-meadow/102-02-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <source type="image/webp" srcset="assets/images/102-the-meadow/102-02-480.webp 480w, assets/images/102-the-meadow/102-02-720.webp 720w, assets/images/102-the-meadow/102-02-960.webp 960w, assets/images/102-the-meadow/102-02-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <img src="assets/images/102-the-meadow/102-02-1000.jpg" width="1000" height="1000" alt="A figure seated in a field, holding a mirror that shows sky where the head and body would be." loading="lazy" decoding="async">
+        <source type="image/avif" srcset="assets/images/103-the-meadow/103-02-480.avif 480w, assets/images/103-the-meadow/103-02-720.avif 720w, assets/images/103-the-meadow/103-02-960.avif 960w, assets/images/103-the-meadow/103-02-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <source type="image/webp" srcset="assets/images/103-the-meadow/103-02-480.webp 480w, assets/images/103-the-meadow/103-02-720.webp 720w, assets/images/103-the-meadow/103-02-960.webp 960w, assets/images/103-the-meadow/103-02-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <img src="assets/images/103-the-meadow/103-02-1000.jpg" width="1000" height="1000" alt="A figure seated in a field, holding a mirror that shows sky where the head and body would be." loading="lazy" decoding="async">
       </picture>
       <picture class="plate" style="--r:1000/1000;--k:2">
-        <source type="image/avif" srcset="assets/images/102-the-meadow/102-03-480.avif 480w, assets/images/102-the-meadow/102-03-720.avif 720w, assets/images/102-the-meadow/102-03-960.avif 960w, assets/images/102-the-meadow/102-03-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <source type="image/webp" srcset="assets/images/102-the-meadow/102-03-480.webp 480w, assets/images/102-the-meadow/102-03-720.webp 720w, assets/images/102-the-meadow/102-03-960.webp 960w, assets/images/102-the-meadow/102-03-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <img src="assets/images/102-the-meadow/102-03-1000.jpg" width="1000" height="1000" alt="Double exposure of a standing figure, a chair and a mirror on grass." loading="lazy" decoding="async">
+        <source type="image/avif" srcset="assets/images/103-the-meadow/103-03-480.avif 480w, assets/images/103-the-meadow/103-03-720.avif 720w, assets/images/103-the-meadow/103-03-960.avif 960w, assets/images/103-the-meadow/103-03-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <source type="image/webp" srcset="assets/images/103-the-meadow/103-03-480.webp 480w, assets/images/103-the-meadow/103-03-720.webp 720w, assets/images/103-the-meadow/103-03-960.webp 960w, assets/images/103-the-meadow/103-03-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <img src="assets/images/103-the-meadow/103-03-1000.jpg" width="1000" height="1000" alt="Double exposure of a standing figure, a chair and a mirror on grass." loading="lazy" decoding="async">
       </picture>
       <picture class="plate" style="--r:1000/1000;--k:3">
-        <source type="image/avif" srcset="assets/images/102-the-meadow/102-04-480.avif 480w, assets/images/102-the-meadow/102-04-720.avif 720w, assets/images/102-the-meadow/102-04-960.avif 960w, assets/images/102-the-meadow/102-04-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <source type="image/webp" srcset="assets/images/102-the-meadow/102-04-480.webp 480w, assets/images/102-the-meadow/102-04-720.webp 720w, assets/images/102-the-meadow/102-04-960.webp 960w, assets/images/102-the-meadow/102-04-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <img src="assets/images/102-the-meadow/102-04-1000.jpg" width="1000" height="1000" alt="Double exposure of trees and a hillside in yellow-green light." loading="lazy" decoding="async">
+        <source type="image/avif" srcset="assets/images/103-the-meadow/103-04-480.avif 480w, assets/images/103-the-meadow/103-04-720.avif 720w, assets/images/103-the-meadow/103-04-960.avif 960w, assets/images/103-the-meadow/103-04-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <source type="image/webp" srcset="assets/images/103-the-meadow/103-04-480.webp 480w, assets/images/103-the-meadow/103-04-720.webp 720w, assets/images/103-the-meadow/103-04-960.webp 960w, assets/images/103-the-meadow/103-04-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <img src="assets/images/103-the-meadow/103-04-1000.jpg" width="1000" height="1000" alt="Double exposure of trees and a hillside in yellow-green light." loading="lazy" decoding="async">
       </picture>
       <picture class="plate" style="--r:1000/999;--k:4">
-        <source type="image/avif" srcset="assets/images/102-the-meadow/102-05-480.avif 480w, assets/images/102-the-meadow/102-05-720.avif 720w, assets/images/102-the-meadow/102-05-960.avif 960w, assets/images/102-the-meadow/102-05-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <source type="image/webp" srcset="assets/images/102-the-meadow/102-05-480.webp 480w, assets/images/102-the-meadow/102-05-720.webp 720w, assets/images/102-the-meadow/102-05-960.webp 960w, assets/images/102-the-meadow/102-05-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <img src="assets/images/102-the-meadow/102-05-1000.jpg" width="1000" height="999" alt="A figure on a chair in parkland, holding a mirror of sky in front of the face." loading="lazy" decoding="async">
+        <source type="image/avif" srcset="assets/images/103-the-meadow/103-05-480.avif 480w, assets/images/103-the-meadow/103-05-720.avif 720w, assets/images/103-the-meadow/103-05-960.avif 960w, assets/images/103-the-meadow/103-05-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <source type="image/webp" srcset="assets/images/103-the-meadow/103-05-480.webp 480w, assets/images/103-the-meadow/103-05-720.webp 720w, assets/images/103-the-meadow/103-05-960.webp 960w, assets/images/103-the-meadow/103-05-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <img src="assets/images/103-the-meadow/103-05-1000.jpg" width="1000" height="999" alt="A figure on a chair in parkland, holding a mirror of sky in front of the face." loading="lazy" decoding="async">
       </picture>
       <picture class="plate" style="--r:1000/1000;--k:5">
-        <source type="image/avif" srcset="assets/images/102-the-meadow/102-06-480.avif 480w, assets/images/102-the-meadow/102-06-720.avif 720w, assets/images/102-the-meadow/102-06-960.avif 960w, assets/images/102-the-meadow/102-06-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <source type="image/webp" srcset="assets/images/102-the-meadow/102-06-480.webp 480w, assets/images/102-the-meadow/102-06-720.webp 720w, assets/images/102-the-meadow/102-06-960.webp 960w, assets/images/102-the-meadow/102-06-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <img src="assets/images/102-the-meadow/102-06-1000.jpg" width="1000" height="1000" alt="A mirror on the grass reflecting clouds and the photographer looking down with a camera." loading="lazy" decoding="async">
+        <source type="image/avif" srcset="assets/images/103-the-meadow/103-06-480.avif 480w, assets/images/103-the-meadow/103-06-720.avif 720w, assets/images/103-the-meadow/103-06-960.avif 960w, assets/images/103-the-meadow/103-06-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <source type="image/webp" srcset="assets/images/103-the-meadow/103-06-480.webp 480w, assets/images/103-the-meadow/103-06-720.webp 720w, assets/images/103-the-meadow/103-06-960.webp 960w, assets/images/103-the-meadow/103-06-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <img src="assets/images/103-the-meadow/103-06-1000.jpg" width="1000" height="1000" alt="A mirror on the grass reflecting clouds and the photographer looking down with a camera." loading="lazy" decoding="async">
       </picture>
       <picture class="plate" style="--r:1000/1000;--k:6">
-        <source type="image/avif" srcset="assets/images/102-the-meadow/102-07-480.avif 480w, assets/images/102-the-meadow/102-07-720.avif 720w, assets/images/102-the-meadow/102-07-960.avif 960w, assets/images/102-the-meadow/102-07-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <source type="image/webp" srcset="assets/images/102-the-meadow/102-07-480.webp 480w, assets/images/102-the-meadow/102-07-720.webp 720w, assets/images/102-the-meadow/102-07-960.webp 960w, assets/images/102-the-meadow/102-07-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
-        <img src="assets/images/102-the-meadow/102-07-1000.jpg" width="1000" height="1000" alt="A small mirror lying in red-toned grass, reflecting the sky." loading="lazy" decoding="async">
+        <source type="image/avif" srcset="assets/images/103-the-meadow/103-07-480.avif 480w, assets/images/103-the-meadow/103-07-720.avif 720w, assets/images/103-the-meadow/103-07-960.avif 960w, assets/images/103-the-meadow/103-07-1000.avif 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <source type="image/webp" srcset="assets/images/103-the-meadow/103-07-480.webp 480w, assets/images/103-the-meadow/103-07-720.webp 720w, assets/images/103-the-meadow/103-07-960.webp 960w, assets/images/103-the-meadow/103-07-1000.webp 1000w" sizes="(max-width: 820px) 92vw, 80vh">
+        <img src="assets/images/103-the-meadow/103-07-1000.jpg" width="1000" height="1000" alt="A small mirror lying in red-toned grass, reflecting the sky." loading="lazy" decoding="async">
       </picture>
       <button class="zone prev" type="button" aria-label="Previous photograph"></button>
       <button class="zone next" type="button" aria-label="Next photograph"></button>
