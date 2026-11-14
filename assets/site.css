@@ -39,9 +39,13 @@
   --faint:#b8b8b8;
   --accent:#fa6e7d;      /* the pointer, the hover, and where you are */
 
-  --side-width:clamp(230px, 24vw, 300px);
   --page-pad-y:clamp(26px, 4vh, 46px);
   --page-pad-x:clamp(20px, 3vw, 44px);
+  /* The page inside its margins is split five to one: the pictures take five
+     sixths, the menu column one sixth (ten and two columns of a twelve-column
+     grid), with the usual gap between. Never narrower than the menu needs. */
+  --side-width:max(170px, calc((100vw - 2 * var(--page-pad-x)) / 6 - var(--page-pad-x)));
+  --mark-size:clamp(42px, 3.4vw, 56px);
 
   /* The picture area on a wide screen: a share of the window's height, up to
      a ceiling, centred. Everything in the menu column lines up with it. */
@@ -170,7 +174,7 @@ button{ font:inherit; color:inherit; }
    4% down its own box, so the box is lifted by that much and the top of 覺
    sits exactly on the top edge of the picture area. */
 .ident-mark{
-  --mark:clamp(42px, 3.4vw, 56px);
+  --mark:var(--mark-size);
   display:block;
   width:var(--mark);
   margin-top:calc(var(--plate-top) - var(--mark) * .04);
@@ -301,6 +305,9 @@ button{ font:inherit; color:inherit; }
 /* Not in the series being pointed at. */
 .tile.out{ opacity:var(--wall-fade); }
 
+/* A portrait is shown 3:4, filled and centred, whatever its own shape. */
+.tile.tall img{ aspect-ratio:3 / 4; object-fit:cover; }
+
 /* ------------------------------------------------ single photograph ---
    Covers the wall with one photograph at the size a project photograph has.
    Its left and right halves step through whichever group is showing. */
@@ -322,6 +329,7 @@ button{ font:inherit; color:inherit; }
   max-width:100%;
   object-fit:contain;
 }
+.single img.tall{ aspect-ratio:3 / 4; object-fit:cover; }
 .zone{
   position:absolute;
   top:0; bottom:0;
@@ -373,14 +381,19 @@ button{ font:inherit; color:inherit; }
 .hero-enter a:hover{ color:var(--accent); }
 
 /* ------------------------------------------------------------ about ---
-   The words sit in the square a photograph would have, centred in the stage,
-   with the top of "About" on the top edge of the picture area — the line 覺
-   starts on. .3em is the leading above the capitals. */
+   The words sit in the square a photograph would have, centred in the stage.
+   "About" stands on the same line as the first name in the menu, so the
+   distance down to it is everything above that name in the menu column:
+   the mark, the gap under it, the name's line, the count's line and the gap
+   before the menu. --about-nudge lines the baselines up exactly. */
 .about-page .stage{ align-items:flex-start; justify-content:center; }
 .about{
+  --about-nudge:1px;
+  --about-top:calc(var(--plate-top) + var(--mark-size) * .96 + 10px + 23px
+                   + clamp(36px, 5.5vh, 58px) + 18.2px + 18px + var(--about-nudge));
   width:min(var(--plate-height), 100%);
-  max-height:calc(var(--plate-height) + .3em);
-  margin-top:calc(var(--plate-top) - .3em);
+  max-height:calc(var(--stage-height) - var(--about-top));
+  margin-top:var(--about-top);
   overflow-y:auto;
   scrollbar-width:none;
   color:var(--muted);
@@ -389,6 +402,7 @@ button{ font:inherit; color:inherit; }
 .about > *{ max-width:58ch; }
 .about h1{
   margin:0 0 22px;
+  line-height:1.3;
   font-size:17px;
   font-weight:500;
   letter-spacing:.02em;

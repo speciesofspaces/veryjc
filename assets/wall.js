@@ -103,7 +103,8 @@
   });
 
   // ------------------------------------------------- one photograph, large
-  var sources = single.querySelectorAll("source");
+  var avif = single.querySelector('source[type="image/avif"]');
+  var webp = single.querySelector('source[type="image/webp"]');
   var big = single.querySelector("img");
   var SIZES = "(max-width: 820px) 92vw, 80vh";
   var series = [];       // the photographs being stepped through
@@ -115,11 +116,12 @@
     function set(ext) {
       return widths.map(function (w) { return base + "-" + w + "." + ext + " " + w + "w"; }).join(", ");
     }
-    sources[0].srcset = set("avif"); sources[0].sizes = SIZES;
-    sources[1].srcset = set("webp"); sources[1].sizes = SIZES;
+    if (avif) { avif.srcset = set("avif"); avif.sizes = SIZES; }
+    if (webp) { webp.srcset = set("webp"); webp.sizes = SIZES; }
     big.width = +tile.dataset.w;
     big.height = +tile.dataset.h;
     big.alt = tile.querySelector("img").alt;
+    big.classList.toggle("tall", tile.classList.contains("tall"));   // shown 3:4, as on the wall
     big.src = base + "-" + tile.dataset.jpg + ".jpg";
   }
 

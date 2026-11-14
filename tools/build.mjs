@@ -184,7 +184,10 @@ async function processGroup(g) {
     }
     await pool(todo, PARALLEL);
     cache[key] = hash;
-    const photo = { base: `assets/images/${g.dir}/${base}`, key: base, w, h, widths: ws, jpg };
+    // A portrait photograph is shown in a 3:4 frame, filled and centred, so
+    // every portrait on the site has the same shape whatever it was shot at.
+    // Squares and landscapes keep their own shape.
+    const photo = { base: `assets/images/${g.dir}/${base}`, key: base, w, h, widths: ws, jpg, tall: w / h < 0.95 };
     if (p.to.endsWith("-00.jpg")) g.cover = photo; else g.photos.push(photo);
   }
   for (const f of sizes) {
@@ -211,7 +214,7 @@ function picture(p, { cls = "", style = "", sizes, imgClass = "", lazy = false, 
     `${indent}</picture>`,
   ].join("\n");
 }
-const ratio = (p) => +(p.w / p.h).toFixed(4);
+const ratio = (p) => (p.tall ? 0.75 : +(p.w / p.h).toFixed(4));
 
 function navBlock(groups, kind, current) {
   const projects = groups.filter((g) => g.section === 1);
@@ -266,10 +269,10 @@ ${GENERATED}${marker ? "\n" + marker : ""}
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <meta name="author" content="${site.name}">${noindex ? '\n<meta name="robots" content="noindex">' : ""}
-<link rel="icon" href="favicon.ico?v=3" sizes="32x32">
-<link rel="icon" href="assets/icons/favicon.svg?v=3" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=3">
-<link rel="manifest" href="site.webmanifest?v=3">
+<link rel="icon" href="favicon.ico?v=4" sizes="32x32">
+<link rel="icon" href="assets/icons/favicon.svg?v=4" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=4">
+<link rel="manifest" href="site.webmanifest?v=4">
 <meta name="theme-color" content="#ffffff">
 <meta name="format-detection" content="telephone=no,address=no,email=no,date=no">
 <link rel="stylesheet" href="assets/site.css">
@@ -344,7 +347,7 @@ ${covers.join("\n")}
 
 function projectPage(groups, g) {
   const plates = g.photos.length
-    ? g.photos.map((p, i) => picture(p, { cls: `plate${i === 0 ? " on" : ""}`, style: `--r:${p.w}/${p.h}`, sizes: "(max-width: 820px) 92vw, 80vh", lazy: i > 0 }))
+    ? g.photos.map((p, i) => picture(p, { cls: `plate${i === 0 ? " on" : ""}`, style: `--r:${p.tall ? "3/4" : `${p.w}/${p.h}`}`, sizes: "(max-width: 820px) 92vw, 80vh", lazy: i > 0 }))
     : ["      " + placeholder("Photographs to come", "4/5", "plate on")];
   return shell({
     title: `${g.name} — ${site.name}`, desc: `${g.name} — photographs by ${site.name}.`, bodyClass: "project-page",
@@ -371,7 +374,7 @@ function fleetingPage(groups) {
     }
   }
   const tiles = order.map(([g, p], i) => [
-    `      <button class="tile" type="button" data-g="${g.slug}" data-base="${p.base}" data-widths="${p.widths.join(",")}" data-jpg="${p.jpg}" data-w="${p.w}" data-h="${p.h}">`,
+    `      <button class="tile${p.tall ? " tall" : ""}" type="button" data-g="${g.slug}" data-base="${p.base}" data-widths="${p.widths.join(",")}" data-jpg="${p.jpg}" data-w="${p.w}" data-h="${p.h}">`,
     picture(p, { sizes: "(max-width: 820px) 31vw, 12vw", lazy: i >= 12, indent: "        " }),
     "      </button>",
   ].join("\n"));
