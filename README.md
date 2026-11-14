@@ -45,7 +45,7 @@ enlarged, so a small file stays small on the page.
 | `tools/config.mjs` | names, descriptions of photographs (alt text), image sizes |
 | `tools/build.mjs` | the build |
 | `assets/site.css` | all the styling |
-| `assets/wall.js`, `covers.js`, `viewer.js`, `cursor.js` | behaviour of the wall, the Projects page, a project page, the pointer |
+| `assets/wall.js`, `viewer.js`, `nav.js`, `cursor.js` | behaviour of Studies, a project page, the menu, the pointer |
 | `.github/workflows/build.yml` | runs the build on GitHub after each push |
 
 ## Running it on your own computer (optional)

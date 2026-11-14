@@ -82,6 +82,9 @@
     }
     a.addEventListener("click", function (e) {
       e.preventDefault();
+      // On an upright phone "Studies" only opens its line in the menu
+      // (nav.js); the photograph on screen stays.
+      if (a.dataset.g === ALL && upright.matches) return;
       clearTimeout(restore);
       // A second click on the series that is already held lets it go.
       held = held === a.dataset.g ? ALL : a.dataset.g;

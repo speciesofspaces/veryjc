@@ -4,8 +4,10 @@
 // its list (site.css), and on a touch screen tapping it opens and closes it.
 //
 // On a phone held upright the menu has one line per section and opens
-// sideways: the first tap on Projects or Studies lays its pages out on that
-// line (site.css greys the word); a second tap goes to the section's page.
+// sideways: tapping Projects or Studies lays its pages out on that line
+// (site.css greys the word) and tapping again folds them away. The page
+// itself does not change — only choosing a project or a series opens one.
+// The section you are in stays open.
 
 (function () {
   [].forEach.call(document.querySelectorAll("#nav button.nav-top"), function (button) {
@@ -22,13 +24,16 @@
     var group = link.closest(".nav-group");
     if (!group.querySelector(".nav-sub a")) return;
     link.addEventListener("click", function (e) {
-      if (!upright.matches || group.classList.contains("open")) return;
+      if (!upright.matches) return;
       e.preventDefault();
-      // Only one section opened by a tap at a time; the one you are in stays.
+      if (group.classList.contains("open") && !group.classList.contains("tapped")) return;
+      var opening = !group.classList.contains("open");
+      // Only one section opened by a tap at a time.
       [].forEach.call(document.querySelectorAll("#nav .nav-group.tapped"), function (g) {
         g.classList.remove("open", "tapped");
       });
-      group.classList.add("open", "tapped");
+      group.classList.toggle("open", opening);
+      group.classList.toggle("tapped", opening);
     });
   });
 })();

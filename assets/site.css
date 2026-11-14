@@ -465,8 +465,6 @@ button{
   flex-direction:column;
   gap:clamp(28px, 5vh, 48px);
 }
-.prow{ transition:opacity .35s ease; }
-.prow.out{ opacity:var(--wall-fade); }
 .prow-cap{ display:flex; align-items:baseline; gap:.7em; margin-bottom:10px; line-height:1.45; }
 .prow-cap .t{ font-size:14px; letter-spacing:.03em; transition:color .2s ease; }
 .prow-cap .m{ font-size:12px; letter-spacing:.03em; color:var(--muted); }

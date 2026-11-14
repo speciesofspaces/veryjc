@@ -342,7 +342,7 @@ function projectsPage(groups) {
   });
   return shell({
     title: `Projects — ${site.name}`, desc: `Projects — photographs by ${site.name}.`, bodyClass: "projects-page",
-    nav: navBlock(groups, "projects"), scripts: ["covers.js"], noindex: sections[1].index === false,
+    nav: navBlock(groups, "projects"), noindex: sections[1].index === false,
     main: `    <!-- One row per project, every photograph in it, all rows one height. -->
     <div class="wall-window">
     <div class="prows" id="covers">
