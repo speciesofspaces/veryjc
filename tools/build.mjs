@@ -249,6 +249,9 @@ function navBlock(groups, kind, current) {
     "          </div></div>",
     "        </div>",
     '        <div class="nav-group">',
+    "          " + top("Shop", "shop.html", kind === "shop"),
+    "        </div>",
+    '        <div class="nav-group">',
     "          " + top("About", "about.html", kind === "about"),
     "        </div>",
     "      </div>",
@@ -351,7 +354,7 @@ ${rows.join("\n")}
 
 function projectPage(groups, g) {
   const plates = g.photos.length
-    ? g.photos.map((p, i) => picture(p, { cls: `plate${i === 0 ? " on" : ""}`, style: `--r:${p.tall ? "3/4" : `${p.w}/${p.h}`}`, sizes: "(max-width: 820px) 92vw, 80vh", lazy: i > 0 }))
+    ? g.photos.map((p, i) => picture(p, { cls: `plate${p.tall ? " tall" : ""}${i === 0 ? " on" : ""}`, style: `--r:${p.tall ? "3/4" : `${p.w}/${p.h}`};--k:${i}`, sizes: "(max-width: 820px) 92vw, 80vh", lazy: i > 0 }))
     : ["      " + placeholder("Photographs to come", "4/5", "plate on")];
   return shell({
     title: `${g.name} — ${site.name}`, desc: `${g.name} — photographs by ${site.name}.`, bodyClass: "project-page",
@@ -383,7 +386,7 @@ function fleetingPage(groups) {
     "      </button>",
   ].join("\n"));
   return shell({
-    title: `${sections[2].title} — ${site.name}`, desc: site.description, counter: true,
+    title: `${sections[2].title} — ${site.name}`, desc: site.description, counter: true, bodyClass: "studies-page",
     nav: navBlock(groups, "fleeting"), scripts: ["wall.js"],
     main: `    <!-- Every photograph in ${sections[2].title}; data-g is its series. -->
     <div class="wall-window">
@@ -452,7 +455,7 @@ for (const f of await fs.readdir(ROOT)) {
 }
 
 // Hand-written pages: only the menu, and the hero on the home page.
-for (const [file, kind] of [["index.html", "home"], ["about.html", "about"]]) {
+for (const [file, kind] of [["index.html", "home"], ["about.html", "about"], ["shop.html", "shop"]]) {
   let text = await fs.readFile(path.join(ROOT, file), "utf8");
   text = text.replace(/<svg class="mark"[\s\S]*?<\/svg>/, MARK);
   text = between(text, "      <!-- nav start", "<!-- nav end -->\n", navBlock(groups, kind), file);

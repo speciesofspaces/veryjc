@@ -78,7 +78,19 @@ body{
 }
 
 a{ text-decoration:none; color:inherit; }
-button{ font:inherit; color:inherit; }
+/* A button left to the browser draws as a grey block on a phone; every
+   button here is styled from nothing. Nor should a tap flash a grey box. */
+button{
+  -webkit-appearance:none;
+  appearance:none;
+  border:0;
+  border-radius:0;
+  padding:0;
+  background:none;
+  font:inherit;
+  color:inherit;
+}
+*{ -webkit-tap-highlight-color:transparent; }
 
 /* ---------------------------------------------------------- pointer ---
    A ring that follows the mouse, fills coral over anything clickable and
@@ -601,8 +613,105 @@ button{ font:inherit; color:inherit; }
   .wall{ --wall-columns:5; }
 }
 
+/* ------------------------------------------------- phone, held upright ---
+   A fixed page that never scrolls, in four bands: the name, the menu (one
+   line per section — always four lines), the picture area, the credit. The
+   picture area is a 3:4 box as large as its band allows. Photographs change
+   by swiping up and down, or with the arrows; nothing scrolls.
+
+   The menu keeps its four lines by opening sideways: tapping Projects or
+   Studies greys the word and lays its pages out on the same line, pushing
+   the word to the left. */
+@media (max-width:820px) and (orientation:portrait){
+  body{ height:100dvh; overflow:hidden; }
+  .page{ height:100dvh; min-height:0; overflow:hidden; }
+
+  .stage{
+    flex:1 1 auto;
+    min-height:0;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    container-type:size;
+  }
+  .side-foot{ margin-top:0; padding-top:14px; }
+
+  /* The menu: one line per section. */
+  .side-nav{ align-items:stretch; }
+  .nav-group{
+    flex-direction:row;
+    align-self:stretch;
+    justify-content:flex-end;
+    align-items:baseline;
+    gap:.9em;
+    white-space:nowrap;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .nav-group::-webkit-scrollbar{ display:none; }
+  .nav-sub,
+  .nav-group:has(:focus-visible) .nav-sub{ display:none; }
+  .nav-group.open .nav-sub{ display:block; animation:nav-in .3s ease both; }
+  .nav-sub > div{ flex-direction:row; gap:.9em; padding:0; overflow:visible; }
+  .nav-group.open > .nav-top:not(.here){ color:var(--faint); }
+
+  /* The picture area, a 3:4 box. Where there are arrows, their two rows
+     (56px) come out of the band first. */
+  .hero{ width:min(100cqw, 100cqh * .75); height:auto; aspect-ratio:3 / 4; }
+  .viewer{
+    width:min(100cqw, (100cqh - 56px) * .75);
+    height:auto;
+    aspect-ratio:3 / 4;
+    display:block;
+    overflow:hidden;
+    touch-action:none;
+  }
+  /* The photographs are a column moved a whole box at a time (--i, set by
+     viewer.js; --k is each one's place). A portrait fills the box; anything
+     else stands on its bottom edge. */
+  .plate{
+    position:absolute;
+    inset:0;
+    width:auto;
+    height:auto;
+    aspect-ratio:auto;
+    place-self:stretch;   /* fill the box — "end" from the general phone rules would shrink it */
+    opacity:1;
+    transform:translateY(calc((var(--k, 0) - var(--i, 0)) * 100%));
+    transition:transform .45s cubic-bezier(.22,.68,.28,1);
+  }
+  .plate img{ object-fit:contain; object-position:50% 100%; }
+  .plate.tall img{ object-fit:cover; object-position:50% 50%; }
+  .viewer .zone{ display:none; }
+
+  /* Studies: one photograph at a time here too, never the wall. */
+  .studies-page .wall-window{ display:none; }
+  .single{ position:relative; display:flex; flex-direction:column; align-items:flex-start; touch-action:none; }
+  .single img{
+    width:min(100cqw, (100cqh - 56px) * .75);
+    height:auto;
+    max-width:none;
+    aspect-ratio:3 / 4;
+    object-fit:contain;
+    object-position:50% 100%;
+  }
+  .single img.tall{ object-fit:cover; object-position:50% 50%; }
+  .single img.from-below{ animation:from-below .4s cubic-bezier(.22,.68,.28,1); }
+  .single img.from-above{ animation:from-above .4s cubic-bezier(.22,.68,.28,1); }
+  .single .zone{ display:none; }
+
+  /* Words, and the rows of the Projects page, scroll inside their band. */
+  .about{ height:100%; overflow-y:auto; }
+  .projects-page .wall-window{ height:100%; overflow-y:auto; scrollbar-width:none; }
+}
+@keyframes nav-in{ from{ opacity:0; transform:translateX(12px); } to{ opacity:1; transform:none; } }
+@keyframes from-below{ from{ opacity:.4; transform:translateY(40px); } to{ opacity:1; transform:none; } }
+@keyframes from-above{ from{ opacity:.4; transform:translateY(-40px); } to{ opacity:1; transform:none; } }
+
 @media (prefers-reduced-motion:reduce){
   .hero img{ animation:none; }
+  .nav-group.open .nav-sub, .single img{ animation:none !important; }
+  .plate{ transition:none !important; }
   .nav-sub,
   .tile, .prow, .plate, .hero img, .custom-cursor, .custom-cursor::after{ transition:none; }
 }

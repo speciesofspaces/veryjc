@@ -88,6 +88,7 @@
       setSingle(false);
       showGroup(held);
       remember();
+      if (upright.matches) openSingle(members(held)[0], held);
     });
   });
 
@@ -134,9 +135,12 @@
     if (open && window.matchMedia("(max-width: 820px), (max-height: 500px)").matches) window.scrollTo(0, 0);
   }
 
-  function showSingle() {
+  function showSingle(dir) {
     current = (current + series.length) % series.length;
     fill(series[current]);
+    // On an upright phone the new photograph slides in from the way it came.
+    big.classList.remove("from-below", "from-above");
+    if (dir) { void big.offsetWidth; big.classList.add(dir > 0 ? "from-below" : "from-above"); }
     say(current + 1 + " / " + series.length);
     if (upArrow) upArrow.classList.toggle("disabled", current === 0);
     if (downArrow) downArrow.classList.toggle("disabled", current === series.length - 1);
@@ -144,16 +148,26 @@
 
   // A photograph always opens inside its own series, whatever was held on the
   // wall — `held` is left alone so the arrow can go back to the wall as it was.
-  function openSingle(tile) {
-    series = members(tile.dataset.g);
-    current = series.indexOf(tile);
+  // On an upright phone there is no wall: the page always shows one
+  // photograph, stepping through whatever is held — all of Studies, or one
+  // series picked in the menu.
+  function openSingle(tile, group) {
+    var g = group || tile.dataset.g;
+    series = members(g);
+    current = Math.max(0, series.indexOf(tile));
     setSingle(true);
-    mark(tile.dataset.g);
+    mark(g);
     showSingle();
   }
+  var upright = window.matchMedia("(max-width: 820px) and (orientation: portrait)");
+  function uprightStart() {
+    if (upright.matches) openSingle(members(held)[0], held);
+    else closeSingle();
+  }
+  if (upright.addEventListener) upright.addEventListener("change", uprightStart);
 
   function closeSingle() {
-    if (single.hidden) return;
+    if (single.hidden || upright.matches) return;
     setSingle(false);
     showGroup(held);
   }
@@ -164,9 +178,21 @@
   var upArrow = single.querySelector(".nav-arrow.up");
   var downArrow = single.querySelector(".nav-arrow.down");
   function step(by) {
+    var was = current;
     current = narrow.matches ? Math.max(0, Math.min(series.length - 1, current + by)) : current + by;
-    showSingle();
+    if (current !== was) showSingle(by);
   }
+
+  // Swipe: up or down on an upright phone, sideways anywhere.
+  var x0 = 0, y0 = 0;
+  single.addEventListener("touchstart", function (e) {
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }, { passive: true });
+  single.addEventListener("touchend", function (e) {
+    var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    if (upright.matches && Math.abs(dy) > 44 && Math.abs(dy) > Math.abs(dx)) step(dy < 0 ? 1 : -1);
+    else if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+  });
   if (upArrow) upArrow.addEventListener("click", function () { step(-1); });
   if (downArrow) downArrow.addEventListener("click", function () { step(1); });
 
@@ -194,8 +220,10 @@
     links.forEach(function (a) {
       if (a.dataset.g !== ALL && a.getAttribute("href") === location.hash) held = a.dataset.g;
     });
-    setSingle(false);
+    single.hidden = true;
+    stage.classList.remove("viewing");
     showGroup(held);
+    if (upright.matches) openSingle(members(held)[0], held);
   }
   window.addEventListener("hashchange", fromAddress);
 

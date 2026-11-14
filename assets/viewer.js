@@ -1,6 +1,6 @@
 // A project page: one photograph at a time. Every plate is already in the
 // page; this only decides which one shows. The left and right halves of the
-// picture, the ← → keys and a sideways swipe step through them; the count in
+// picture, the ← → keys, a swipe and (on a phone) the arrows step through them; the count in
 // the menu column says where you are. Without it the first photograph shows.
 
 (function () {
@@ -15,6 +15,9 @@
   // photograph step through it, and the series has two ends: the arrow that
   // can go no further greys out. On a wide screen it goes round.
   var narrow = window.matchMedia("(max-width: 820px), (max-height: 500px)");
+  // A phone held upright: the photographs are a column moved by --i (site.css)
+  // and a swipe up or down changes photograph.
+  var upright = window.matchMedia("(max-width: 820px) and (orientation: portrait)");
   function arrow(dir) {
     var b = document.createElement("button");
     b.type = "button";
@@ -32,6 +35,7 @@
     up.classList.toggle("disabled", index === 0);
     down.classList.toggle("disabled", index === plates.length - 1);
     plates.forEach(function (p, k) { p.classList.toggle("on", k === index); });
+    viewer.style.setProperty("--i", String(index));
     if (count) count.textContent = index + 1 + " / " + plates.length;
     // The address says which photograph is showing — the-meadow.html#3 — so a
     // link from the Projects page can open a project at a given photograph.
@@ -62,6 +66,8 @@
     var dx = e.changedTouches[0].clientX - x0;
     var dy = e.changedTouches[0].clientY - y0;
     if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy)) show(dx < 0 ? index + 1 : index - 1);
+    // Upright phone: up moves on, the way a page would.
+    else if (upright.matches && Math.abs(dy) > 44) show(dy < 0 ? index + 1 : index - 1);
   });
 
   var asked = parseInt(location.hash.slice(1), 10);
