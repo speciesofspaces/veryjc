@@ -318,28 +318,32 @@ const placeholder = (label, r = "4/5", cls = "") =>
 
 function projectsPage(groups) {
   const projects = groups.filter((g) => g.section === 1);
-  const covers = projects.map((g) => {
-    const pic = g.cover || g.photos[0];
+  // One row per project: its name, then every photograph in it, all at one
+  // height. Each photograph opens the project at that photograph.
+  const rows = projects.map((g) => {
     const n = g.photos.length;
     const line = [meta[g.slug], n ? `${n} photograph${n === 1 ? "" : "s"}` : "Photographs to come"].filter(Boolean).join(" · ");
-    const r = pic ? ratio(pic) : 0.8;
-    const img = pic
-      ? picture(pic, { imgClass: "cover-img", sizes: "(max-width: 820px) 50vw, 30vw", lazy: false, indent: "        " })
-      : "        " + placeholder("Cover to come", "0.8", "cover-img");
+    const items = g.photos.map((p, i) => [
+      `          <a class="strip-item" href="${g.slug}.html#${i + 1}" style="--r:${ratio(p)}">`,
+      picture(p, { imgClass: "strip-img", sizes: "(max-width: 820px) 40vw, 20vw", lazy: true, indent: "            " }),
+      "          </a>",
+    ].join("\n"));
     return [
-      `      <a class="cover" href="${g.slug}.html" data-p="${g.slug}" style="--r:${r}">`,
-      img,
-      `        <div class="cover-cap"><span class="t">${esc(g.name)}</span><span class="m">${esc(line)}</span></div>`,
-      "      </a>",
+      `      <section class="prow" data-p="${g.slug}">`,
+      `        <a class="prow-cap" href="${g.slug}.html"><span class="t">${esc(g.name)}</span><span class="m">${esc(line)}</span></a>`,
+      '        <div class="strip">',
+      ...items,
+      "        </div>",
+      "      </section>",
     ].join("\n");
   });
   return shell({
     title: `Projects — ${site.name}`, desc: `Projects — photographs by ${site.name}.`, bodyClass: "projects-page",
     nav: navBlock(groups, "projects"), scripts: ["covers.js"], noindex: sections[1].index === false,
-    main: `    <!-- One cover per project (its -00 photograph), in rows that share a height. -->
+    main: `    <!-- One row per project, every photograph in it, all rows one height. -->
     <div class="wall-window">
-    <div class="covers" id="covers">
-${covers.join("\n")}
+    <div class="prows" id="covers">
+${rows.join("\n")}
     </div>
     </div>`,
   });
@@ -420,11 +424,9 @@ try {
 }
 
 await saveCache();
-MARK = (() => {
-  return fs.readFile(path.join(ROOT, "assets/icons/favicon.svg"), "utf8");
-})();
-MARK = await MARK;
-MARK = `<svg class="mark" viewBox="0 0 100 100" role="img" aria-label="覺" focusable="false"><path d="${MARK.match(/<path d="([^"]+)"/)[1]}"/></svg>`;
+// The mark at the top of the menu: 陳覺, from assets/icons/mark.svg.
+const markSrc = await fs.readFile(path.join(ROOT, "assets/icons/mark.svg"), "utf8");
+MARK = `<svg class="mark" viewBox="0 0 200 100" role="img" aria-label="陳覺" focusable="false">${(markSrc.match(/<path[^>]*\/>/g) || []).join("")}</svg>`;
 
 const write = async (file, text) => {
   const p = path.join(ROOT, file);
@@ -449,6 +451,7 @@ for (const f of await fs.readdir(ROOT)) {
 // Hand-written pages: only the menu, and the hero on the home page.
 for (const [file, kind] of [["index.html", "home"], ["about.html", "about"]]) {
   let text = await fs.readFile(path.join(ROOT, file), "utf8");
+  text = text.replace(/<svg class="mark"[\s\S]*?<\/svg>/, MARK);
   text = between(text, "      <!-- nav start", "<!-- nav end -->\n", navBlock(groups, kind), file);
   if (file === "index.html") {
     const home = groups.find((g) => g.section === 0);

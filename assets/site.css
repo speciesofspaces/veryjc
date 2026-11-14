@@ -59,7 +59,7 @@
      the series being pointed at: 0 is gone, 1 is no fade at all. */
   --wall-columns:5;
   --wall-gap:14px;
-  --wall-fade:.1;
+  --wall-fade:.15;
 }
 
 /* ------------------------------------------------------------- base --- */
@@ -176,14 +176,14 @@ button{ font:inherit; color:inherit; }
 .ident-mark{
   --mark:var(--mark-size);
   display:block;
-  width:var(--mark);
+  width:calc(var(--mark) * 2);   /* two characters, 陳覺 */
   margin-top:calc(var(--plate-top) - var(--mark) * .04);
   margin-bottom:10px;
   color:var(--ink);
   transition:color .2s ease;
 }
 .ident-mark:hover{ color:var(--accent); }
-.mark{ display:block; width:var(--mark); height:var(--mark); }
+.mark{ display:block; width:calc(var(--mark) * 2); height:var(--mark); }
 .mark path{ fill:currentColor; }
 
 .ident-name{
@@ -361,9 +361,17 @@ button{ font:inherit; color:inherit; }
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:80% 50%;
+  object-position:85% 50%;
   display:block;
+  /* Arriving on the site the photograph settles in: it starts a touch faded
+     and a touch large, after a short pause, and eases to rest. The fade is
+     quicker than the scale so the picture is fully there while it is still
+     moving. */
+  transform-origin:85% 50%;
+  animation:hero-fade 1.5s ease-out .2s both, hero-settle 2.4s cubic-bezier(.22,.68,.28,1) .2s both;
 }
+@keyframes hero-fade{ from{ opacity:.9; } to{ opacity:1; } }
+@keyframes hero-settle{ from{ transform:scale(1.05); } to{ transform:scale(1); } }
 .hero-text{
   position:absolute;
   left:0; right:0; bottom:0;
@@ -418,6 +426,11 @@ button{ font:inherit; color:inherit; }
 .about p.gap{ margin-top:calc(14px + 1.75em); }   /* one empty line above */
 .about a{ transition:color .2s ease; }
 .about a:hover{ color:var(--accent); }
+/* Instagram: the official glyph, then the handle. The glyph is a file of
+   Instagram's own (assets/icons/instagram.svg); without it only the handle shows. */
+.about .ig{ display:inline-flex; align-items:center; gap:.5em; }
+.about .ig-icon{ display:block; width:14px; height:14px; opacity:.6; transition:opacity .2s ease; }
+.about .ig:hover .ig-icon{ opacity:1; }
 
 /* ------------------------------------------------------ placeholder ---
    A grey box standing in for a photograph that is not in yet, labelled with
@@ -432,29 +445,31 @@ button{ font:inherit; color:inherit; }
 }
 
 /* --------------------------------------------------------- projects ---
-   One cover per project, in rows that each share a height (--H): a cover's
-   width follows its shape (--r, a plain number) and the row fills the width. The empty last
-   item soaks up the spare room so a short last row is not stretched. */
-.covers{
-  --H:calc(var(--plate-height) * .42);
+   One row per project: its name, then every photograph in it, all rows at
+   one height (--row-h). A row longer than the page scrolls sideways. */
+.prows{
+  --row-h:calc(var(--plate-height) * .3);
   display:flex;
-  flex-wrap:wrap;
-  gap:34px var(--wall-gap);
-  align-items:flex-start;
+  flex-direction:column;
+  gap:clamp(28px, 5vh, 48px);
 }
-.covers::after{ content:""; flex:999 1 0; }
-.cover{
-  flex:var(--r) 1 calc(var(--r) * var(--H));
-  min-width:0;
-  transition:opacity .35s ease;
+.prow{ transition:opacity .35s ease; }
+.prow.out{ opacity:var(--wall-fade); }
+.prow-cap{ display:flex; align-items:baseline; gap:.7em; margin-bottom:10px; line-height:1.45; }
+.prow-cap .t{ font-size:14px; letter-spacing:.03em; transition:color .2s ease; }
+.prow-cap .m{ font-size:12px; letter-spacing:.03em; color:var(--muted); }
+.prow:hover .prow-cap .t{ color:var(--accent); }
+.strip{
+  display:flex;
+  gap:var(--wall-gap);
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+  scrollbar-width:none;
 }
-.cover picture{ display:block; }
-.cover-img{ display:block; width:100%; height:auto; aspect-ratio:var(--r); object-fit:cover; }
-.cover-cap{ display:flex; flex-direction:column; margin-top:8px; line-height:1.45; }
-.cover-cap .t{ font-size:14px; letter-spacing:.03em; transition:color .2s ease; }
-.cover-cap .m{ font-size:12px; letter-spacing:.03em; color:var(--muted); }
-.cover:hover .cover-cap .t{ color:var(--accent); }
-.cover.out{ opacity:var(--wall-fade); }
+.strip::-webkit-scrollbar{ display:none; }
+.strip-item{ flex:0 0 auto; height:var(--row-h); aspect-ratio:var(--r); }
+.strip picture{ display:block; height:100%; }
+.strip-img{ display:block; width:100%; height:100%; object-fit:cover; }
 
 /* ----------------------------------------------------- project page ---
    One photograph at a time. The viewer is the picture area; every plate sits
@@ -513,7 +528,7 @@ button{ font:inherit; color:inherit; }
 
   /* Home: the hero is a 3:4 box starting where the wall would. */
   .hero{ height:auto; aspect-ratio:3 / 4; }
-  .hero img{ object-position:55% 50%; }
+  .hero img{ object-position:60% 50%; transform-origin:60% 50%; }
   .hero-text{ padding:0 16px 20px; }
 
   /* About: the title's capitals on the line the wall and the hero start on. */
@@ -521,7 +536,7 @@ button{ font:inherit; color:inherit; }
   .about{ width:100%; max-height:none; margin-top:0; overflow:visible; }
 
   /* Projects: smaller rows. */
-  .covers{ --H:130px; gap:22px var(--wall-gap); }
+  .prows{ --row-h:150px; gap:26px; }
 
   /* A project: the photographs in a 3:4 box, each standing on its bottom edge. */
   .viewer{ height:auto; aspect-ratio:3 / 4; }
@@ -538,6 +553,7 @@ button{ font:inherit; color:inherit; }
 }
 
 @media (prefers-reduced-motion:reduce){
+  .hero img{ animation:none; }
   .nav-sub,
-  .tile, .cover, .plate, .custom-cursor, .custom-cursor::after{ transition:none; }
+  .tile, .prow, .plate, .hero img, .custom-cursor, .custom-cursor::after{ transition:none; }
 }

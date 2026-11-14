@@ -15,6 +15,9 @@
     index = (n + plates.length) % plates.length;
     plates.forEach(function (p, k) { p.classList.toggle("on", k === index); });
     if (count) count.textContent = index + 1 + " / " + plates.length;
+    // The address says which photograph is showing — the-meadow.html#3 — so a
+    // link from the Projects page can open a project at a given photograph.
+    history.replaceState(null, "", location.pathname + location.search + (index ? "#" + (index + 1) : ""));
     // Start loading the neighbours before they are asked for.
     [index + 1, index - 1].forEach(function (k) {
       var img = plates[(k + plates.length) % plates.length].querySelector("img");
@@ -41,5 +44,6 @@
     if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy)) show(dx < 0 ? index + 1 : index - 1);
   });
 
-  show(0);
+  var asked = parseInt(location.hash.slice(1), 10);
+  show(asked > 0 && asked <= plates.length ? asked - 1 : 0);
 })();

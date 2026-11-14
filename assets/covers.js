@@ -1,9 +1,9 @@
 // The Projects page. Pointing at a project — its name in the menu or its
-// cover — keeps that cover and fades the rest, the way Studies does,
+// row — keeps that row and fades the rest, the way Studies does,
 // and moves the pink in the menu from "Projects" to the project's name.
 
 (function () {
-  var covers = [].slice.call(document.querySelectorAll(".cover[data-p]"));
+  var covers = [].slice.call(document.querySelectorAll(".prow[data-p]"));
   var links = [].slice.call(document.querySelectorAll("#nav a[data-p]"));
   if (!covers.length || !window.matchMedia("(hover: hover)").matches) return;
 
