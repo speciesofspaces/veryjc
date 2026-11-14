@@ -14,7 +14,7 @@ export const sections = {
   0: { key: "home" },
   // index: false — the Projects page (one cover per project) is still built but
   // not linked: "Projects" in the menu only opens the list of projects.
-  1: { key: "projects", title: "Projects", page: "projects.html", index: false },
+  1: { key: "projects", title: "Projects", page: "projects.html", index: true },
   2: { key: "fleeting", title: "Studies", page: "studies.html" },
 };
 

@@ -495,10 +495,39 @@ button{ font:inherit; color:inherit; }
 .plate.on{ opacity:1; }
 .plate img{ display:block; width:100%; height:100%; object-fit:cover; }
 
+/* ----------------------------------------------------------- arrows ---
+   A chevron above and below the photograph, phone only: an 8px square with
+   two sides drawn, turned. Greyed out at the end of a series. */
+.nav-arrow{
+  display:none;
+  width:100%;
+  height:22px;
+  align-items:center;
+  justify-content:flex-start;
+  padding:0;
+  border:0;
+  background:none;
+  cursor:pointer;
+  transition:opacity .25s ease;
+  position:relative;
+  z-index:3;          /* above the photograph's tap halves */
+}
+.nav-arrow span{
+  display:block;
+  width:8px;
+  height:8px;
+  border-left:1px solid var(--ink);
+  border-top:1px solid var(--ink);
+}
+.nav-arrow.up span{ transform:translateY(3px) rotate(45deg); }
+.nav-arrow.down span{ transform:translateY(-3px) rotate(225deg); }
+.nav-arrow.disabled{ opacity:.3; pointer-events:none; }
+
 /* ------------------------------------------------------------ phone ---
    One column and an ordinary scrolling page: the mark and menu against the
-   right edge, the wall in three columns beneath, the credit at the bottom. */
-@media (max-width:820px){
+   right edge, the pictures beneath, the credit at the bottom. Also used for
+   a phone on its side — any window too short for the two-column layout. */
+@media (max-width:820px), (max-height:500px){
   body{ height:auto; overflow:visible; }
 
   .page{
@@ -542,6 +571,14 @@ button{ font:inherit; color:inherit; }
   .viewer{ height:auto; aspect-ratio:3 / 4; }
   .plate{ place-self:end center; }
 
+  /* The arrows. The up arrow sits in the gap above the photograph, so the
+     photograph still starts on the line the wall and the hero start on. */
+  .nav-arrow{ display:flex; }
+  .project-page .stage,
+  .stage.viewing{ margin-top:2px; }
+  .nav-arrow.up{ margin-bottom:2px; }
+  .nav-arrow.down{ margin-top:6px; }
+
   .wall-window{ height:auto; overflow:visible; }
   .wall{ --wall-columns:3; --wall-gap:8px; }
 
@@ -550,6 +587,18 @@ button{ font:inherit; color:inherit; }
   .stage.viewing .wall-window{ display:none; }
   .single{ position:relative; inset:auto; display:block; }
   .single img{ width:100%; height:auto; max-height:none; }
+}
+
+/* A phone on its side: the one-column page, but a 3:4 box as wide as the
+   screen would be three screens tall. Pictures are sized to the screen's
+   height instead, so each one is seen whole, and the wall goes back to five
+   columns. 70px is the arrows and the gaps around them. */
+@media (max-height:500px) and (orientation:landscape){
+  .hero{ aspect-ratio:auto; height:calc(100dvh - 2 * clamp(16px, 2.4vh, 22px)); }
+  .viewer{ aspect-ratio:auto; height:calc(100dvh - 70px); }
+  .plate{ place-self:center; }
+  .single img{ width:auto; height:calc(100dvh - 70px); max-width:100%; margin:0 auto; }
+  .wall{ --wall-columns:5; }
 }
 
 @media (prefers-reduced-motion:reduce){

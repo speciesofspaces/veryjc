@@ -11,8 +11,26 @@
   if (!plates.length) return;
   var index = 0;
 
+  // On a phone (keep in step with site.css) the arrows above and below the
+  // photograph step through it, and the series has two ends: the arrow that
+  // can go no further greys out. On a wide screen it goes round.
+  var narrow = window.matchMedia("(max-width: 820px), (max-height: 500px)");
+  function arrow(dir) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "nav-arrow " + dir;
+    b.setAttribute("aria-label", dir === "up" ? "Previous photograph" : "Next photograph");
+    b.innerHTML = '<span aria-hidden="true"></span>';
+    return b;
+  }
+  var up = arrow("up"), down = arrow("down");
+  viewer.parentNode.insertBefore(up, viewer);
+  viewer.parentNode.insertBefore(down, viewer.nextSibling);
+
   function show(n) {
-    index = (n + plates.length) % plates.length;
+    index = narrow.matches ? Math.max(0, Math.min(plates.length - 1, n)) : (n + plates.length) % plates.length;
+    up.classList.toggle("disabled", index === 0);
+    down.classList.toggle("disabled", index === plates.length - 1);
     plates.forEach(function (p, k) { p.classList.toggle("on", k === index); });
     if (count) count.textContent = index + 1 + " / " + plates.length;
     // The address says which photograph is showing — the-meadow.html#3 — so a
@@ -25,6 +43,8 @@
     });
   }
 
+  up.addEventListener("click", function () { show(index - 1); });
+  down.addEventListener("click", function () { show(index + 1); });
   viewer.querySelector(".prev").addEventListener("click", function () { show(index - 1); });
   viewer.querySelector(".next").addEventListener("click", function () { show(index + 1); });
 

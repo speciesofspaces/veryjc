@@ -395,11 +395,14 @@ ${tiles.join("\n")}
     <!-- One photograph, large. wall.js fills it from the tile that was clicked.
          Esc, or any name in the menu, returns to the wall. -->
     <div class="single" id="single" hidden>
+      <!-- The arrows show on a phone only. -->
+      <button class="nav-arrow up" type="button" aria-label="Previous photograph"><span aria-hidden="true"></span></button>
       <picture>
         <source type="image/avif">
         <source type="image/webp">
         <img alt="">
       </picture>
+      <button class="nav-arrow down" type="button" aria-label="Next photograph"><span aria-hidden="true"></span></button>
       <button class="zone prev" type="button" aria-label="Previous photograph"></button>
       <button class="zone next" type="button" aria-label="Next photograph"></button>
     </div>`,
@@ -457,7 +460,7 @@ for (const [file, kind] of [["index.html", "home"], ["about.html", "about"]]) {
     const home = groups.find((g) => g.section === 0);
     const hero = home && (home.cover || home.photos[0]);
     if (hero) text = between(text, "<!-- build:hero start -->", "<!-- build:hero end -->",
-      "<!-- build:hero start -->\n" + picture(hero, { sizes: "(max-width: 820px) 200vw, max(72vw, 140vh)" }).replace("<img ", '<img fetchpriority="high" ') + "\n      <!-- build:hero end -->", file);
+      "<!-- build:hero start -->\n" + picture(hero, { sizes: "(max-width: 820px) 200vw, (max-height: 500px) 100vw, max(72vw, 140vh)" }).replace("<img ", '<img fetchpriority="high" ') + "\n      <!-- build:hero end -->", file);
   }
   await write(file, text);
 }

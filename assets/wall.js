@@ -131,13 +131,15 @@
   function setSingle(open) {
     single.hidden = !open;
     stage.classList.toggle("viewing", open);
-    if (open && window.matchMedia("(max-width: 820px)").matches) window.scrollTo(0, 0);
+    if (open && window.matchMedia("(max-width: 820px), (max-height: 500px)").matches) window.scrollTo(0, 0);
   }
 
   function showSingle() {
     current = (current + series.length) % series.length;
     fill(series[current]);
     say(current + 1 + " / " + series.length);
+    if (upArrow) upArrow.classList.toggle("disabled", current === 0);
+    if (downArrow) downArrow.classList.toggle("disabled", current === series.length - 1);
   }
 
   // A photograph always opens inside its own series, whatever was held on the
@@ -156,7 +158,17 @@
     showGroup(held);
   }
 
-  function step(by) { current += by; showSingle(); }
+  // On a phone the series has two ends (the arrows grey out); on a wide
+  // screen it goes round.
+  var narrow = window.matchMedia("(max-width: 820px), (max-height: 500px)");
+  var upArrow = single.querySelector(".nav-arrow.up");
+  var downArrow = single.querySelector(".nav-arrow.down");
+  function step(by) {
+    current = narrow.matches ? Math.max(0, Math.min(series.length - 1, current + by)) : current + by;
+    showSingle();
+  }
+  if (upArrow) upArrow.addEventListener("click", function () { step(-1); });
+  if (downArrow) downArrow.addEventListener("click", function () { step(1); });
 
   single.querySelector(".prev").addEventListener("click", function () { step(-1); });
   single.querySelector(".next").addEventListener("click", function () { step(1); });
