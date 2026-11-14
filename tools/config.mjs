@@ -157,6 +157,15 @@ export const singles = [
     link: "/",
     linkLabel: "Enter",
   },
+  // The same photograph behind the line on the front page. It fills the stage
+  // and is cropped about its centre (object-fit: cover), so the width it is
+  // drawn at follows the window's height as much as its width — hence the vh.
+  {
+    src: "assets/images/hero.jpg",
+    page: "index.html",
+    marker: "home-hero",
+    sizes: "(max-width: 820px) 120vh, max(72vw, 145vh)",
+  },
 ];
 
 // Pages listed in sitemap.xml, in order. `title` and `description` drive the
@@ -247,11 +256,15 @@ export const barePages = ["entry.html"];
 // listed first because every current browser prefers it; the .ico is the
 // fallback for old ones and for the bare /favicon.ico request browsers make on
 // their own. Regenerate only if the mark itself changes.
+//
+// The `?v=` is a cache-buster. Browsers hold on to a favicon far longer than
+// anything else on a page, so after the mark changed from 陳 to 覺 they kept
+// showing the old one from cache. Bump the number whenever the icon files change.
 export const icons = [
-  { rel: "icon", href: "/assets/icons/favicon.svg", type: "image/svg+xml" },
-  { rel: "icon", href: "/favicon.ico", sizes: "48x48 32x32 16x16" },
-  { rel: "apple-touch-icon", href: "/assets/icons/apple-touch-icon.png" },
-  { rel: "manifest", href: "/site.webmanifest" },
+  { rel: "icon", href: "/assets/icons/favicon.svg?v=2", type: "image/svg+xml" },
+  { rel: "icon", href: "/favicon.ico?v=2", sizes: "48x48 32x32 16x16" },
+  { rel: "apple-touch-icon", href: "/assets/icons/apple-touch-icon.png?v=2" },
+  { rel: "manifest", href: "/site.webmanifest?v=2" },
 ];
 
 // Browser chrome colour on mobile. Matches --bg in assets/style.css.
