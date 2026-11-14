@@ -1,0 +1,52 @@
+name: Build site
+
+# Runs on every push to main (and by hand from the Actions tab). It renames any
+# new photographs, makes their sizes, rewrites the pages, and commits the
+# result back to main. GitHub Pages then publishes main.
+#
+# Because this commits after you push, fetch (or pull) in GitHub Desktop
+# before your next change.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: build-site
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install the image encoder
+        run: npm install --no-save --package-lock=false sharp@0.34.4
+
+      - name: Build
+        run: node tools/build.mjs
+
+      - name: Check the scripts parse
+        run: |
+          for f in assets/*.js; do node --check "$f"; done
+
+      - name: Commit the result
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+          else
+            git commit -m "Build photographs and pages [skip ci]"
+            git push origin HEAD:main
+          fi

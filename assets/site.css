@@ -1,0 +1,529 @@
+/* ============================================================
+   juechen.uk — one stylesheet for the redesigned site.
+   Sections: type · tokens · base · pointer · page frame · menu column ·
+   wall · single photograph · phone.
+   ============================================================ */
+
+/* ------------------------------------------------------------- type ---
+   IBM Plex Sans for everything, Zen Maru Gothic for the name under the
+   mark. Both served from this site; licences sit beside the files. */
+@font-face{
+  font-family:'IBM Plex Sans';
+  font-style:normal;
+  font-weight:100 700;
+  font-display:swap;
+  src:url('fonts/ibm-plex-sans-latin-ext-wght-normal.woff2') format('woff2-variations');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:'IBM Plex Sans';
+  font-style:normal;
+  font-weight:100 700;
+  font-display:swap;
+  src:url('fonts/ibm-plex-sans-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Zen Maru Gothic';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('fonts/zen-maru-gothic-latin-400-normal.woff2') format('woff2');
+}
+
+/* ----------------------------------------------------------- tokens --- */
+:root{
+  --bg:#ffffff;
+  --ink:#000000;
+  --muted:#6b6b6b;
+  --faint:#b8b8b8;
+  --accent:#fa6e7d;      /* the pointer, the hover, and where you are */
+
+  --side-width:clamp(230px, 24vw, 300px);
+  --page-pad-y:clamp(26px, 4vh, 46px);
+  --page-pad-x:clamp(20px, 3vw, 44px);
+
+  /* The picture area on a wide screen: a share of the window's height, up to
+     a ceiling, centred. Everything in the menu column lines up with it. */
+  --plate-height-ratio:0.94;
+  --plate-max-height:1000px;
+  --stage-height:calc(100dvh - 2 * var(--page-pad-y));
+  --plate-height:min(calc(var(--stage-height) * var(--plate-height-ratio)), var(--plate-max-height));
+  --plate-top:calc((var(--stage-height) - var(--plate-height)) / 2);
+
+  /* The wall. --wall-fade is how visible a photograph stays when it is NOT in
+     the series being pointed at: 0 is gone, 1 is no fade at all. */
+  --wall-columns:5;
+  --wall-gap:14px;
+  --wall-fade:.1;
+}
+
+/* ------------------------------------------------------------- base --- */
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  height:100dvh;
+  overflow:hidden;       /* the wall scrolls inside its window, the page does not */
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  cursor:crosshair;
+}
+
+a{ text-decoration:none; color:inherit; }
+button{ font:inherit; color:inherit; }
+
+/* ---------------------------------------------------------- pointer ---
+   A ring that follows the mouse, fills coral over anything clickable and
+   becomes a directional pill over the halves of a large photograph. Built by
+   cursor.js, which only runs where there is a real mouse. */
+.custom-cursor{
+  position:fixed;
+  top:0; left:0;
+  width:14px; height:14px;
+  margin:-7px 0 0 -7px;
+  border:1px solid var(--ink);
+  border-radius:50%;
+  pointer-events:none;
+  opacity:0;
+  z-index:9999;
+  transition:width .22s ease, height .22s ease, opacity .2s ease,
+             background-color .22s ease, border-color .22s ease,
+             border-radius .22s ease;
+}
+.custom-cursor.visible{ opacity:1; }
+.custom-cursor.active{
+  width:22px; height:22px;
+  margin:-11px 0 0 -11px;
+  background:var(--accent);
+  border-color:transparent;
+  opacity:.75;
+}
+.custom-cursor.directional{
+  width:26px; height:15px;
+  margin:-7.5px 0 0 -13px;
+  border-radius:999px;
+  background:transparent;
+  border-color:var(--ink);
+}
+.custom-cursor.directional::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  width:5px; height:5px;
+  background:var(--accent);
+  border-radius:50%;
+  transform:translateY(-50%);
+  transition:left .18s ease, right .18s ease;
+}
+.custom-cursor.directional.left::after{ left:3px; }
+.custom-cursor.directional.right::after{ right:3px; }
+.custom-cursor.pressed{ opacity:1; }
+
+@media (hover:hover) and (pointer:fine) and (min-width:1025px){
+  .has-custom-cursor,
+  .has-custom-cursor body,
+  .has-custom-cursor a,
+  .has-custom-cursor button{ cursor:none; }
+}
+
+/* ------------------------------------------------------- page frame ---
+   Two columns: pictures on the left, the menu on the right. The menu comes
+   first in the markup so it is read first. */
+.page{
+  height:100dvh;
+  display:flex;
+  flex-direction:row-reverse;
+  gap:var(--page-pad-x);
+  padding:var(--page-pad-y) var(--page-pad-x);
+  overflow:hidden;
+}
+
+.stage{
+  position:relative;
+  flex:1 1 auto;
+  min-width:0;
+  display:flex;
+  align-items:center;
+}
+
+/* ------------------------------------------------------ menu column --- */
+.side{
+  flex:0 0 var(--side-width);
+  width:var(--side-width);
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  /* The credit stands on the picture area's bottom edge: the column stops
+     where the pictures do, less the leading under the letters. */
+  padding-bottom:calc(var(--plate-top) - .35em);
+}
+
+.side-top{ min-height:0; }
+
+/* The mark. An outline, not a typed character, so it looks the same on every
+   machine; this is the Regular weight of the glyph. Its highest stroke starts
+   4% down its own box, so the box is lifted by that much and the top of 覺
+   sits exactly on the top edge of the picture area. */
+.ident-mark{
+  --mark:clamp(42px, 3.4vw, 56px);
+  display:block;
+  width:var(--mark);
+  margin-top:calc(var(--plate-top) - var(--mark) * .04);
+  margin-bottom:10px;
+  color:var(--ink);
+  transition:color .2s ease;
+}
+.ident-mark:hover{ color:var(--accent); }
+.mark{ display:block; width:var(--mark); height:var(--mark); }
+.mark path{ fill:currentColor; }
+
+.ident-name{
+  font-family:'Zen Maru Gothic', 'IBM Plex Sans', sans-serif;
+  font-size:17px;
+  font-weight:400;
+  letter-spacing:.02em;
+  line-height:1.35;
+  transition:color .2s ease;
+}
+.ident-line:hover .ident-name{ color:var(--accent); }
+
+/* Where you are in a series, "2 / 6", while one photograph is open. Empty on
+   the wall itself, but the line is held open so the menu never moves. */
+.counter{
+  margin-top:clamp(36px, 5.5vh, 58px);
+  min-height:1.3em;
+  font-size:14px;
+  line-height:1.3;
+  color:var(--muted);
+  letter-spacing:.08em;
+  font-variant-numeric:tabular-nums;
+}
+
+.side-nav{
+  display:flex;
+  flex-direction:column;
+  margin-top:18px;
+  font-size:15px;
+  letter-spacing:.03em;
+  line-height:1.75;
+}
+.side-nav a{ align-self:flex-start; transition:color .2s ease; }
+/* A section that is not a page of its own is a button that only opens its
+   list; it is made to look exactly like the links around it. */
+.side-nav button.nav-top{
+  align-self:flex-start;
+  padding:0;
+  border:0;
+  background:none;
+  font:inherit;
+  letter-spacing:inherit;
+  line-height:inherit;
+  color:inherit;
+  text-align:inherit;
+  cursor:pointer;
+  transition:color .2s ease;
+}
+/* Pink marks one thing at a time: the section while the whole wall is showing
+   (.here), or else the group that is held or being pointed at. wall.js moves
+   it; the section name never stays pink alongside one of its groups. */
+.side-nav a:hover,
+.side-nav button.nav-top:hover,
+.side-nav a.here,
+.side-nav a.on{ color:var(--accent); }
+
+/* A section and the pages under it. The pages are folded away and open while
+   the section is pointed at (or tabbed into); the section you are in has
+   .open and stays that way. The fold animates its height through a grid row
+   going from 0fr to 1fr, so nothing has to know how tall the list is. */
+.nav-group{ display:flex; flex-direction:column; align-self:flex-start; }
+.nav-sub{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .3s ease;
+}
+.nav-sub > div{
+  min-height:0;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  padding-left:1.1em;          /* set in under the section's name */
+}
+/* Tabbing into a section opens it too; a tap does not count, or a tapped
+   "Projects" could never be closed again. */
+.nav-group.open .nav-sub,
+.nav-group:has(:focus-visible) .nav-sub{ grid-template-rows:1fr; }
+@media (hover:hover){
+  .nav-group:hover .nav-sub{ grid-template-rows:1fr; }
+}
+
+.side-foot{
+  font-size:12.5px;
+  line-height:1.55;
+  color:var(--muted);
+}
+
+/* ------------------------------------------------------------- wall ---
+   Every photograph that is not part of a project, hung in columns. The window
+   is exactly the picture area, and the wall scrolls inside it. */
+.wall-window{
+  width:100%;
+  height:var(--plate-height);
+  overflow-y:auto;
+  scrollbar-width:none;
+}
+.wall-window::-webkit-scrollbar{ display:none; }
+
+.wall{
+  column-count:var(--wall-columns);
+  column-gap:var(--wall-gap);
+}
+
+.tile{
+  display:block;
+  width:100%;
+  margin:0 0 var(--wall-gap);
+  padding:0;
+  border:0;
+  background:none;
+  break-inside:avoid;
+  cursor:pointer;
+  transition:opacity .35s ease;
+}
+.tile picture{ display:block; }
+.tile img{ display:block; width:100%; height:auto; }
+.tile:focus-visible{ outline:1px solid var(--ink); outline-offset:3px; }
+
+/* Not in the series being pointed at. */
+.tile.out{ opacity:var(--wall-fade); }
+
+/* ------------------------------------------------ single photograph ---
+   Covers the wall with one photograph at the size a project photograph has.
+   Its left and right halves step through whichever group is showing. */
+.single{
+  position:absolute;
+  inset:0;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--bg);
+}
+.single[hidden]{ display:none; }
+.single picture{ display:contents; }
+.single img{
+  display:block;
+  height:var(--plate-height);
+  width:auto;
+  max-width:100%;
+  object-fit:contain;
+}
+.zone{
+  position:absolute;
+  top:0; bottom:0;
+  width:50%;
+  padding:0;
+  border:0;
+  background:none;
+}
+.zone.prev{ left:0;  cursor:w-resize; }
+.zone.next{ right:0; cursor:e-resize; }
+.has-custom-cursor .zone{ cursor:none; }
+
+/* ------------------------------------------------------------- home ---
+   The hero fills the picture area: as wide as the stage, as tall as a
+   photograph, so its top meets the top of 覺 and its bottom the credit. It is
+   cropped to that box; the anchor below decides which part of it shows
+   (50% is centred, higher values favour the right of the photograph and so
+   move the hand towards the left). */
+.hero{
+  position:relative;
+  width:100%;
+  height:var(--plate-height);
+  overflow:hidden;
+}
+.hero picture{ display:contents; }
+.hero img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:80% 50%;
+  display:block;
+}
+.hero-text{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  padding:0 clamp(26px, 3.4vw, 52px) clamp(26px, 5vh, 52px);
+}
+.hero-line{
+  margin:0 0 28px;
+  font-size:clamp(30px, 4.2vw, 54px);
+  font-weight:400;
+  line-height:1.18;
+  letter-spacing:-.01em;
+}
+.hero-enter{ margin:0; font-size:14px; letter-spacing:.05em; }
+.hero-enter a{ transition:color .2s ease; }
+.hero-enter a:hover{ color:var(--accent); }
+
+/* ------------------------------------------------------------ about ---
+   The words sit in the square a photograph would have, centred in the stage,
+   with the top of "About" on the top edge of the picture area — the line 覺
+   starts on. .3em is the leading above the capitals. */
+.about-page .stage{ align-items:flex-start; justify-content:center; }
+.about{
+  width:min(var(--plate-height), 100%);
+  max-height:calc(var(--plate-height) + .3em);
+  margin-top:calc(var(--plate-top) - .3em);
+  overflow-y:auto;
+  scrollbar-width:none;
+  color:var(--muted);
+}
+.about::-webkit-scrollbar{ display:none; }
+.about > *{ max-width:58ch; }
+.about h1{
+  margin:0 0 22px;
+  font-size:17px;
+  font-weight:500;
+  letter-spacing:.02em;
+  color:var(--ink);
+}
+.about p{
+  margin:0 0 14px;
+  font-size:14px;
+  line-height:1.75;
+  letter-spacing:.02em;
+}
+.about p:last-child{ margin-bottom:0; }
+.about p.gap{ margin-top:calc(14px + 1.75em); }   /* one empty line above */
+.about a{ transition:color .2s ease; }
+.about a:hover{ color:var(--accent); }
+
+/* ------------------------------------------------------ placeholder ---
+   A grey box standing in for a photograph that is not in yet, labelled with
+   its number and shape. Remove once every page has its photographs. */
+.ph{ position:relative; background:#e6e6e6; }
+.ph span{
+  position:absolute;
+  left:10px; top:8px;
+  font-size:11px;
+  letter-spacing:.06em;
+  color:#9a9a9a;
+}
+
+/* --------------------------------------------------------- projects ---
+   One cover per project, in rows that each share a height (--H): a cover's
+   width follows its shape (--r, a plain number) and the row fills the width. The empty last
+   item soaks up the spare room so a short last row is not stretched. */
+.covers{
+  --H:calc(var(--plate-height) * .42);
+  display:flex;
+  flex-wrap:wrap;
+  gap:34px var(--wall-gap);
+  align-items:flex-start;
+}
+.covers::after{ content:""; flex:999 1 0; }
+.cover{
+  flex:var(--r) 1 calc(var(--r) * var(--H));
+  min-width:0;
+  transition:opacity .35s ease;
+}
+.cover picture{ display:block; }
+.cover-img{ display:block; width:100%; height:auto; aspect-ratio:var(--r); object-fit:cover; }
+.cover-cap{ display:flex; flex-direction:column; margin-top:8px; line-height:1.45; }
+.cover-cap .t{ font-size:14px; letter-spacing:.03em; transition:color .2s ease; }
+.cover-cap .m{ font-size:12px; letter-spacing:.03em; color:var(--muted); }
+.cover:hover .cover-cap .t{ color:var(--accent); }
+.cover.out{ opacity:var(--wall-fade); }
+
+/* ----------------------------------------------------- project page ---
+   One photograph at a time. The viewer is the picture area; every plate sits
+   in the same grid cell and is sized to fit it at its own shape (--r), using
+   the viewer's own width and height (cqw / cqh). On a wide screen a plate is
+   centred; on a phone it stands on the bottom edge of a 3:4 box. */
+.viewer{
+  position:relative;
+  width:100%;
+  height:var(--plate-height);
+  display:grid;
+  container-type:size;
+}
+.plate{
+  display:block;
+  grid-area:1 / 1;
+  place-self:center;
+  width:min(100cqw, 100cqh * (var(--r)));
+  aspect-ratio:var(--r);
+  opacity:0;
+  transition:opacity .35s ease;
+}
+.plate.on{ opacity:1; }
+.plate img{ display:block; width:100%; height:100%; object-fit:cover; }
+
+/* ------------------------------------------------------------ phone ---
+   One column and an ordinary scrolling page: the mark and menu against the
+   right edge, the wall in three columns beneath, the credit at the bottom. */
+@media (max-width:820px){
+  body{ height:auto; overflow:visible; }
+
+  .page{
+    height:auto;
+    min-height:100dvh;
+    flex-direction:column;
+    gap:0;
+    padding:clamp(16px, 2.4vh, 22px) clamp(16px, 4vw, 22px);
+    overflow:visible;
+  }
+
+  /* The column's wrappers step aside so its parts can be ordered around the wall. */
+  .side, .side-top{ display:contents; }
+  .ident{ order:1; width:100%; text-align:right; }
+  .side-nav{ order:3; text-align:right; }
+  .stage{ order:5; display:block; flex:1 0 auto; margin-top:26px; }
+  .side-foot{ order:8; margin-top:auto; padding-top:22px; font-size:11px; }
+
+  .ident-mark{ --mark:24px; margin:0 0 0 auto; }
+  .ident-name{ font-size:15px; letter-spacing:.04em; }
+  .counter{ display:none; }
+  .side-nav{ margin-top:16px; font-size:12.5px; line-height:1.55; }
+  /* The menu is against the right edge here, so everything hangs from the
+     right and the pages under a section step in from the right. */
+  .nav-group, .side-nav a, .side-nav button.nav-top{ align-self:flex-end; }
+  .nav-sub > div{ padding-left:0; padding-right:1.1em; }
+
+  /* Home: the hero is a 3:4 box starting where the wall would. */
+  .hero{ height:auto; aspect-ratio:3 / 4; }
+  .hero img{ object-position:55% 50%; }
+  .hero-text{ padding:0 16px 20px; }
+
+  /* About: the title's capitals on the line the wall and the hero start on. */
+  .about-page .stage{ margin-top:calc(26px - .3em); }
+  .about{ width:100%; max-height:none; margin-top:0; overflow:visible; }
+
+  /* Projects: smaller rows. */
+  .covers{ --H:130px; gap:22px var(--wall-gap); }
+
+  /* A project: the photographs in a 3:4 box, each standing on its bottom edge. */
+  .viewer{ height:auto; aspect-ratio:3 / 4; }
+  .plate{ place-self:end center; }
+
+  .wall-window{ height:auto; overflow:visible; }
+  .wall{ --wall-columns:3; --wall-gap:8px; }
+
+  /* The large photograph takes the wall's place under the menu, so the menu
+     is still there to go back with. */
+  .stage.viewing .wall-window{ display:none; }
+  .single{ position:relative; inset:auto; display:block; }
+  .single img{ width:100%; height:auto; max-height:none; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .nav-sub,
+  .tile, .cover, .plate, .custom-cursor, .custom-cursor::after{ transition:none; }
+}

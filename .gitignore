@@ -1,6 +1,5 @@
-node_modules/
 .DS_Store
+node_modules/
+package-lock.json
 *.log
-
-# Screenshots Cowork writes into the folder — not part of the site
-Claude outputs/
+*.tmp

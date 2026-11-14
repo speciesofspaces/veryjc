@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /viewer.html
-
-Sitemap: https://juechen.uk/sitemap.xml
