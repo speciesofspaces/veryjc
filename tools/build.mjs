@@ -316,7 +316,7 @@ ${counter
 ${nav}    </div>
 
     <div class="side-foot">
-      <span>© ${site.year} ${site.name} · ${site.chinese}</span>
+      <span>© ${site.year} ${site.name}</span>
     </div>
   </nav>
 

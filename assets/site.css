@@ -635,7 +635,7 @@ button{
     align-items:center;
     container-type:size;
   }
-  .nav-arrow{ justify-content:center; }
+  .nav-arrow{ width:min(100cqw, (100cqh - 56px) * .75); justify-content:flex-start; }
   .about-page .stage, .projects-page .stage{ align-items:stretch; }
   .side-foot{ margin-top:0; padding-top:14px; }
 
