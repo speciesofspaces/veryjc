@@ -22,6 +22,14 @@
   --side-width:clamp(230px, 24vw, 300px);
   --page-pad-y:clamp(26px, 4vh, 46px);
   --page-pad-x:clamp(20px, 3vw, 44px);
+
+  /* Where a photograph's top edge falls on a wide screen, worked out in CSS so
+     the menu column can line up with it. The stage is the window less the page
+     padding; the photograph takes --plate-height-ratio of that, up to the
+     ceiling, and is centred — so the gap above it is half of what is left. */
+  --stage-height:calc(100dvh - 2 * var(--page-pad-y));
+  --plate-height:min(calc(var(--stage-height) * var(--plate-height-ratio)), var(--plate-max-height));
+  --plate-top:calc((var(--stage-height) - var(--plate-height)) / 2);
 }
 
 body.project{
@@ -89,6 +97,17 @@ body.project main{
   transition:color .2s ease;
 }
 .ident-mark:hover{ color:var(--accent); opacity:1; }
+
+/* Wide screens only: the top of 覺 sits on the same line as the top edge of the
+   photograph. The glyph's highest stroke starts 4.55% down its own box, so the
+   box is lifted by that much; the name, the count and the menu follow it down. */
+@media (min-width:821px){
+  .ident-mark{ margin-top:calc(var(--plate-top) - var(--mark) * .0455); }
+  /* And the credit stands on the photograph's bottom edge: the column stops
+     where the photograph does, less the leading under the letters (measured:
+     .35em), so it is the text that stands on the line and not its box. */
+  .side{ padding-bottom:calc(var(--plate-top) - .35em); }
+}
 
 /* One anchor around the whole line, so the target is the line and not just the
    last two words. The spans inside keep their own size, weight and colour. */
@@ -594,12 +613,11 @@ body.project main{
    The front page is a title page: the line, and one link into the work. It
    sits in the box a photograph would have had, like the About page.
 --------------------------------------------------------------------------- */
-/* The hero fills the whole stage rather than the square a series photograph
-   gets, and the line sits over its lower left corner. */
+/* The hero is as wide as the stage but only as tall as a series photograph —
+   the height and ceiling come from .prose-frame — so its top and bottom edges
+   are the ones a photograph has. The line sits over its lower left corner. */
 .home-page .prose-frame{
   width:100%;
-  height:100%;
-  max-height:none;
   aspect-ratio:auto;
   justify-content:flex-end;
   overflow:hidden;
@@ -615,9 +633,9 @@ body.project main{
   height:100%;
   object-fit:cover;
   /* Horizontal anchor of the crop: 50% is centred, 0% keeps the picture's left
-     edge, 100% its right. 70% favours the right of the photograph, which moves the
-     hand towards the left of the box. */
-  object-position:75% 50%;
+     edge, 100% its right. Above 50% favours the right of the photograph, which
+     moves the hand towards the left of the box. */
+  object-position:80% 50%;
   display:block;
 }
 
@@ -645,9 +663,47 @@ body.project main{
 /* On a phone the stage is the space between the menu and the credit; the hero
    takes all of it. */
 @media (max-width:820px){
-  .home-page .stage{ margin:16px 0 0; }
-  .home-page .prose-frame{ display:flex; }
+  /* The two arrow rows a series page has, held open with nothing in them, so
+     the hero starts and ends on the same lines as a photograph. */
+  .home-page .stage{ margin:42px 0 28px; }
+  .home-page .prose-frame{ display:flex; height:100%; max-height:none; }
   .home{ padding:0 16px 20px; }
   /* A phone crops much harder, so it takes its own anchor. */
-  .home-hero img{ object-position:65% 50%; }
+  .home-hero img{ object-position:55% 50%; }
+}
+
+/* ------------------------------------------------------- phone plate box ---
+   On a phone every page gives its picture the same box: the full width, 3:4,
+   starting on the same line under the menu. The hero is cropped to fill it. A
+   series photograph is fitted inside it and stood on its bottom edge, so a
+   square or a landscape leaves its spare room above, under the up arrow, and
+   every picture on the site shares one bottom line. The arrows sit outside the
+   box and so never move as the photographs change.
+
+   The box shrinks on a phone too short to hold it, which is why it is allowed
+   to; the credit is pushed to the bottom of the window by its own auto margin
+   now that the stage no longer takes up the slack.
+--------------------------------------------------------------------------- */
+@media (max-width:820px){
+  .stage{
+    flex:0 1 auto;
+    width:100%;
+    aspect-ratio:3 / 4;
+    min-height:0;
+  }
+  .plate img{ object-position:50% 100%; }
+  .side-foot{ margin-top:auto; padding-top:12px; }
+
+  /* Words, not a picture: no box — but the title starts on the line the box
+     would have started on. 42px is the up-arrow row; the 5px taken back off is
+     the leading above the capitals, so it is the letters that meet the line. */
+  body.about .stage{ aspect-ratio:auto; margin-top:37px; }
+}
+
+/* The scrolling fallback has no box either — the photographs are in the flow. */
+@media (max-width:820px) and (max-height:560px){
+  .stage{ flex:none; aspect-ratio:auto; }
+  /* A phone on its side: a 3:4 box as wide as the window would be far taller
+     than the window, so the hero goes landscape here. */
+  .home-page .stage{ aspect-ratio:3 / 2; }
 }
