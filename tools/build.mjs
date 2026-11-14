@@ -339,32 +339,30 @@ const placeholder = (label, r = "4/5", cls = "") =>
 
 function projectsPage(groups) {
   const projects = groups.filter((g) => g.section === 1);
-  // One row per project: its name, then every photograph in it, all at one
-  // height. Each photograph opens the project at that photograph.
-  const rows = projects.map((g) => {
+  // One cover per project (its -00 photograph, or its first if it has none),
+  // all in one row at one height: each cover is as wide as its shape needs
+  // and together they fill the width.
+  const covers = projects.map((g) => {
+    const pic = g.cover || g.photos[0];
     const n = g.photos.length;
     const line = [meta[g.slug], n ? `${n} photograph${n === 1 ? "" : "s"}` : "Photographs to come"].filter(Boolean).join(" · ");
-    const items = g.photos.map((p, i) => [
-      `          <a class="strip-item" href="${g.slug}.html#${i + 1}" style="--r:${ratio(p)}">`,
-      picture(p, { imgClass: "strip-img", sizes: "(max-width: 820px) 40vw, 20vw", lazy: true, indent: "            " }),
-      "          </a>",
-    ].join("\n"));
+    const img = pic
+      ? picture(pic, { imgClass: "cover-img", sizes: "(max-width: 820px) 50vw, 35vw", indent: "        " })
+      : "        " + placeholder("Cover to come", "0.75", "cover-img");
     return [
-      `      <section class="prow" data-p="${g.slug}">`,
-      `        <a class="prow-cap" href="${g.slug}.html"><span class="t">${esc(g.name)}</span><span class="m">${esc(line)}</span></a>`,
-      '        <div class="strip">',
-      ...items,
-      "        </div>",
-      "      </section>",
+      `      <a class="cover" href="${g.slug}.html" style="--r:${pic ? ratio(pic) : 0.75}">`,
+      img,
+      `        <span class="cover-cap"><span class="t">${esc(g.name)}</span><span class="m">${esc(line)}</span></span>`,
+      "      </a>",
     ].join("\n");
   });
   return shell({
     title: `Projects — ${site.name}`, desc: `Projects — photographs by ${site.name}.`, bodyClass: "projects-page",
     nav: navBlock(groups, "projects"), noindex: sections[1].index === false,
-    main: `    <!-- One row per project, every photograph in it, all rows one height. -->
+    main: `    <!-- One cover per project, in one row at one height. -->
     <div class="wall-window">
-    <div class="prows" id="covers">
-${rows.join("\n")}
+    <div class="covers">
+${covers.join("\n")}
     </div>
     </div>`,
   });

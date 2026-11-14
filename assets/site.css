@@ -462,29 +462,23 @@ button{
 }
 
 /* --------------------------------------------------------- projects ---
-   One row per project: its name, then every photograph in it, all rows at
-   one height (--row-h). A row longer than the page scrolls sideways. */
-.prows{
-  --row-h:calc(var(--plate-height) * .3);
+   One cover per project, in one row at one height: each cover grows in step
+   with its shape (--r, width ÷ height), so together they fill the width with
+   their heights equal. With many projects the row wraps rather than letting
+   the covers shrink below about 220px high. */
+.covers{
   display:flex;
-  flex-direction:column;
-  gap:clamp(28px, 5vh, 48px);
+  flex-wrap:wrap;
+  gap:28px var(--wall-gap);
+  align-items:flex-start;
 }
-.prow-cap{ display:flex; align-items:baseline; gap:.7em; margin-bottom:10px; line-height:1.45; }
-.prow-cap .t{ font-size:14px; letter-spacing:.03em; transition:color .2s ease; }
-.prow-cap .m{ font-size:12px; letter-spacing:.03em; color:var(--muted); }
-.prow:hover .prow-cap .t{ color:var(--accent); }
-.strip{
-  display:flex;
-  gap:var(--wall-gap);
-  overflow-x:auto;
-  overscroll-behavior-x:contain;
-  scrollbar-width:none;
-}
-.strip::-webkit-scrollbar{ display:none; }
-.strip-item{ flex:0 0 auto; height:var(--row-h); aspect-ratio:var(--r); }
-.strip picture{ display:block; height:100%; }
-.strip-img{ display:block; width:100%; height:100%; object-fit:cover; }
+.cover{ flex:var(--r) 1 calc(var(--r) * 220px); min-width:0; }
+.cover picture{ display:block; }
+.cover-img{ display:block; width:100%; height:auto; aspect-ratio:var(--r); object-fit:cover; }
+.cover-cap{ display:flex; align-items:baseline; gap:.7em; margin-top:10px; line-height:1.45; }
+.cover-cap .t{ font-size:14px; letter-spacing:.03em; transition:color .2s ease; }
+.cover-cap .m{ font-size:12px; letter-spacing:.03em; color:var(--muted); }
+.cover:hover .cover-cap .t{ color:var(--accent); }
 
 /* ----------------------------------------------------- project page ---
    One photograph at a time. The viewer is the picture area; every plate sits
@@ -579,8 +573,8 @@ button{
   .about-page .stage{ margin-top:calc(26px - .3em); }
   .about{ width:100%; max-height:none; margin-top:0; overflow:visible; }
 
-  /* Projects: smaller rows. */
-  .prows{ --row-h:150px; gap:26px; }
+  /* Projects: two covers to a row. */
+  .cover{ flex:1 1 calc(50% - var(--wall-gap)); }
 
   /* A project: the photographs in a 3:4 box, each standing on its bottom edge. */
   .viewer{ height:auto; aspect-ratio:3 / 4; }
@@ -630,14 +624,19 @@ button{
   body{ height:100dvh; overflow:hidden; }
   .page{ height:100dvh; min-height:0; overflow:hidden; }
 
+  /* The picture area is centred across the screen: when the band is short
+     the 3:4 box is narrower than the screen, and the spare room is shared
+     equally either side. The arrows are centred with it. */
   .stage{
     flex:1 1 auto;
     min-height:0;
     display:flex;
     flex-direction:column;
-    align-items:flex-start;
+    align-items:center;
     container-type:size;
   }
+  .nav-arrow{ justify-content:center; }
+  .about-page .stage, .projects-page .stage{ align-items:stretch; }
   .side-foot{ margin-top:0; padding-top:14px; }
 
   /* The menu: one line per section. */
@@ -685,22 +684,33 @@ button{
     transform:translateY(calc((var(--k, 0) - var(--i, 0)) * 100%));
     transition:transform .45s cubic-bezier(.22,.68,.28,1);
   }
-  .plate img{ object-fit:contain; object-position:50% 100%; }
-  .plate.tall img{ object-fit:cover; object-position:50% 50%; }
+  /* Each photograph is drawn at its own shape (--r), as wide as the box and
+     standing on its bottom edge — never stretched or fitted into the box. */
+  .plate img{
+    position:absolute;
+    left:0; bottom:0;
+    width:100%;
+    height:auto;
+    aspect-ratio:var(--r);
+    object-fit:cover;
+  }
   .viewer .zone{ display:none; }
 
   /* Studies: one photograph at a time here too, never the wall. */
   .studies-page .wall-window{ display:none; }
-  .single{ position:relative; display:flex; flex-direction:column; align-items:flex-start; touch-action:none; }
+  .single{ position:relative; display:flex; flex-direction:column; align-items:center; touch-action:none; }
+  /* The photograph at its own shape (--r, from wall.js; 3:4 for a portrait),
+     as wide as the 3:4 box, and pushed down so it stands on the box's bottom
+     edge — the same place a project's photographs stand. */
   .single img{
-    width:min(100cqw, (100cqh - 56px) * .75);
+    --bw:min(100cqw, (100cqh - 56px) * .75);
+    width:var(--bw);
     height:auto;
     max-width:none;
-    aspect-ratio:3 / 4;
-    object-fit:contain;
-    object-position:50% 100%;
+    aspect-ratio:var(--r, .75);
+    object-fit:cover;
+    margin-top:calc(var(--bw) * (4 / 3 - 1 / var(--r, .75)));
   }
-  .single img.tall{ object-fit:cover; object-position:50% 50%; }
   .single img.from-below{ animation:from-below .4s cubic-bezier(.22,.68,.28,1); }
   .single img.from-above{ animation:from-above .4s cubic-bezier(.22,.68,.28,1); }
   .single .zone{ display:none; }
@@ -718,5 +728,5 @@ button{
   .nav-group.open .nav-sub, .single img{ animation:none !important; }
   .plate{ transition:none !important; }
   .nav-sub,
-  .tile, .prow, .plate, .hero img, .custom-cursor, .custom-cursor::after{ transition:none; }
+  .tile, .plate, .hero img, .custom-cursor, .custom-cursor::after{ transition:none; }
 }

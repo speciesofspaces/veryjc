@@ -114,18 +114,44 @@
   var series = [];       // the photographs being stepped through
   var current = 0;
 
+  // The large photograph is shown from its WebP sizes only, so that the copy
+  // fetched ahead of time (below) is exactly the file the page then shows.
+  if (avif) avif.parentNode.removeChild(avif);
+  function srcsetOf(tile) {
+    var base = tile.dataset.base;
+    return tile.dataset.widths.split(",").map(function (w) { return base + "-" + w + ".webp " + w + "w"; }).join(", ");
+  }
+
+  // Photographs fetched and decoded ahead of time, so a swipe shows the next
+  // one at once instead of waiting for it to download.
+  var ahead = {};
+  function fetchAhead(tile) {
+    if (!tile) return null;
+    var key = tile.dataset.base;
+    if (!ahead[key]) {
+      var im = new Image();
+      im.decoding = "async";
+      im.sizes = SIZES;
+      im.srcset = srcsetOf(tile);
+      im.src = key + "-" + tile.dataset.jpg + ".jpg";
+      ahead[key] = im;
+    }
+    return ahead[key];
+  }
+
   function fill(tile) {
     var base = tile.dataset.base;
-    var widths = tile.dataset.widths.split(",");
-    function set(ext) {
-      return widths.map(function (w) { return base + "-" + w + "." + ext + " " + w + "w"; }).join(", ");
-    }
-    if (avif) { avif.srcset = set("avif"); avif.sizes = SIZES; }
-    if (webp) { webp.srcset = set("webp"); webp.sizes = SIZES; }
+    // The shape first: a portrait is cropped to 3:4, anything else is shown
+    // whole. Set after the new picture, a square would be cropped for a moment.
+    var tall = tile.classList.contains("tall");
+    big.classList.toggle("tall", tall);
+    // Its shape, width ÷ height (3:4 for a portrait), so a phone can size it
+    // exactly rather than fitting it into a box.
+    big.style.setProperty("--r", tall ? "0.75" : (+tile.dataset.w / +tile.dataset.h).toFixed(4));
+    if (webp) { webp.srcset = srcsetOf(tile); webp.sizes = SIZES; }
     big.width = +tile.dataset.w;
     big.height = +tile.dataset.h;
     big.alt = tile.querySelector("img").alt;
-    big.classList.toggle("tall", tile.classList.contains("tall"));   // shown 3:4, as on the wall
     big.src = base + "-" + tile.dataset.jpg + ".jpg";
   }
 
@@ -138,12 +164,27 @@
     if (open && window.matchMedia("(max-width: 820px), (max-height: 500px)").matches) window.scrollTo(0, 0);
   }
 
+  var showing = 0;   // so a slow photograph cannot land after a later swipe
   function showSingle(dir) {
     current = (current + series.length) % series.length;
-    fill(series[current]);
-    // On an upright phone the new photograph slides in from the way it came.
-    big.classList.remove("from-below", "from-above");
-    if (dir) { void big.offsetWidth; big.classList.add(dir > 0 ? "from-below" : "from-above"); }
+    var tile = series[current], ticket = ++showing;
+    function swap() {
+      if (ticket !== showing) return;
+      fill(tile);
+      // On an upright phone the new photograph slides in from the way it came.
+      big.classList.remove("from-below", "from-above");
+      if (dir) { void big.offsetWidth; big.classList.add(dir > 0 ? "from-below" : "from-above"); }
+    }
+    // Wait for the photograph to be ready (at most a third of a second), then
+    // swap — rather than sliding in an empty frame.
+    var im = fetchAhead(tile);
+    if (!dir || im.complete) swap();
+    else {
+      var t = setTimeout(swap, 350);
+      (im.decode ? im.decode() : Promise.resolve()).then(function () { clearTimeout(t); swap(); }, function () { clearTimeout(t); swap(); });
+    }
+    // And fetch the next two either way.
+    [1, 2, -1].forEach(function (k) { fetchAhead(series[current + k]); });
     say(current + 1 + " / " + series.length);
     if (upArrow) upArrow.classList.toggle("disabled", current === 0);
     if (downArrow) downArrow.classList.toggle("disabled", current === series.length - 1);

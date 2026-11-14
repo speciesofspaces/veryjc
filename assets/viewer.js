@@ -41,7 +41,7 @@
     // link from the Projects page can open a project at a given photograph.
     history.replaceState(null, "", location.pathname + location.search + (index ? "#" + (index + 1) : ""));
     // Start loading the neighbours before they are asked for.
-    [index + 1, index - 1].forEach(function (k) {
+    [index + 1, index + 2, index - 1].forEach(function (k) {
       var img = plates[(k + plates.length) % plates.length].querySelector("img");
       if (img && img.loading === "lazy") img.loading = "eager";
     });
