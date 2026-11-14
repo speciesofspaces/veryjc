@@ -102,8 +102,9 @@ body.project main{
 
 .ident-name{
   display:inline;
+  font-family:'Zen Maru Gothic', 'IBM Plex Sans', sans-serif;
   font-size:17px;
-  font-weight:500;
+  font-weight:400;
   letter-spacing:.02em;
   line-height:1.35;
   color:var(--ink);
@@ -192,18 +193,7 @@ body.project main{
 /* The words are for screen readers only in the wide viewer and the pager.
    In the short/stack mode there are no dots to track, so the line goes back
    to plain text and the span is shown. */
-.counter .counter-text{
-  position:absolute;
-  width:1px;
-  height:1px;
-  margin:-1px;
-  padding:0;
-  border:0;
-  overflow:hidden;
-  clip:rect(0 0 0 0);
-  clip-path:inset(50%);
-  white-space:nowrap;
-}
+.counter .counter-text{ white-space:nowrap; }
 
 .counter-stacked .rules{ display:none; }
 
@@ -580,4 +570,39 @@ body.project main{
 
 @media (prefers-reduced-motion:reduce){
   .frame, .plate{ transition:none; }
+}
+
+/* ------------------------------------------------------------------ name ---
+   The name under the mark is set in Zen Maru Gothic Regular; everything else
+   stays in IBM Plex Sans. Latin subset only, served locally like Plex.
+   Licence in assets/fonts/Zen-Maru-Gothic-OFL.txt.
+--------------------------------------------------------------------------- */
+@font-face{
+  font-family:'Zen Maru Gothic';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('fonts/zen-maru-gothic-latin-400-normal.woff2') format('woff2');
+}
+
+/* ------------------------------------------------------------------ home ---
+   The front page is a title page: the line, and one link into the work. It
+   sits in the box a photograph would have had, like the About page.
+--------------------------------------------------------------------------- */
+.home{ width:100%; }
+.home-line{
+  margin:0 0 28px;
+  font-size:clamp(30px, 4.2vw, 54px);
+  font-weight:300;
+  line-height:1.18;
+  letter-spacing:-.01em;
+  color:var(--ink);
+}
+.home-enter{ margin:0; font-size:14px; letter-spacing:.05em; }
+.home-enter a{ color:var(--muted); transition:color .2s ease; }
+.home-enter a:hover{ color:var(--accent); opacity:1; }
+
+/* On a phone the line starts at the page edge, not inside a centred square. */
+@media (max-width:820px){
+  .home-page .prose-frame{ aspect-ratio:auto; width:100%; }
 }

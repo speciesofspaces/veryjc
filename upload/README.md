@@ -8,7 +8,6 @@ Drop new photographs here, commit, push. The build does the rest.
 | `upload/projects/the-meadow/` | The Meadow |
 | `upload/projects/species-of-spaces/` | Species of Spaces |
 | `upload/projects/margins/` | Margins |
-| `upload/projects/photo-poetry/` | Photo Poetry (the front page) |
 | `upload/projects/dream/` | Dream |
 
 File names don't matter — they're renumbered on from the highest existing

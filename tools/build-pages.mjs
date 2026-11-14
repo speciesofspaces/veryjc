@@ -234,6 +234,8 @@ function sideBlock(file, { counter = true } = {}) {
     ...items.map(line),
     `      </div>`,
     ``,
+    ...(sideMenu.contact.length
+      ? [
     `      <div class="side-contact">`,
     ...sideMenu.contact.map((c) =>
       c.href
@@ -243,6 +245,8 @@ function sideBlock(file, { counter = true } = {}) {
         : `        <span>${esc(c.label)}</span>`,
     ),
     `      </div>`,
+        ]
+      : []),
   ].join("\n");
 }
 

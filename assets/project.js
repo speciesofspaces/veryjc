@@ -200,7 +200,8 @@
     arrows.down.classList.toggle("disabled", index === plates.length - 1);
   }
 
-  // The count is drawn as one hairline rule per photograph rather than "3/7".
+  // The count is plain text, "3 / 7". It used to be one hairline rule per
+  // photograph; the row element is still created but no longer filled or shown.
   // The rules are built once and then only their class changes, so nothing
   // reflows as the viewer moves. Screen readers get the position in words from
   // the visually-hidden span, which is what the aria-live region announces —
@@ -215,15 +216,8 @@
     row.className = "rules";
     row.setAttribute("aria-hidden", "true");
     rules = [];
-    for (var i = 0; i < plates.length; i++) {
-      var r = document.createElement("span");
-      r.className = "rule";
-      row.appendChild(r);
-      rules.push(r);
-    }
     counterText = document.createElement("span");
     counterText.className = "counter-text";
-    counter.appendChild(row);
     counter.appendChild(counterText);
   }
 
@@ -236,7 +230,7 @@
       counterText.textContent = plates.length + " photographs";
       return;
     }
-    counterText.textContent = index + 1 + " of " + plates.length;
+    counterText.textContent = index + 1 + " / " + plates.length;
     for (var i = 0; i < rules.length; i++) {
       rules[i].classList.toggle("on", i === index);
     }

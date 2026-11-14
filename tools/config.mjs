@@ -54,13 +54,6 @@ export const galleries = [
 // and the top bar on the others. Newest first.
 export const projects = [
   {
-    slug: "photo-poetry",
-    title: "Selected photographs",
-    // The front page. Its own link lives in the tagline under the mark, which
-    // is why it is kept out of the menu below.
-    page: "index.html",
-  },
-  {
     slug: "dream",
     title: "Dream",
     page: "dream.html",
@@ -100,7 +93,7 @@ export const sideMenu = {
   placeholders: [],
   // The selected photographs are the front page and is reached through the tagline, so it is
   // not repeated in the list.
-  hideFromMenu: ["photo-poetry"],
+  hideFromMenu: [],
   // Everything after the projects, in the same list. About is linked; Studies
   // is deliberately unlinked for now — the page is still built and still
   // reachable by URL, it simply is not advertised. Add an entry here to put it
@@ -111,10 +104,9 @@ export const sideMenu = {
   // An entry with no `href` is printed as plain text. The address is there to
   // be read and copied, not to launch a mail client — give it a
   // `href: \`mailto:${site.email}\`` to make it a link again.
-  contact: [
-    { label: site.email },
-    { label: "instagram", href: site.instagram },
-  ],
+  // Empty: contact details live on the About page only. Add entries back
+  // ({ label, href }) to return them to the column.
+  contact: [],
 };
 
 // The mark. `brand` is the character itself, used as the accessible name;
@@ -126,9 +118,9 @@ export const sideMenu = {
 // Android — a different letterform for every reader, and font-weight on it gets
 // synthesised into a fake bold. The outline looks the same everywhere, scales,
 // and takes its colour from currentColor.
-export const brand = "陳";
+export const brand = "覺";
 export const brandPath =
-  "M40.01 32.33V61.63H51.34C46.39 68.85 38.83 75.48 31.28 78.92C33.04 80.44 35.39 83.29 36.57 85.14C44.21 80.94 51.68 73.64 56.88 65.41V88.92H64.61V64.99C69.14 73.05 75.61 80.44 82.41 84.63C83.58 82.7 86.02 79.85 87.7 78.42C80.9 75.06 74.18 68.6 69.73 61.63H82.16V32.33H64.61V26.11H85.43V19.31H64.61V11H56.88V19.31H36.73V26.11H56.88V32.33ZM46.98 49.62H56.88V55.84H46.98ZM64.61 49.62H74.85V55.84H64.61ZM46.98 38.04H56.88V44.16H46.98ZM64.61 38.04H74.85V44.16H64.61ZM12.3 14.61V89H19.27V21.75H28.34C26.66 27.46 24.56 34.93 22.46 40.72C27.92 46.85 29.26 52.39 29.26 56.59C29.26 59.11 28.93 61.04 27.75 61.96C27.08 62.47 26.16 62.64 25.23 62.72C23.97 62.72 22.63 62.72 20.87 62.64C21.96 64.57 22.63 67.59 22.71 69.44C24.64 69.52 26.66 69.52 28.25 69.35C30.02 69.02 31.61 68.51 32.79 67.67C35.31 65.91 36.31 62.38 36.31 57.51C36.31 52.48 35.05 46.6 29.35 39.88C32.03 33.25 34.97 24.35 37.32 17.3L32.12 14.27L30.94 14.61Z";
+  "M27.2 58.75H73.1V64.75H27.2ZM27.2 68.25H73.1V74.35H27.2ZM27.2 49.45H73.1V55.35H27.2ZM22.6 45.85V77.85H35.4C31.8 85.85 23.3 89.75 4.7 91.65C5.5 92.55 6.6 94.45 7 95.45C27.1 93.05 36.5 88.25 40.3 77.85H57.2V87.45C57.2 93.05 59.5 94.15 67.7 94.15C69.4 94.15 84.4 94.15 86.3 94.15C93.1 94.15 94.8 91.65 95.3 80.35C94 80.05 92.1 79.35 91 78.55C90.7 88.75 90 89.95 85.8 89.95C82.6 89.95 70.2 89.95 67.9 89.95C62.9 89.95 62 89.55 62 87.45V77.85H77.8V45.85ZM41.9 23.75C44 24.85 46.2 26.25 48.2 27.75C45.2 30.05 41.8 32.15 38.5 33.85C39.3 34.35 40.5 35.35 41 36.05H22.6L22.4 30.65H37.1V26.95H22.2L22 21.65H36.2V18.05H21.8L21.6 13.25C26.6 11.65 32.6 9.55 37.1 7.05L34.1 4.55C29.8 6.65 22.2 9.95 16.8 11.65L16.9 11.75L18.1 36.05H8.7V49.95H13.3V39.95H87.1V49.95H91.8V36.05H82.6C83.1 28.55 83.6 17.45 83.9 8.85H63.5V12.65H79.4L79.2 18.05H64.7V21.65H79L78.7 26.95H63.9V30.65H78.5L78.1 36.05H42.1C45.1 34.35 48.2 32.15 51.1 29.85C53.4 31.65 55.4 33.45 56.8 35.05L59.4 32.45C58.1 30.95 56.1 29.25 53.8 27.45C56 25.45 58 23.25 59.6 20.95L56 20.05C54.6 21.95 52.9 23.75 51 25.45C48.8 24.05 46.5 22.65 44.4 21.45ZM40.8 8.65C42.8 9.75 45 11.05 47 12.45C44.5 14.35 41.7 16.05 39 17.45C39.9 17.95 41.4 19.35 41.9 19.95C44.5 18.45 47.3 16.65 49.8 14.55C51.9 16.15 53.8 17.75 55 19.15L57.6 16.55C56.4 15.25 54.6 13.75 52.6 12.25C54.7 10.25 56.7 8.25 58.2 6.15L54.6 5.15C53.3 6.85 51.6 8.65 49.7 10.25C47.6 8.85 45.4 7.45 43.4 6.45Z";
 
 // The header menu, generated into every page so a new project appears
 // everywhere at once. Project pages are inserted directly after Projects.
@@ -177,7 +169,7 @@ export const pages = [
     title: "Jué Chen — Photography",
     description:
       "Photographs by Jué Chen. How silence looks, and breaks.",
-    ogImage: "assets/images/projects/photo-poetry/01-1440.jpg",
+    ogImage: "assets/images/projects/dream/05-1440.jpg",
   },
   {
     file: "the-meadow.html",
@@ -242,14 +234,15 @@ export const excludedPages = ["viewer.html", "404.html", "entry.html"];
 // without being a project. They get `side` and `sidefoot` but no photographs,
 // no top bar and no wide footer, and no frame counter: there is nothing to
 // count.
-export const sidebarPages = ["about.html"];
+export const sidebarPages = ["about.html", "index.html"];
 
 // Pages with no top bar and no footer — the photograph and its line of text and
 // nothing else. The build generates neither block for these, so the markup has
 // to be absent from the file as well.
 export const barePages = ["entry.html"];
 
-// The 陳 mark. Generated once from Noto Sans CJK TC Medium with the outline
+// The 覺 mark. The page mark is Noto Sans CJK TC Light; the favicon and app
+// icons are Regular, so they stay legible at 16px. Generated once with the outline
 // embedded, so no font has to be present on the reader's machine. The SVG is
 // listed first because every current browser prefers it; the .ico is the
 // fallback for old ones and for the bare /favicon.ico request browsers make on

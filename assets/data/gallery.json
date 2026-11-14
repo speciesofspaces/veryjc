@@ -384,102 +384,6 @@
     }
   },
   "projects": {
-    "photo-poetry": {
-      "title": "Selected photographs",
-      "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
-      "cover": {
-        "src": "assets/images/projects/photo-poetry/01.jpg",
-        "base": "assets/images/projects/photo-poetry/01",
-        "width": 900,
-        "height": 1200,
-        "widths": [
-          480,
-          720,
-          900
-        ],
-        "jpegWidths": [
-          900
-        ],
-        "alt": "Blossom branches against an evening sky, above a dark house with one lit window."
-      },
-      "images": [
-        {
-          "src": "assets/images/projects/photo-poetry/01.jpg",
-          "base": "assets/images/projects/photo-poetry/01",
-          "width": 900,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            900
-          ],
-          "jpegWidths": [
-            900
-          ],
-          "alt": "Blossom branches against an evening sky, above a dark house with one lit window."
-        },
-        {
-          "src": "assets/images/projects/photo-poetry/02.jpg",
-          "base": "assets/images/projects/photo-poetry/02",
-          "width": 895,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            895
-          ],
-          "jpegWidths": [
-            895
-          ],
-          "alt": "An aeroplane window glowing with the colours of sunset."
-        },
-        {
-          "src": "assets/images/projects/photo-poetry/03.jpg",
-          "base": "assets/images/projects/photo-poetry/03",
-          "width": 900,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            900
-          ],
-          "jpegWidths": [
-            900
-          ],
-          "alt": "Blades of grass, blurred and close, against a blue sky."
-        },
-        {
-          "src": "assets/images/projects/photo-poetry/04.jpg",
-          "base": "assets/images/projects/photo-poetry/04",
-          "width": 900,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            900
-          ],
-          "jpegWidths": [
-            900
-          ],
-          "alt": "A blurred figure with red hair, head bowed, against pale grey."
-        },
-        {
-          "src": "assets/images/projects/photo-poetry/05.jpg",
-          "base": "assets/images/projects/photo-poetry/05",
-          "width": 899,
-          "height": 1200,
-          "widths": [
-            480,
-            720,
-            899
-          ],
-          "jpegWidths": [
-            899
-          ],
-          "alt": "Sunlight rippling across the surface of a swimming pool."
-        }
-      ]
-    },
     "dream": {
       "title": "Dream",
       "sizes": "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 40vw",
@@ -559,6 +463,81 @@
             566
           ],
           "alt": ""
+        },
+        {
+          "src": "assets/images/projects/dream/05.jpg",
+          "base": "assets/images/projects/dream/05",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": "Blossom branches against an evening sky, above a dark house with one lit window."
+        },
+        {
+          "src": "assets/images/projects/dream/06.jpg",
+          "base": "assets/images/projects/dream/06",
+          "width": 895,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            895
+          ],
+          "jpegWidths": [
+            895
+          ],
+          "alt": "An aeroplane window glowing with the colours of sunset."
+        },
+        {
+          "src": "assets/images/projects/dream/07.jpg",
+          "base": "assets/images/projects/dream/07",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": "Blades of grass, blurred and close, against a blue sky."
+        },
+        {
+          "src": "assets/images/projects/dream/08.jpg",
+          "base": "assets/images/projects/dream/08",
+          "width": 900,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            900
+          ],
+          "jpegWidths": [
+            900
+          ],
+          "alt": "A blurred figure with red hair, head bowed, against pale grey."
+        },
+        {
+          "src": "assets/images/projects/dream/09.jpg",
+          "base": "assets/images/projects/dream/09",
+          "width": 899,
+          "height": 1200,
+          "widths": [
+            480,
+            720,
+            899
+          ],
+          "jpegWidths": [
+            899
+          ],
+          "alt": "Sunlight rippling across the surface of a swimming pool."
         }
       ]
     },
