@@ -214,8 +214,8 @@ async function processGroup(g) {
   for (const k of Object.keys(cache)) {
     if (k.startsWith(g.dir + "/") && !plan.some((p) => k === `${g.dir}/${p.to.replace(/\.jpg$/, "")}`)) delete cache[k];
   }
-  g.photos.forEach((p, i) => { p.alt = alt[p.key] || `${g.name}, photograph ${i + 1}`; });
-  if (g.cover) g.cover.alt = alt[g.cover.key] || g.name;
+  g.photos.forEach((p, i) => { p.alt = alt[p.key] ?? `${g.name}, photograph ${i + 1}`; });
+  if (g.cover) g.cover.alt = alt[g.cover.key] ?? g.name;
 }
 
 // --------------------------------------------------------------- pages ----
@@ -345,14 +345,15 @@ function projectsPage(groups) {
   const covers = projects.map((g) => {
     const pic = g.cover || g.photos[0];
     const n = g.photos.length;
-    const line = [meta[g.slug], n ? `${n} photograph${n === 1 ? "" : "s"}` : "Photographs to come"].filter(Boolean).join(" · ");
+    // The line beside the name is the one from tools/config.mjs → meta; no count.
+    const line = meta[g.slug] || (n ? "" : "Photographs to come");
     const img = pic
       ? picture(pic, { imgClass: "cover-img", sizes: "(max-width: 820px) 50vw, 35vw", indent: "        " })
       : "        " + placeholder("Cover to come", "0.75", "cover-img");
     return [
       `      <a class="cover" href="${g.slug}.html" style="--r:${pic ? ratio(pic) : 0.75}">`,
       img,
-      `        <span class="cover-cap"><span class="t">${esc(g.name)}</span><span class="m">${esc(line)}</span></span>`,
+      `        <span class="cover-cap"><span class="t">${esc(g.name)}</span>${line ? `<span class="m">${esc(line)}</span>` : ""}</span>`,
       "      </a>",
     ].join("\n");
   });
@@ -488,6 +489,6 @@ for (const [file, kind] of [["index.html", "home"], ["about.html", "about"], ["s
   await write(file, text);
 }
 
-const noAlt = groups.flatMap((g) => g.photos).filter((p) => !alt[p.key]).length;
+const noAlt = groups.flatMap((g) => g.photos).filter((p) => alt[p.key] == null).length;
 log(`\ndone: ${groups.length} groups, ${groups.reduce((n, g) => n + g.photos.length + (g.cover ? 1 : 0), 0)} photographs`);
 if (noAlt) log(`note: ${noAlt} photographs have no description in tools/config.mjs → alt`);

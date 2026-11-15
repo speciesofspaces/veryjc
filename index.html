@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>/* Phones skip the landing view and open Margin. */if(matchMedia("(max-width:820px), (max-height:500px)").matches)location.replace("margin.html");</script>
 <title>Jué Chen — Photography</title>
-<meta name="description" content="Photographs by Jué Chen. How silence looks, and breaks.">
+<meta name="description" content="Lyrical fine art photographs by Jué Chen. How silence looks, and breaks.">
 <meta name="author" content="Jué Chen">
 <link rel="icon" href="favicon.ico?v=4" sizes="32x32">
 <link rel="icon" href="assets/icons/favicon.svg?v=4" type="image/svg+xml">
@@ -66,15 +66,19 @@
   </nav>
 
   <main class="stage">
-    <!-- The hero fills the picture area and is cropped to it. -->
+    <!-- The picture area holds the hero, cropped to a lower, wider shape, and
+         under it the line, standing on the area's bottom edge. -->
+    <div class="home-stack">
     <div class="hero">
       <!-- build:hero start -->
       <picture>
         <source type="image/avif" srcset="assets/images/000-home/000-00-480.avif 480w, assets/images/000-home/000-00-720.avif 720w, assets/images/000-home/000-00-960.avif 960w, assets/images/000-home/000-00-1440.avif 1440w, assets/images/000-home/000-00-1600.avif 1600w" sizes="(max-width: 820px) 200vw, (max-height: 500px) 100vw, max(72vw, 140vh)">
         <source type="image/webp" srcset="assets/images/000-home/000-00-480.webp 480w, assets/images/000-home/000-00-720.webp 720w, assets/images/000-home/000-00-960.webp 960w, assets/images/000-home/000-00-1440.webp 1440w, assets/images/000-home/000-00-1600.webp 1600w" sizes="(max-width: 820px) 200vw, (max-height: 500px) 100vw, max(72vw, 140vh)">
-        <img fetchpriority="high" src="assets/images/000-home/000-00-1440.jpg" width="1600" height="1001" alt="An outstretched arm in a pale blue sleeve against a soft sky, fingers pinched together." decoding="async">
+        <img fetchpriority="high" src="assets/images/000-home/000-00-1440.jpg" width="1600" height="1001" alt="" decoding="async">
       </picture>
       <!-- build:hero end -->
+    </div>
+    <p class="hero-tag">— How silence looks, and breaks.</p>
     </div>
   </main>
 

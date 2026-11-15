@@ -365,11 +365,30 @@ button{
    cropped to that box; the anchor below decides which part of it shows
    (50% is centred, higher values favour the right of the photograph and so
    move the hand towards the left). */
-.hero{
-  position:relative;
+.home-stack{
+  /* How much of the picture area's height the photograph takes; the rest is
+     the space above the line. Lower is a shorter, wider picture. */
+  --hero-share:82%;
   width:100%;
   height:var(--plate-height);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.hero{
+  position:relative;
+  flex:0 0 var(--hero-share);
+  width:100%;
   overflow:hidden;
+}
+/* The line under the photograph, its letters standing on the bottom edge of
+   the picture area, level with the credit in the menu column. */
+.hero-tag{
+  margin:0 0 -.35em;
+  font-size:14px;
+  line-height:1.55;
+  letter-spacing:.02em;
+  color:var(--muted);
 }
 .hero picture{ display:contents; }
 .hero img{
@@ -565,7 +584,8 @@ button{
   .nav-sub > div{ padding-left:0; padding-right:1.1em; }
 
   /* Home: the hero is a 3:4 box starting where the wall would. */
-  .hero{ height:auto; aspect-ratio:3 / 4; }
+  .home-stack{ height:auto; aspect-ratio:3 / 4; }
+  .hero-tag{ margin:0; font-size:13px; }
   .hero img{ object-position:55% 50%; transform-origin:55% 50%; }
   .hero-text{ padding:0 16px 20px; }
 
@@ -603,7 +623,7 @@ button{
    height instead, so each one is seen whole, and the wall goes back to five
    columns. 70px is the arrows and the gaps around them. */
 @media (max-height:500px) and (orientation:landscape){
-  .hero{ aspect-ratio:auto; height:calc(100dvh - 2 * clamp(16px, 2.4vh, 22px)); }
+  .home-stack{ aspect-ratio:auto; height:calc(100dvh - 2 * clamp(16px, 2.4vh, 22px)); }
   .viewer{ aspect-ratio:auto; height:calc(100dvh - 70px); }
   .plate{ place-self:center; }
   .single img{ width:auto; height:calc(100dvh - 70px); max-width:100%; margin:0 auto; }
@@ -661,7 +681,7 @@ button{
 
   /* The picture area, a 3:4 box. Where there are arrows, their two rows
      (56px) come out of the band first. */
-  .hero{ width:min(100cqw, 100cqh * .75); height:auto; aspect-ratio:3 / 4; }
+  .home-stack{ width:min(100cqw, 100cqh * .75); height:auto; aspect-ratio:3 / 4; }
   .viewer{
     width:min(100cqw, (100cqh - 56px) * .75);
     height:auto;
