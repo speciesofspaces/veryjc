@@ -237,8 +237,6 @@ button{
   line-height:1.75;
 }
 .side-nav a{ align-self:flex-start; transition:color .2s ease; }
-/* A menu word that leads nowhere yet (Shop). */
-.side-nav .nav-off{ align-self:flex-start; color:var(--muted); cursor:default; }
 /* A section that is not a page of its own is a button that only opens its
    list; it is made to look exactly like the links around it. */
 .side-nav button.nav-top{
@@ -583,7 +581,7 @@ button{
   .side-nav{ margin-top:16px; font-size:14px; line-height:1.55; }
   /* The menu is against the right edge here, so everything hangs from the
      right and the pages under a section step in from the right. */
-  .nav-group, .side-nav a, .side-nav button.nav-top, .side-nav .nav-off{ align-self:flex-end; }
+  .nav-group, .side-nav a, .side-nav button.nav-top{ align-self:flex-end; }
   .nav-sub > div{ padding-left:0; padding-right:1.1em; }
 
   /* Home: the hero is a 3:4 box starting where the wall would. */
@@ -635,11 +633,11 @@ button{
 
 /* ------------------------------------------------- phone, held upright ---
    A fixed page that never scrolls, in four bands: the name, the menu (one
-   line per section — always four lines), the picture area, the credit. The
+   line per section — always three lines), the picture area, the credit. The
    picture area is a 3:4 box as large as its band allows. Photographs change
    by swiping up and down, or with the arrows; nothing scrolls.
 
-   The menu keeps its four lines by opening sideways: tapping Projects or
+   The menu keeps its three lines by opening sideways: tapping Projects or
    Studies turns the word pink where it stands and lays its pages out to its
    left, on the same line. On a project or series page its section is open
    with the word greyed and the page you are on in pink. */

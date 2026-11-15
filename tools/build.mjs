@@ -269,11 +269,9 @@ function navBlock(groups, kind, current) {
     '        <div class="nav-group">',
     "          " + top("About", "about.html", kind === "about"),
     "        </div>",
-    '        <div class="nav-group">',
-    // Shop is not open yet: the word stands in the menu but leads nowhere.
-    // To open it again, put back: top("Shop", "shop.html", kind === "shop")
-    '          <span class="nav-top nav-off">Shop</span>',
-    "        </div>",
+    // Shop is off the site for now (15 Nov 2026). To bring it back, restore
+    // shop.html from the history and add here:
+    //   '        <div class="nav-group">', "          " + top("Shop", "shop.html", kind === "shop"), "        </div>",
     "      </div>",
     "      <!-- nav end -->",
     "",
@@ -478,7 +476,7 @@ for (const f of await fs.readdir(ROOT)) {
 }
 
 // Hand-written pages: only the menu, and the hero on the home page.
-for (const [file, kind] of [["index.html", "home"], ["about.html", "about"], ["shop.html", "shop"]]) {
+for (const [file, kind] of [["index.html", "home"], ["about.html", "about"]]) {
   let text = await fs.readFile(path.join(ROOT, file), "utf8");
   text = text.replace(/<svg class="mark"[\s\S]*?<\/svg>/, MARK);
   text = between(text, "      <!-- nav start", "<!-- nav end -->\n", navBlock(groups, kind), file);
