@@ -373,20 +373,20 @@ button{
   --hero-share:82%;
   width:100%;
   height:var(--plate-height);
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
+  display:grid;
+  grid-template-rows:var(--hero-share) 1fr;
 }
 .hero{
   position:relative;
-  flex:0 0 var(--hero-share);
   width:100%;
   overflow:hidden;
 }
-/* The line under the photograph, its letters standing on the bottom edge of
-   the picture area, level with the credit in the menu column. */
+/* The line under the photograph, set in the middle of the band between the
+   photograph and the picture area's bottom edge, so it is as far from the
+   photograph as from the line the credit stands on. */
 .hero-tag{
-  margin:0 0 -.24em;
+  align-self:center;
+  margin:0;
   font-size:clamp(24px, 2.5vw, 36px);
   font-weight:500;
   line-height:1.2;

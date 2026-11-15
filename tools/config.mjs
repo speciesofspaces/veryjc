@@ -32,8 +32,8 @@ export const names = {
 
 // A line beside a project's name on the Projects page.
 export const meta = {
-  "margin": "Ongoing",
-  "cosa": "London. 2026",
+  "margin": "London · Ongoing",
+  "cosa": "London · 2026",
   "the-meadow": "Edinburgh · 2012",
 };
 
