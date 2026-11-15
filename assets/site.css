@@ -237,6 +237,8 @@ button{
   line-height:1.75;
 }
 .side-nav a{ align-self:flex-start; transition:color .2s ease; }
+/* A menu word that leads nowhere yet (Shop). */
+.side-nav .nav-off{ align-self:flex-start; color:var(--muted); cursor:default; }
 /* A section that is not a page of its own is a button that only opens its
    list; it is made to look exactly like the links around it. */
 .side-nav button.nav-top{
@@ -384,11 +386,12 @@ button{
 /* The line under the photograph, its letters standing on the bottom edge of
    the picture area, level with the credit in the menu column. */
 .hero-tag{
-  margin:0 0 -.35em;
-  font-size:14px;
-  line-height:1.55;
-  letter-spacing:.02em;
-  color:var(--muted);
+  margin:0 0 -.24em;
+  font-size:clamp(24px, 2.5vw, 36px);
+  font-weight:500;
+  line-height:1.2;
+  letter-spacing:-.005em;
+  color:var(--ink);
 }
 .hero picture{ display:contents; }
 .hero img{
@@ -580,12 +583,12 @@ button{
   .side-nav{ margin-top:16px; font-size:14px; line-height:1.55; }
   /* The menu is against the right edge here, so everything hangs from the
      right and the pages under a section step in from the right. */
-  .nav-group, .side-nav a, .side-nav button.nav-top{ align-self:flex-end; }
+  .nav-group, .side-nav a, .side-nav button.nav-top, .side-nav .nav-off{ align-self:flex-end; }
   .nav-sub > div{ padding-left:0; padding-right:1.1em; }
 
   /* Home: the hero is a 3:4 box starting where the wall would. */
   .home-stack{ height:auto; aspect-ratio:3 / 4; }
-  .hero-tag{ margin:0; font-size:13px; }
+  .hero-tag{ margin:0; font-size:20px; }
   .hero img{ object-position:55% 50%; transform-origin:55% 50%; }
   .hero-text{ padding:0 16px 20px; }
 

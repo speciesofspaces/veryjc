@@ -6,7 +6,7 @@ export const site = {
   name: "Jué Chen",
   chinese: "陳覺",
   year: 2026,
-  description: "Lyrical fine art photographs by Jué Chen. How silence looks, and breaks.",
+  description: "Photographs by Jué Chen. How silence looks, and breaks.",
 };
 
 // The three sections, by the first digit of a folder's code.

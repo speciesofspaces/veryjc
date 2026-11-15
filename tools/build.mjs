@@ -270,7 +270,9 @@ function navBlock(groups, kind, current) {
     "          " + top("About", "about.html", kind === "about"),
     "        </div>",
     '        <div class="nav-group">',
-    "          " + top("Shop", "shop.html", kind === "shop"),
+    // Shop is not open yet: the word stands in the menu but leads nowhere.
+    // To open it again, put back: top("Shop", "shop.html", kind === "shop")
+    '          <span class="nav-top nav-off">Shop</span>',
     "        </div>",
     "      </div>",
     "      <!-- nav end -->",
