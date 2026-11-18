@@ -266,9 +266,12 @@ function navBlock(groups, kind, current) {
         : `            <a href="${sections[2].page}#${g.slug}">${esc(g.name)}</a>`),
     "          </div></div>",
     "        </div>",
-    '        <div class="nav-group">',
-    "          " + top("Shop", "shop.html", kind === "shop"),
-    "        </div>",
+    // Shop is hidden for now: shop.html and assets/shop/ are kept and still
+    // built, but nothing in the menu links to them. To show it again, put
+    // these three lines back here:
+    //   '        <div class="nav-group">',
+    //   "          " + top("Shop", "shop.html", kind === "shop"),
+    //   "        </div>",
     '        <div class="nav-group">',
     "          " + top("About", "about.html", kind === "about"),
     "        </div>",
